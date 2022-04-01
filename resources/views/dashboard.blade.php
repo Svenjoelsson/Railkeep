@@ -45,7 +45,7 @@
               <span class="info-box-text">Vendors</span>
               <span class="info-box-number">
                 <?php 
-                $vendors = \App\Models\vendors::count();
+                $vendors = \App\Models\Vendors::count();
                 echo $vendors;
                 ?>
               </span>
@@ -63,7 +63,7 @@
               <span class="info-box-text">Users</span>
               <span class="info-box-number">
                 <?php 
-                $users = \App\Models\user::count();
+                $users = \App\Models\User::count();
                 echo $users;
                 ?>
               </span>
@@ -122,7 +122,7 @@
               <span class="info-box-text">Utilization</span>
               <span class="info-box-number">
                 <?php 
-                $unit = \App\Models\units::all();
+                $unit = \App\Models\Units::all();
                 $totalDaysYTD = 0;
                 foreach ($unit as $x) {
                   $startTime = new DateTime($x["created_at"]);
@@ -144,7 +144,7 @@
 
                 $totalDaysYTD = (round($datediff / (60 * 60 * 24))-1) * $units;
 */
-                $rent = \App\Models\rent::all();
+                $rent = \App\Models\Rent::all();
 
                 $counter = 0;
                 foreach ($rent as $value) {

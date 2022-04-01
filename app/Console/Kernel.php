@@ -22,11 +22,11 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->call(function () {
-            $activity = \App\Models\activities::where('activity_type', 'Schedule-oos-email')->whereNull('deleted_at')->get();
+            $activity = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->whereNull('deleted_at')->get();
             
             foreach ($activity as $val) {
                 if ($val->activity_message < now()) {
-                    $services = \App\Models\services::where('id', $val->activity_id)->first();
+                    $services = \App\Models\Services::where('id', $val->activity_id)->first();
                     
                     $data = array(
                         'serviceId' => $services->id,

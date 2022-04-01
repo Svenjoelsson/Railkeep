@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\customers;
+use App\Models\Customers;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
