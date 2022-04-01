@@ -1,16 +1,16 @@
 <!-- Unit Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('unit', 'Unit:') !!}
-    {!! Form::text('unit', null, ['class' => 'form-control']) !!}
+    {!! Form::label('unit', 'Unit: *') !!}
+    {!! Form::text('unit', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Make Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('make', 'Make:') !!}
+    {!! Form::label('make', 'Make: *') !!}
     <a style="float:right;" href="{{ route('makeLists.index') }}">
         Manage
     </a>
-    {!! Form::select('make', $maka, null, ['class' => 'form-control js-example-basic-single makeSelect', 'placeholder' => 'Select make']) !!}
+    {!! Form::select('make', $maka, null, ['class' => 'form-control js-example-basic-single makeSelect', 'required', 'placeholder' => 'Select make']) !!}
 </div>
 
 <!-- Model Field -->
@@ -37,7 +37,7 @@
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('maintenanceType', 'Maintenance type:') !!}
-    {!! Form::select('maintenanceType', array('Km' => 'Kilometers', 'h' => 'Hours'), null, ['class' => 'form-control js-example-basic-single maintenanceType', 'placeholder' => 'Select type']) !!}
+    {!! Form::label('maintenanceType', 'Maintenance type: *') !!}
+    {!! Form::select('maintenanceType', array('Km' => 'Kilometers', 'h' => 'Hours'), null, ['class' => 'form-control js-example-basic-single maintenanceType', 'placeholder' => 'Select type', 'required']) !!}
 </div>
 

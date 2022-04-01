@@ -1,6 +1,6 @@
 <!-- Unit Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('unit', 'Unit:') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
+    {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
     <?php 
     $arr1 = [];
     $units = \App\Models\Units::all();
@@ -8,25 +8,25 @@
         $arr1[$value1['unit']] = $value1['unit'];
     }
     ?>
-    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single unitSelect', 'placeholder' => 'Select unit']) !!}
+    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single unitSelect', 'placeholder' => 'Select unit', 'required']) !!}
 </div>
 
 <!-- Customer Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('customer', 'Customer:') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
+    {!! Form::label('customer', 'Customer: *') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
     <?php 
     $customers = \App\Models\Customers::all();
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }
     ?>
-    {!! Form::select('customer', $arr, null, ['class' => 'form-control js-example-basic-single', 'placeholder' => 'Select customer']) !!}
+    {!! Form::select('customer', $arr, null, ['class' => 'form-control js-example-basic-single', 'placeholder' => 'Select customer', 'required']) !!}
 </div>
 
 <!-- Rentstart Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('rentStart', 'Start date:') !!}
-    {!! Form::text('rentStart', null, ['class' => 'form-control','id'=>'rentStart']) !!}
+    {!! Form::label('rentStart', 'Start date: *') !!}
+    {!! Form::text('rentStart', null, ['class' => 'form-control','id'=>'rentStart', 'required']) !!}
 </div>
 
 @push('page_scripts')
@@ -57,6 +57,6 @@
 
 <!-- Service status Field -->
 <div class="form-group col-sm-12">
-    {!! Form::label('status', 'Status:') !!}
-    {!! Form::select('status', array('Active' => 'Active', 'Reserved' => 'Reserved', 'Done' => 'Done'), null, ['class' => 'form-control']) !!}
+    {!! Form::label('status', 'Status: *') !!}
+    {!! Form::select('status', array('Active' => 'Active', 'Reserved' => 'Reserved', 'Done' => 'Done'), null, ['class' => 'form-control', 'required']) !!}
 </div>
