@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\customers;
+use App\Models\Customers;
 use App\Repositories\BaseRepository;
 
 /**
