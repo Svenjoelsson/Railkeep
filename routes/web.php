@@ -72,7 +72,9 @@ Route::post(
     '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
 )->name('io_generator_builder_generate_from_file');
 
-Route::resource('customers', App\Http\Controllers\customersController::class);
+
+
+
 
 Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'], [App\Http\Controllers\VendorsController::class, 'index'])->name('dashboard');
@@ -113,3 +115,4 @@ Route::resource('inventories', App\Http\Controllers\inventoryController::class);
 
 
 Route::resource('makeLists', App\Http\Controllers\makeListController::class);
+Route::resource('customers', App\Http\Controllers\customersController::class);
