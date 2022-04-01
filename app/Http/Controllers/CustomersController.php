@@ -6,19 +6,19 @@ use App\DataTables\customersDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreatecustomersRequest;
 use App\Http\Requests\UpdatecustomersRequest;
-use App\Repositories\customersRepository;
+use App\Repositories\CustomersRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 
 class CustomersController extends AppBaseController
 {
-    /** @var  customersRepository */
-    private $customersRepository;
+    /** @var  CustomersRepository */
+    private $CustomersRepository;
 
-    public function __construct(customersRepository $customersRepo)
+    public function __construct(CustomersRepository $customersRepo)
     {
-        $this->customersRepository = $customersRepo;
+        $this->CustomersRepository = $customersRepo;
     }
 
     /**
@@ -53,7 +53,7 @@ class CustomersController extends AppBaseController
     {
         $input = $request->all();
 
-        $customers = $this->customersRepository->create($input);
+        $customers = $this->CustomersRepository->create($input);
 
         Flash::success('Customers saved successfully.');
 
@@ -69,7 +69,7 @@ class CustomersController extends AppBaseController
      */
     public function show($id)
     {
-        $customers = $this->customersRepository->find($id);
+        $customers = $this->CustomersRepository->find($id);
 
         if (empty($customers)) {
             Flash::error('Customers not found');
@@ -89,7 +89,7 @@ class CustomersController extends AppBaseController
      */
     public function edit($id)
     {
-        $customers = $this->customersRepository->find($id);
+        $customers = $this->CustomersRepository->find($id);
 
         if (empty($customers)) {
             Flash::error('Customers not found');
@@ -110,7 +110,7 @@ class CustomersController extends AppBaseController
      */
     public function update($id, UpdatecustomersRequest $request)
     {
-        $customers = $this->customersRepository->find($id);
+        $customers = $this->CustomersRepository->find($id);
 
         if (empty($customers)) {
             Flash::error('Customers not found');
@@ -118,7 +118,7 @@ class CustomersController extends AppBaseController
             return redirect(route('customers.index'));
         }
 
-        $customers = $this->customersRepository->update($request->all(), $id);
+        $customers = $this->CustomersRepository->update($request->all(), $id);
 
         Flash::success('Customers updated successfully.');
 
@@ -134,7 +134,7 @@ class CustomersController extends AppBaseController
      */
     public function destroy($id)
     {
-        $customers = $this->customersRepository->find($id);
+        $customers = $this->CustomersRepository->find($id);
 
         if (empty($customers)) {
             Flash::error('Customers not found');
@@ -142,7 +142,7 @@ class CustomersController extends AppBaseController
             return redirect(route('customers.index'));
         }
 
-        $this->customersRepository->delete($id);
+        $this->CustomersRepository->delete($id);
 
         Flash::success('Customers deleted successfully.');
 
