@@ -27,7 +27,7 @@
               <span class="info-box-text">Customers</span>
               <span class="info-box-number">
                 <?php 
-                $customers = \App\Models\customers::count();
+                $customers = \App\Models\Customers::count();
                 echo $customers;
                 ?>
               </span>
