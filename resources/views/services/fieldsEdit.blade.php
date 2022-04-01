@@ -1,6 +1,6 @@
 <!-- Unit Field -->
 <?php 
-    $unit = \App\Models\units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
+    $unit = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
     $make = \App\Models\makeList::where('make', $unit->make)->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
     
 ?>
@@ -9,7 +9,7 @@
     {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
     <?php 
     $arr1 = [];
-    $units = \App\Models\units::all();
+    $units = \App\Models\Units::all();
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }
@@ -22,7 +22,11 @@
 <div class="form-group col-sm-6">
     {!! Form::label('customer', 'Customer: *') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
     <?php 
+<<<<<<< HEAD
+    $customers = \\App\Models\Customers::all();
+=======
     $customers = \App\Models\customers::all();
+>>>>>>> parent of df25d446 (bug fix)
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }
@@ -119,8 +123,8 @@
 
 <?php 
     
-$id = \App\Models\units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
-$unitData = \App\Models\activities::where('activity_type', 'UnitCounter')->where('activity_id', $unit->id)->orderBy('created_at', 'desc')->first();
+$id = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
+$unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $unit->id)->orderBy('created_at', 'desc')->first();
 //$newCounter = intval($unitData->activity_message) + $make->counter;
 //echo $unitData->activity_message;
 ?>

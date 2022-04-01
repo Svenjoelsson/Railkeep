@@ -2,11 +2,11 @@
 <?php 
 
 
-$inventory = \App\Models\inventory::where('id', $id)->orderBy('created_at', 'desc')->first();
+$inventory = \App\Models\Inventory::where('id', $id)->orderBy('created_at', 'desc')->first();
 echo $inventory->usageCounter;
 /*
-$units = \App\Models\units::where('id', $id)->orderBy('created_at', 'desc')->first();
-$services = \App\Models\services::where('unit', $units->unit)->orderBy('nextServiceCounter', 'desc')->first();
+$units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
+$services = \App\Models\Services::where('unit', $units->unit)->orderBy('nextServiceCounter', 'desc')->first();
 if ($services) {
     if ($services->nextServiceCounter != '') {
 

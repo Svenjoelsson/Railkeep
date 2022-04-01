@@ -25,7 +25,7 @@ class inventoryDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\inventory $model
+     * @param \App\Models\Inventory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(inventory $model)

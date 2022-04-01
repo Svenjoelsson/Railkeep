@@ -111,7 +111,7 @@ class UnitsController extends AppBaseController
         $makelist = DB::table('makeList')->where('make', $units->make)->whereNull('deleted_at')->orderBy('level')->get();
         $services = DB::table('services')->where('unit', $units->unit)->where('service_status', 'Done')->whereNull('deleted_at')->get();
         $activities = DB::table('activities')->where('activity_id', $id)->where('activity_type', 'UnitCounter')->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
-        $plannedService = \App\Models\services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->orderBy('service_date', 'desc')->get();
+        $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->orderBy('service_date', 'desc')->get();
 
         //serviceName
         $i = 0;

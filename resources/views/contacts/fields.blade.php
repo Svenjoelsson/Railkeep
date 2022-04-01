@@ -2,7 +2,11 @@
 <div class="form-group col-sm-6">
     {!! Form::label('customer', 'Customer:') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
     <?php 
+<<<<<<< HEAD
+    $customers = \\App\Models\Customers::all();
+=======
     $customers = \App\Models\customers::all();
+>>>>>>> parent of df25d446 (bug fix)
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }

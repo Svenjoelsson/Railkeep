@@ -167,11 +167,11 @@ class ServicesController extends AppBaseController
             $request["doneDate"] = now();
  
             // Update all services where level is below this level.
-            $unit = \App\Models\units::where('unit', $input["unit"])->first();
-            $activities = \App\Models\activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
+            $unit = \App\Models\Units::where('unit', $input["unit"])->first();
+            $activities = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
             $make = \App\Models\makeList::where('make', $unit->make)->orderBy('level', 'desc')->get();
             $level = \App\Models\makeList::where('serviceName', $services->service_type)->where('make', $unit->make)->orderBy('level', 'desc')->first();
-            $services = \App\Models\services::where('id', $id)->first();
+            $services = \App\Models\Services::where('id', $id)->first();
             if ($make) { // IF MAKE IS FOUND IN MAKELIST
                 if ($level) { // IF SERVICE TYPE EXISTS IN MAKELIST
                     foreach ($make as $value) {
@@ -192,7 +192,7 @@ class ServicesController extends AppBaseController
                                 $calendarDays = null;
                             }
 
-                            \App\Models\services::create([
+                            \App\Models\Services::create([
                                 'unit' => $unit->unit, 
                                 'customer' => $unit->customer, 
                                 'service_type' => $value["serviceName"], 
@@ -238,7 +238,7 @@ class ServicesController extends AppBaseController
                 $message = "Service #".$request->serviceId." has been updated";
             }
         $units = DB::table('units')->where('unit', $input["unit"])->first();
-        //$units = \App\Models\units::where('unit', $input->unit)->orderBy('created_at', 'desc')->first();
+        //$units = \App\Models\Units::where('unit', $input->unit)->orderBy('created_at', 'desc')->first();
         // Create activity
         DB::table('activities')->insert([
             'activity_type' => 'Service',
