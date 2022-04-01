@@ -82,8 +82,8 @@
               <span class="info-box-number">
                 In progress:
                 <?php 
-                $services = \App\Models\services::where('service_status', 'In progress')->count();
-                $servicesTotal = \App\Models\services::count();
+                $services = \App\Models\Services::where('service_status', 'In progress')->count();
+                $servicesTotal = \App\Models\Services::count();
                 echo $services."/".$servicesTotal;
                 ?>
               </span>

@@ -6,7 +6,7 @@ $inventory = \App\Models\inventory::where('id', $id)->orderBy('created_at', 'des
 echo $inventory->usageCounter;
 /*
 $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
-$services = \App\Models\services::where('unit', $units->unit)->orderBy('nextServiceCounter', 'desc')->first();
+$services = \App\Models\Services::where('unit', $units->unit)->orderBy('nextServiceCounter', 'desc')->first();
 if ($services) {
     if ($services->nextServiceCounter != '') {
 
