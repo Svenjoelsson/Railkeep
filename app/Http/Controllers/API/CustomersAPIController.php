@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreatecustomersAPIRequest;
 use App\Http\Requests\API\UpdatecustomersAPIRequest;
 use App\Models\customers;
-use App\Repositories\customersRepository;
+use App\Repositories\CustomersRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
