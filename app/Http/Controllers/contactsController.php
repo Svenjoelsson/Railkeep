@@ -64,17 +64,18 @@ class contactsController extends AppBaseController
         DB::table('activities')->insert([
             'activity_type' => 'Contact',
             'activity_id' => $id,
-            'activity_message' => 'Contact has been created and an email was sent to '.$email,
+            'activity_message' => 'Contact has been created',
             'created_at' => now()
         ]);
 
-
+        /*
         $data = array('name' => $input['name'], 'messege' => 'Your email and data has been stored in our database to be able to contact you easier. If you no longer wish to be contact by us, please reply to this email.');
         Mail::send('email/contact', $data, function($message) use ($input) {
            $message->to($input['email'], $input['name'])->subject
               ('Nordic Re finance');
            $message->from('joel@gjerdeinvest.se','Lara message');
         });
+        */
 
         Flash::success('Contacts saved successfully.');
 

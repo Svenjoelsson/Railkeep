@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
                     $message->from('joel@gjerdeinvest.se','Railkeep');
                     });
 
-                //\App\Models\Activities::where('id', $val->id)->delete();
+                \App\Models\Activities::where('id', $val->id)->delete();
                 }
             } 
 
