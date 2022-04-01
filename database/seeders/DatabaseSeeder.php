@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             'model' => '',
             'year_model' => '',
             'traction_force' => '',
-            'maintenanceType' => 'Km',
+            'maintenanceType' => 'h',
             'customer' => 'ProTrain',
             'created_at' => '2022-01-01'
         ]);

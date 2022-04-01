@@ -168,10 +168,10 @@ class ServicesController extends AppBaseController
  
             // Update all services where level is below this level.
             $unit = \App\Models\Units::where('unit', $input["unit"])->first();
-            $activities = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
+            $activities = \App\Models\activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
             $make = \App\Models\makeList::where('make', $unit->make)->orderBy('level', 'desc')->get();
             $level = \App\Models\makeList::where('serviceName', $services->service_type)->where('make', $unit->make)->orderBy('level', 'desc')->first();
-            $services = \App\Models\Services::where('id', $id)->first();
+            $services = \App\Models\services::where('id', $id)->first();
             if ($make) { // IF MAKE IS FOUND IN MAKELIST
                 if ($level) { // IF SERVICE TYPE EXISTS IN MAKELIST
                     foreach ($make as $value) {
@@ -192,16 +192,16 @@ class ServicesController extends AppBaseController
                                 $calendarDays = null;
                             }
 
-                            \App\Models\Services::create([
+                            \App\Models\services::create([
                                 'unit' => $unit->unit, 
                                 'customer' => $unit->customer, 
                                 'service_type' => $value["serviceName"], 
                                 'customerContact' => 'Railkeep',
                                 'service_desc' => $value["serviceName"]." auto created",
-                                'service_date' => now(),
+                                'service_date' => $input["service_date"],
                                 'nextServiceCounter' => $counter,
                                 'nextServiceDate' => $calendarDays,
-                                'service_end' => now(),
+                                'service_end' => $input["service_end"],
                                 'service_status' => 'Done'
                             ]);
                         }
