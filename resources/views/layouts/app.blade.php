@@ -61,9 +61,32 @@
             text-decoration: underline;
         }
 
-        
 
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+          
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+          
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
     </style>
+    
 
     @stack('third_party_stylesheets')
 
@@ -72,7 +95,8 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+    
+    <div class="wrapper"><div id="loader" class="center"></div>
         <!-- Main Header -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -196,6 +220,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
 
     <script>
+
+document.onreadystatechange = function() {
+    if (document.readyState !== "complete") {
+        document.querySelector("body").style.visibility = "hidden";
+        document.querySelector("#loader").style.visibility = "visible";
+    } else {
+        document.querySelector("#loader").style.display = "none";
+        document.querySelector("body").style.visibility = "visible";
+    }
+};
+
+        
         $(function() {
             bsCustomFileInput.init();
         });
