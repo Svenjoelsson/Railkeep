@@ -52,7 +52,7 @@
 
     {!! Form::label('customerContact', 'Customer Contact: *') !!} <span style="float:right"><small><a href="/contacts/create">Create new</a></small></span>
     <?php 
-    $customers = \App\Models\Contacts::all();
+    $customers = \App\Models\contacts::all();
     $arr2 = [];
     foreach ($customers as $key => $value) {
         $arr2[$value['name']] = $value['name'];

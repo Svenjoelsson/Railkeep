@@ -24,7 +24,7 @@ class contactsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Contacts $model
+     * @param \App\Models\contacts $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(contacts $model)
