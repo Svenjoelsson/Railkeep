@@ -22,7 +22,7 @@ class makeList extends Model
     use SoftDeletes;
 
 
-    public $table = 'makelist';
+    public $table = 'makeList';
     
 
     protected $dates = ['deleted_at'];
