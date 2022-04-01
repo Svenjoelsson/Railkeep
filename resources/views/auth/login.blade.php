@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login | Railkeep</title>
+	<title>Login | {{ env('APP_NAME') }}</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -37,7 +37,7 @@
           <form action="{{ url('/login') }}" method="post" class="login100-form validate-form" autocomplete="off">
             @csrf
 					<span class="login100-form-title p-b-43">
-						Login
+						Login | {{ env('APP_NAME') }}
 					</span>
 				
 	

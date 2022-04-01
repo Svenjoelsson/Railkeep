@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
                     Mail::send('email/out-of-service', $data, function($message) use ($data) {
                     $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
                     ->subject('Unit out of service - #'.$data["serviceId"]);
-                    $message->from('joel@gjerdeinvest.se','Railkeep');
+                    $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
                     });
 
                 \App\Models\Activities::where('id', $val->id)->delete();

@@ -196,7 +196,7 @@ class ServicesController extends AppBaseController
                                 'unit' => $unit->unit, 
                                 'customer' => $unit->customer, 
                                 'service_type' => $value["serviceName"], 
-                                'customerContact' => 'Railkeep',
+                                'customerContact' => env('APP_NAME'),
                                 'service_desc' => $value["serviceName"]." auto created",
                                 'service_date' => $input["service_date"],
                                 'nextServiceCounter' => $counter,
@@ -228,7 +228,7 @@ class ServicesController extends AppBaseController
             Mail::send('email/return-to-service', $data, function($message) use ($data) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
             ->subject('Unit return to service - #'.$data["serviceId"]);
-            $message->from('joel@gjerdeinvest.se','Railkeep');
+            $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
             });
 
 
@@ -364,7 +364,7 @@ class ServicesController extends AppBaseController
                     $message->attach($file);
                 }
             }
-           $message->from('joel@gjerdeinvest.se','Railkeep');
+           $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
         });
 
 
