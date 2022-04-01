@@ -10,10 +10,8 @@ use App\Repositories\customersRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
-use Illuminate\Support\Facades\DB;
 
-
-class CustomersController extends AppBaseController
+class customersController extends AppBaseController
 {
     /** @var  customersRepository */
     private $customersRepository;
