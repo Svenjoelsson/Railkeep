@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use \App\Models\Customers;
+use App\Models\Customers;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -24,11 +24,7 @@ class customersDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-<<<<<<< HEAD
-     * @param \\App\Models\Customers $model
-=======
      * @param \App\Models\customers $model
->>>>>>> parent of df25d446 (bug fix)
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(customers $model)

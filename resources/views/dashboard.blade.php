@@ -27,7 +27,7 @@
               <span class="info-box-text">Customers</span>
               <span class="info-box-number">
                 <?php 
-                $customers = \\App\Models\Customers::count();
+                $customers = \App\Models\Customers::count();
                 echo $customers;
                 ?>
               </span>
@@ -82,8 +82,8 @@
               <span class="info-box-number">
                 In progress:
                 <?php 
-                $services = \App\Models\Services::where('service_status', 'In progress')->count();
-                $servicesTotal = \App\Models\Services::count();
+                $services = \App\Models\services::where('service_status', 'In progress')->count();
+                $servicesTotal = \App\Models\services::count();
                 echo $services."/".$servicesTotal;
                 ?>
               </span>
@@ -104,7 +104,7 @@
               <span class="info-box-text">Units</span>
               <span class="info-box-number">
                 <?php 
-                $units = \App\Models\Units::count();
+                $units = \App\Models\units::count();
                 echo $units;
                 ?>
               </span>

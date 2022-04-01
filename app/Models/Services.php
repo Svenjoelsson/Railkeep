@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @version February 3, 2022, 7:21 pm UTC
  *
  * @property \App\Models\Units $units
- * @property \\App\Models\Customers $customers
+ * @property \App\Models\Customers $customers
  * @property string $unit
  * @property string $customer
  * @property string $service_type
@@ -94,7 +94,7 @@ class Services extends Model
      **/
     public function customers()
     {
-        return $this->belongsTo(\\App\Models\Customers::class);
+        return $this->belongsTo(\App\Models\Customers::class);
     }
 
     public function getServiceDateAttribute($value)

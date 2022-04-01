@@ -3,7 +3,7 @@
     {!! Form::label('unit', 'Unit:') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
     <?php 
     $arr1 = [];
-    $units = \App\Models\Units::all();
+    $units = \App\Models\units::all();
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }

@@ -11,11 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  * @version February 3, 2022, 11:13 am UTC
  *
-<<<<<<< HEAD
- * @property \\App\Models\Customers $customers
-=======
  * @property \App\Models\customers $customers
->>>>>>> parent of df25d446 (bug fix)
  * @property string $customer
  * @property string $name
  * @property string $phone
@@ -68,10 +64,6 @@ class contacts extends Model
      **/
     public function customers()
     {
-<<<<<<< HEAD
-        return $this->belongsTo(\\App\Models\Customers::class);
-=======
         return $this->belongsTo(\App\Models\customers::class);
->>>>>>> parent of df25d446 (bug fix)
     }
 }

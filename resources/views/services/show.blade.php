@@ -89,7 +89,7 @@
                                         <select name="vendor" class="form-control js-example-basic-single vendorSelect">
                                             <option></option>
                                         <?php 
-                                        $vendors = \App\Models\Vendors::all();
+                                        $vendors = \App\Models\vendors::all();
                                         foreach ($vendors as $key => $value) {
                                             echo "<option value='".$value["name"]."'>".$value["name"]."</option>";
                                         };

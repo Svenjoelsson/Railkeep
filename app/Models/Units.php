@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @package App\Models
  * @version February 3, 2022, 7:11 pm UTC
  *
- * @property \\App\Models\Customers $customers
+ * @property \App\Models\Customers $customers
  * @property \App\Models\Services $services
  * @property string $unit
  * @property string $make
@@ -77,7 +77,7 @@ class Units extends Model
      **/
     public function customers()
     {
-        return $this->belongsTo(\\App\Models\Customers::class);
+        return $this->belongsTo(\App\Models\Customers::class);
     }
 
     public function services()

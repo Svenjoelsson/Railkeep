@@ -6,7 +6,7 @@ use App\DataTables\customersDataTable;
 use App\Http\Requests;
 use App\Http\Requests\CreatecustomersRequest;
 use App\Http\Requests\UpdatecustomersRequest;
-use App\Repositories\CustomersRepository;
+use App\Repositories\customersRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
