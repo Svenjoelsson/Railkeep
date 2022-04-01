@@ -115,5 +115,5 @@ Route::resource('inventories', App\Http\Controllers\inventoryController::class);
 
 
 Route::resource('makeLists', App\Http\Controllers\makeListController::class);
-Route::resource('customers', App\Http\Controllers\customersController::class);
+Route::resource('customers', App\Http\Controllers\CustomersController::class);
 
