@@ -21,8 +21,20 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Joel Gjerde',
             'email' => 'joel@gjerdeinvest.se',
-            'photo' => 'public/uploads/users/1/joel.jpeg',
+            'photo' => '',
             'password' => Hash::make('hullijoel'),
+            'email_verified_at' => now(),
+            'is_admin' => '1',
+            'role' => 'user',
+            'remember_token' => Str::random(10),
+            'created_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Arvid Haag',
+            'email' => 'arvid@nordicrefinance.se',
+            'photo' => '',
+            'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'is_admin' => '1',
             'role' => 'user',
