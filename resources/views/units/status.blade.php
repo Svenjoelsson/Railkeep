@@ -2,6 +2,7 @@
     $critical = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
     $services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->whereNotNull('nextServiceDate')->orderBy('nextServiceDate', 'asc')->first();
     $repairs = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->whereDate('service_date', '<=', now())->whereNull('deleted_at')->first();
+    $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
 
 
     $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
@@ -38,8 +39,8 @@
         if ($servicesDate->nextServiceCounter != '') {
             $makelist = \App\Models\makeList::where('make', $units->make)->where('serviceName', $servicesDate->service_type)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
 
-            //$current = $activities->activity_message;
-            /*$next = $servicesDate->nextServiceCounter;
+            $current = $activities->activity_message;
+            $next = $servicesDate->nextServiceCounter;
             $math = $next - $current;
             $perc = $math/$makelist->counter*100;
 
@@ -49,7 +50,6 @@
             } else {
                     echo '<span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
-                */
         }
     } else {
         echo '<span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
