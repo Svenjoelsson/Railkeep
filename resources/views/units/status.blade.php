@@ -38,8 +38,8 @@
         if ($servicesDate->nextServiceCounter != '') {
             $makelist = \App\Models\makeList::where('make', $units->make)->where('serviceName', $servicesDate->service_type)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
 
-            $current = $activities->activity_message;
-            $next = $servicesDate->nextServiceCounter;
+            //$current = $activities->activity_message;
+            /*$next = $servicesDate->nextServiceCounter;
             $math = $next - $current;
             $perc = $math/$makelist->counter*100;
 
@@ -49,6 +49,7 @@
             } else {
                     echo '<span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
+                */
         }
     } else {
         echo '<span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
