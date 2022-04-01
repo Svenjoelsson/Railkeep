@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()
         ]);
         DB::table('units')->insert([
-            'unit' => '750',
+            'unit' => '155',
             'make' => 'V5',
             'model' => '',
             'year_model' => '',
