@@ -24,7 +24,7 @@ class customersDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\customers $model
+     * @param \App\Models\Customers $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(customers $model)

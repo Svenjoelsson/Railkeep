@@ -1,8 +1,8 @@
 
 <?php 
-    $activities = \App\Models\activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
+    $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
 
-    $units = \App\Models\units::where('id', $id)->orderBy('created_at', 'desc')->first();
+    $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
     $services = \App\Models\services::where('unit', $units->unit)->where('nextServiceCounter', '>', $activities->activity_message)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'asc')->first();
     if ($services) {
         if ($services->nextServiceCounter != '') {

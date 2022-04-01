@@ -104,7 +104,7 @@
               <span class="info-box-text">Units</span>
               <span class="info-box-number">
                 <?php 
-                $units = \App\Models\units::count();
+                $units = \App\Models\Units::count();
                 echo $units;
                 ?>
               </span>

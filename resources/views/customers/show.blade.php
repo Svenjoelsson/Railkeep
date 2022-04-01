@@ -51,7 +51,7 @@
                                 //return Datatables::collection(User::all())->make(true);
                                 // should be changed..
                                 $company = $customers->name;
-                                $contact = \App\Models\contacts::where('customer', $company)->get();
+                                $contact = \App\Models\Contacts::where('customer', $company)->get();
                                 foreach ($contact as $key => $value) {
                                     echo "<tr>";
                                     echo "<td>".$value['name']."</td>";

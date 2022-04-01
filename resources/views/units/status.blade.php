@@ -4,7 +4,7 @@
     $repairs = \App\Models\services::where('unit', $unit)->where('service_status', 'In progress')->whereDate('service_date', '<=', now())->whereNull('deleted_at')->first();
 
 
-    $units = \App\Models\units::where('id', $id)->orderBy('created_at', 'desc')->first();
+    $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
     $servicesDate = \App\Models\services::where('unit', $units->unit)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'asc')->first();
     
 

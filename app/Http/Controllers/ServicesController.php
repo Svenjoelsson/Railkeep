@@ -167,8 +167,8 @@ class ServicesController extends AppBaseController
             $request["doneDate"] = now();
  
             // Update all services where level is below this level.
-            $unit = \App\Models\units::where('unit', $input["unit"])->first();
-            $activities = \App\Models\activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
+            $unit = \App\Models\Units::where('unit', $input["unit"])->first();
+            $activities = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
             $make = \App\Models\makeList::where('make', $unit->make)->orderBy('level', 'desc')->get();
             $level = \App\Models\makeList::where('serviceName', $services->service_type)->where('make', $unit->make)->orderBy('level', 'desc')->first();
             $services = \App\Models\services::where('id', $id)->first();
@@ -238,7 +238,7 @@ class ServicesController extends AppBaseController
                 $message = "Service #".$request->serviceId." has been updated";
             }
         $units = DB::table('units')->where('unit', $input["unit"])->first();
-        //$units = \App\Models\units::where('unit', $input->unit)->orderBy('created_at', 'desc')->first();
+        //$units = \App\Models\Units::where('unit', $input->unit)->orderBy('created_at', 'desc')->first();
         // Create activity
         DB::table('activities')->insert([
             'activity_type' => 'Service',

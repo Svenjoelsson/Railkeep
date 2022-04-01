@@ -11,7 +11,7 @@
     {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
     <?php 
     $arr1 = [];
-    $units = \App\Models\units::all();
+    $units = \App\Models\Units::all();
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }
@@ -23,7 +23,7 @@
 <div class="form-group col-sm-6">
     {!! Form::label('customer', 'Customer: *') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
     <?php 
-    $customers = \App\Models\customers::all();
+    $customers = \App\Models\Customers::all();
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }
@@ -53,7 +53,7 @@
 
     {!! Form::label('customerContact', 'Customer Contact: *') !!} <span style="float:right"><small><a href="/contacts/create">Create new</a></small></span>
     <?php 
-    $customers = \App\Models\contacts::all();
+    $customers = \App\Models\Contacts::all();
     $arr3 = [];
     foreach ($customers as $key => $value) {
         $arr3[$value['name']] = $value['name'];

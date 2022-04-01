@@ -120,7 +120,7 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            $unitData = \App\Models\activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
                                 echo "<td>".$value['activity_message']."</td>";
@@ -173,7 +173,7 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            $unitData = \App\Models\activities::where('activity_type', 'UnitCounter')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
                                 echo "<td>".$value['activity_message']." ".$units->maintenanceType."</td>";
