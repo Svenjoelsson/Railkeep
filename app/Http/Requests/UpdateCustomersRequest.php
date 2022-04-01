@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\customers;
+use App\Models\Customers;
 
 class UpdatecustomersRequest extends FormRequest
 {

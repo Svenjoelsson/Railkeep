@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\customers;
+use App\Models\Customers;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreatecustomersAPIRequest extends APIRequest

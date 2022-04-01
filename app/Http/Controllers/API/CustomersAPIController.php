@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreatecustomersAPIRequest;
 use App\Http\Requests\API\UpdatecustomersAPIRequest;
-use App\Models\customers;
+use App\Models\Customers;
 use App\Repositories\customersRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
