@@ -1,9 +1,9 @@
 
 <?php 
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
-
     $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
     $services = \App\Models\Services::where('unit', $units->unit)->where('nextServiceCounter', '>', $activities->activity_message)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'asc')->first();
+
     if ($services) {
         if ($services->nextServiceCounter != '') {
             $makelist = \App\Models\makeList::where('make', $units->make)->where('serviceName', $services->service_type)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();

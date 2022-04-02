@@ -79,12 +79,20 @@
                                     echo "<br />Due date: ";
                                     $remove = str_replace(' 00:00:00', '', $make['services'][$value1->serviceName]->nextServiceDate);
                                     echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."'>".$remove."</a>";
+                                    if (now() > $make['services'][$value1->serviceName]->nextServiceDate) {
+                                      echo " <span class='badge bg-danger'>Overdue</span>";
+
+                                    }
+
                                   }  
                                 echo "</td>";
                                 echo "<td><b>".$value1->counter." ".$counterType."</b>";
                                   if (array_key_exists($value1->serviceName, $make['services']) && $value1->counter) {
                                     echo "<br />Due at: ";
                                     echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."'>".$make['services'][$value1->serviceName]->nextServiceCounter."</a> ".$counterType;
+                                    if ($activities->activity_message > $make['services'][$value1->serviceName]->nextServiceCounter) {
+                                      echo " <span class='badge bg-danger'>Overdue</span>";
+                                    }
                                     //var_dump($make['services'][$value1->serviceName]);
 
                                   }  
@@ -106,7 +114,7 @@
                             };
                             ?>
                             </table>  
-                            <span style='font-size:12px; margin-left:1%;' class='badge badge-primary'>* = Planned service</span>
+                            <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned service</span>
                           </div>
                           <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                             <table class="table table-hover">

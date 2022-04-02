@@ -131,19 +131,19 @@ class DatabaseSeeder extends Seeder
         DB::table('activities')->insert([
             'activity_type' => 'UnitCounter',
             'activity_id' => '1',
-            'activity_message' => '7601',
+            'activity_message' => '8987548',
             'created_at' => now()
         ]);
         DB::table('activities')->insert([
             'activity_type' => 'UnitCounter',
             'activity_id' => '1',
-            'activity_message' => '7451',
+            'activity_message' => '8981470',
             'created_at' => '2022-02-28 08:52'
         ]);
         DB::table('activities')->insert([
             'activity_type' => 'UnitCounter',
             'activity_id' => '1',
-            'activity_message' => '7317',
+            'activity_message' => '8975210',
             'created_at' => '2022-02-21 10:12'
         ]);
         DB::table('activities')->insert([
