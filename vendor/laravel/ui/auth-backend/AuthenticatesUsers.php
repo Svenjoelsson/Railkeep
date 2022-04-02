@@ -115,6 +115,8 @@ trait AuthenticatesUsers
             return $response;
         }
 
+        auth()->logoutOtherDevices($request->password);
+        
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
                     : redirect()->intended($this->redirectPath());
@@ -188,7 +190,7 @@ trait AuthenticatesUsers
      */
     protected function loggedOut(Request $request)
     {
-        //
+        return redirect('/');
     }
 
     /**
