@@ -117,3 +117,7 @@ Route::resource('inventories', App\Http\Controllers\inventoryController::class);
 Route::resource('makeLists', App\Http\Controllers\makeListController::class);
 Route::resource('customers', App\Http\Controllers\CustomersController::class);
 
+
+
+Route::get('reports/rental/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'returns']);
+Route::get('reports/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);

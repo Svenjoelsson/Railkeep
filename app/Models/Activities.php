@@ -32,7 +32,7 @@ class Activities extends Model
     public $fillable = [
         'activity_type',
         'activity_id',
-        'activity_message'
+        'activity_message',
     ];
 
     /**
@@ -44,7 +44,7 @@ class Activities extends Model
         'id' => 'integer',
         'activity_type' => 'string',
         'activity_id' => 'string',
-        'activity_message' => 'string'
+        'activity_message' => 'string',
     ];
 
     /**

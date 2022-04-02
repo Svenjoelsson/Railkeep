@@ -6,7 +6,10 @@
 ?>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
+    {!! Form::label('unit', 'Unit: *') !!} 
+    @if (Auth::user()->role == 'user')
+        <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
+    @endif
     <?php 
     $arr1 = [];
     $units = \App\Models\Units::all();
@@ -20,7 +23,10 @@
 
 <!-- Customer Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('customer', 'Customer: *') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
+    {!! Form::label('customer', 'Customer: *') !!} 
+    @if (Auth::user()->role == 'user')
+        <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
+    @endif
     <?php 
     $customers = \App\Models\Customers::all();
     foreach ($customers as $key => $value) {
@@ -36,7 +42,10 @@
 <!-- Service Type Field -->
 <div class="form-group col-sm-6">
 
-    {!! Form::label('service_type', 'Service type: *') !!} <span style="float:right"><small><a href="{{ route('makeLists.create') }}">Create new</a></small></span>
+    {!! Form::label('service_type', 'Service type: *') !!} 
+    @if (Auth::user()->role == 'user')
+        <span style="float:right"><small><a href="{{ route('makeLists.create') }}">Create new</a></small></span>
+    @endif
     <?php 
     $arr1 = [];
     $service_type = \App\Models\serviceType::all();
@@ -50,7 +59,10 @@
 
 <div class="form-group col-sm-6">
 
-    {!! Form::label('customerContact', 'Customer Contact: *') !!} <span style="float:right"><small><a href="/contacts/create">Create new</a></small></span>
+    {!! Form::label('customerContact', 'Customer Contact: *') !!} 
+    @if (Auth::user()->role == 'user')
+        <span style="float:right"><small><a href="/contacts/create">Create new</a></small></span>
+    @endif
     <?php 
     $customers = \App\Models\contacts::all();
     $arr2 = [];
@@ -71,9 +83,12 @@
 
 <!-- Service Desc Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('service_desc', 'Description: *') !!} <span style="float:right"><small><a style="cursor: pointer;" class="clearField">Clear</a></small></span>
-    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'required', 'rows' => '10']) !!}
+    {!! Form::label('service_desc', 'Description: *') !!} <span style="float:right"><small><!--<a style="cursor: pointer;" class="clearField">Clear</a>-->
+    </small></span>
+    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'disabled', 'required', 'rows' => '10']) !!}
 </div>
+<textarea hidden name="service_desc">{{ nl2br($services->service_desc) }}</textarea>
+
 
 
 <!-- Service Date Field -->

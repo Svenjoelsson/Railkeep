@@ -76,8 +76,13 @@ class CustomersController extends AppBaseController
 
             return redirect(route('customers.index'));
         }
+        $customer = \App\Models\Customers::where('id', $id)->whereNull('deleted_at')->first();
+        $units = \App\Models\Units::where('customer', $customer->name)->whereNull('deleted_at')->get();
 
-        return view('customers.show')->with('customers', $customers);
+
+        return view('customers.show')->with(['customers' => $customers, 'units' => $units]);
+        //return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService]);
+
     }
 
     /**

@@ -63,7 +63,20 @@
                                 </table>
                             </div>
                             <div class="tab-pane fade show active" id="unit" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Email</th>
+
+                                        </tr>
+                                    </thead>
+                                @foreach ($units as $unit)
+                                    <tr>
+                                        <td>{{ $unit->unit }}</td>
+                                    </tr>
+                                @endforeach
                             </div>
                         </div>
                 </div>

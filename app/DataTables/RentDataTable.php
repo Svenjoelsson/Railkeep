@@ -31,9 +31,7 @@ class RentDataTable extends DataTable
     {
         //return $model->newQuery();
 
-        $data = Rent::query()
-        //->where('service_status', 'In progress')
-        ->orderby('status', 'asc');
+        $data = Rent::query();
         return $this->applyScopes($data);
     }
 

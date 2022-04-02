@@ -56,7 +56,18 @@ class ServicesDataTable extends DataTable
      */
     public function html()
     {
-        return $this->builder()
+        if (Auth::user()->role == 'vendor') { 
+            return $this->builder()
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->addAction(['width' => '120px', 'printable' => false])
+            ->parameters([
+                'dom'       => '',
+                'stateSave' => true,
+                'order'     => [[0, 'desc']],
+            ]);
+        } else {
+            return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
@@ -72,6 +83,8 @@ class ServicesDataTable extends DataTable
                     ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
+        }
+
     }
 
     /**
