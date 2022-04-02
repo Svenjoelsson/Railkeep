@@ -39,12 +39,14 @@
 
 
 @endif
+@if(Auth::user()->role != '')
 <li class="nav-item">
     <a href="{{ route('services.index') }}"
        class="nav-link {{ Request::is('services*') ? 'active' : '' }}">
        <i class="fas fa-tools right"></i> <p>Services</p>
     </a>
 </li>
+@endif
 @if(Auth::user()->role == 'user')
 @if(Auth::user()->is_admin == '1')
 <li class="nav-item">

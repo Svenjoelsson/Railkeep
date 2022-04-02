@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-<?php
-  if (Auth::user()->role != 'user') {
-    //header('Location: /services');
-  }
-?>
 
 @section('content')
 <section class="content-header">

@@ -11,15 +11,26 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
+Auth::user()->role == ''
 */
 
 Route::get('/', function () {
     
     if (Auth::check()) {
-        return view('dashboard');
+        if (Auth::user()->role == '') {
+            return view('hello');
+        } else if (Auth::user()->role == 'vendor') {
+            return redirect('/services');
+        } else {
+            return view('dashboard');
+        } 
     } else {
         return view('auth.login');
     }
+
+
+
 });
 
 
@@ -103,7 +114,7 @@ Route::get('/file-upload/delete/{type}/{id}/{file}', [App\Http\Controllers\FileU
 
 Route::get('/filemanager', [App\Http\Controllers\FileManagerController::class, 'index']);
 
-Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index']);
+Route::get('profile', [App\Http\Controllers\ProfileController::class, 'index']);
 
 Route::resource('serviceTypes', App\Http\Controllers\serviceTypeController::class);
 
