@@ -20,8 +20,8 @@ class ServicesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'services.datatables_actions')
-                ->addColumn('service_type', 'services.service_type')->escapeColumns('active')
-                ->addColumn('unit', 'services.unit')->escapeColumns('active');
+                ->addColumn('service_type', 'services.service_type')->escapeColumns('active');
+                //->addColumn('unit', 'services.unit')->escapeColumns('active');
     }
 
     /**

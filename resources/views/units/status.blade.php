@@ -6,7 +6,7 @@
 
 
     $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
-    $servicesDate = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'asc')->first();
+    $servicesDate = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'desc')->first();
     
 
     if ($critical) {
