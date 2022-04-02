@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6ad87a346c5d585f2eaaa3e62e3ad2a23cd1cca5',
+        'reference' => '2a7a677cd71425e2550aa1fb2517ab012ef261ec',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -537,7 +537,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6ad87a346c5d585f2eaaa3e62e3ad2a23cd1cca5',
+            'reference' => '2a7a677cd71425e2550aa1fb2517ab012ef261ec',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -673,6 +673,33 @@
             'install_path' => __DIR__ . '/../markbaker/matrix',
             'aliases' => array(),
             'reference' => 'c66aefcafb4f6c269510e9ac46b82619a904c576',
+            'dev_requirement' => false,
+        ),
+        'mikehaertl/php-shellcommand' => array(
+            'pretty_version' => '1.6.4',
+            'version' => '1.6.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mikehaertl/php-shellcommand',
+            'aliases' => array(),
+            'reference' => '3488d7803df1e8f1a343d3d0ca452d527ad8d5e5',
+            'dev_requirement' => false,
+        ),
+        'mikehaertl/php-tmpfile' => array(
+            'pretty_version' => '1.2.1',
+            'version' => '1.2.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mikehaertl/php-tmpfile',
+            'aliases' => array(),
+            'reference' => '70a5b70b17bc0d9666388e6a551ecc93d0b40a10',
+            'dev_requirement' => false,
+        ),
+        'mikehaertl/phpwkhtmltopdf' => array(
+            'pretty_version' => '2.5.0',
+            'version' => '2.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mikehaertl/phpwkhtmltopdf',
+            'aliases' => array(),
+            'reference' => '17ee71341591415d942774eda2c98d8ba7ea9e90',
             'dev_requirement' => false,
         ),
         'mockery/mockery' => array(
@@ -984,8 +1011,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
