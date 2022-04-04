@@ -48,6 +48,23 @@
 </li>
 @endif
 @if(Auth::user()->role == 'user')
+
+
+<li class="nav-item">
+    <a href="{{ route('rents.index') }}"
+       class="nav-link {{ Request::is('rents*') ? 'active' : '' }}">
+       <i class="fas fa-file-contract right"></i><p>Agreements</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('inventories.index') }}"
+       class="nav-link {{ Request::is('inventories*') ? 'active' : '' }}">
+       <i class="fas fa-cogs right"></i><p>Inventories</p>
+    </a>
+</li>
+
 @if(Auth::user()->is_admin == '1')
 <li class="nav-item">
     <a href="{{ route('activities.index') }}"
@@ -57,20 +74,6 @@
 </li>
 @endif
 
-<li class="nav-item">
-    <a href="{{ route('rents.index') }}"
-       class="nav-link {{ Request::is('rents*') ? 'active' : '' }}">
-        <p>Rental</p>
-    </a>
-</li>
-
-
-<li class="nav-item">
-    <a href="{{ route('inventories.index') }}"
-       class="nav-link {{ Request::is('inventories*') ? 'active' : '' }}">
-        <p>Inventories</p>
-    </a>
-</li>
 @endif
 
 
