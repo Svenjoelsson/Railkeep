@@ -72,6 +72,8 @@ class RentDataTable extends DataTable
             'customer',
             'rentStart',
             'rentEnd',
+            'monthlyCost',
+            'counterCost',
             'status'
         ];
     }

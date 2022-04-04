@@ -11,6 +11,7 @@ use App\Repositories\RentRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Redirect;
 
 class RentController extends AppBaseController
 {
@@ -53,7 +54,13 @@ class RentController extends AppBaseController
     public function store(CreateRentRequest $request)
     {
         $input = $request->all();
+        $unit = \App\Models\Rent::where('status', 'Active')->where('unit', $input["unit"])->first();
 
+        if ($unit && $input["status"] == 'Active') {
+            Flash::error('Unit '.$input["unit"].' with status Active already exists.');
+            return Redirect::back()->withErrors(['msg' => 'Unit '.$input["unit"].' already exist with status Active. You can only have one with Active status at the same time.']);
+        }
+        
 
         if ($input["status"] === 'Done') {
 

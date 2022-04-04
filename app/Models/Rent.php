@@ -34,6 +34,8 @@ class Rent extends Model
         'customer',
         'rentStart',
         'rentEnd',
+        'monthlyCost',
+        'counterCost',
         'status'
     ];
 
@@ -47,7 +49,9 @@ class Rent extends Model
         'unit' => 'string',
         'customer' => 'string',
         'rentStart' => 'string',
-        'rentEnd' => 'string'
+        'rentEnd' => 'string',
+        'monthlyCost' => 'string',
+        'counterCost' => 'string',
     ];
 
     /**

@@ -16,7 +16,8 @@ Auth::user()->role == ''
 */
 
 Route::get('/', function () {
-    
+
+
     if (Auth::check()) {
         if (Auth::user()->role == '') {
             return view('hello');
@@ -129,6 +130,7 @@ Route::resource('makeLists', App\Http\Controllers\makeListController::class);
 Route::resource('customers', App\Http\Controllers\CustomersController::class);
 
 
+// example "reports/view/rental/returns/2022/04"
+Route::get('reports/{api}/rental/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'returns']);
 
-Route::get('reports/rental/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'returns']);
-Route::get('reports/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);
+Route::get('reports/{api}/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);

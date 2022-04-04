@@ -20,6 +20,8 @@ class CreateRentTable extends Migration
             $table->string('customer');
             $table->string('rentStart');
             $table->string('rentEnd')->nullable();
+            $table->string('monthlyCost')->nullable();
+            $table->string('counterCost')->nullable();
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

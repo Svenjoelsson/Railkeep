@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('Rent')->insert([
-            'unit' => '750',
+            'unit' => '155',
             'customer' => 'ProTrain',
             'rentStart' => '2022-01-01',
             'status' => 'Active',

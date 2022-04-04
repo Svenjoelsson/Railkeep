@@ -36,7 +36,9 @@ class VerifyCsrfToken
      *
      * @var array
      */
-    protected $except = [];
+    protected $except = [
+        'http://127.0.0.1:8000/create-account'
+    ];
 
     /**
      * Indicates whether the XSRF-TOKEN cookie should be set on the response.
