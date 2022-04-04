@@ -18,8 +18,17 @@ class RentDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'rents.datatables_actions');
+        return $dataTable->addColumn('action', 'rents.datatables_actions')
+        ->addColumn('monthlyCost', 'rents.monthlyCost')->escapeColumns('active')
+        ->addColumn('counterCost', 'rents.counterCost')->escapeColumns('active');
+
+
+        
+
+    
     }
+
+
 
     /**
      * Get query source of dataTable.
@@ -74,8 +83,7 @@ class RentDataTable extends DataTable
             'rentEnd',
             'monthlyCost',
             'counterCost',
-            'status'
-            
+            'status',
         ];
     }
 

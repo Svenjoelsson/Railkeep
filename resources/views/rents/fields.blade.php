@@ -54,7 +54,17 @@
         })
     </script>
 @endpush
+<hr>
+<div class="form-group col-sm-6">
+    {!! Form::label('monthlyCost', 'Monthly cost:') !!}
+    {!! Form::text('monthlyCost', null, ['class' => 'form-control']) !!}
+</div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('counterCost', 'Counter cost:') !!}
+    {!! Form::text('counterCost', null, ['class' => 'form-control']) !!}
+</div>
+<hr>
 <!-- Service status Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('status', 'Status: *') !!}

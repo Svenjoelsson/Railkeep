@@ -84,4 +84,8 @@ class Units extends Model
     {
         return $this->belongsTo(\App\Models\Services::class);
     }
+
+    public function rent() {
+        return $this->hasMany(\App\Models\Rent::class);
+    }
 }

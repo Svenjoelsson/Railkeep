@@ -14,22 +14,38 @@ class ReportsController extends Controller
 {
     //
 
-    public function returns ($api, $type, $year, $month)
+    public function rental ($api, $type, $year, $month)
     {
-        $from = $year.'-'.$month.'-01';
-        $to = $year.'-'.$month.'-31';
-        $units = \App\Models\Rent::whereBetween('rentEnd', [$from, $to])->get();
 
-        if ($api == 'api') {
-            return $units;
-        }
-        else if ($api == 'view') {
-            return view('reports.rental.'.$type)->with(['period' => $year.'-'.$month, 'model' => 'rental', 'type' => $type, 'units' => $units]);
+        if ($type == 'returns') {
+            $from = $year.'-'.$month.'-01';
+            $to = $year.'-'.$month.'-31';
+            $units = \App\Models\Rent::whereBetween('rentEnd', [$from, $to])->get();
+
+            if ($api == 'api') {
+                return $units;
+            }
+            else if ($api == 'view') {
+                return view('reports.rental.'.$type)->with(['period' => $year.'-'.$month, 'model' => 'rental', 'type' => $type, 'units' => $units]);
+            } 
+            else {
+                return 'No api type was provided, give either view or api as value';
+            }
         } 
-        else {
-            return 'No api type was provided, give either view or api as value';
+        
+        else if ($type == 'invoice') { 
+            $results = \App\Models\Rent::where('status', 'Active')->get();
+            if ($api == 'api') {
+                return $results;
+            }
+            else if ($api == 'view') {
+                return view('reports.rental.'.$type)->with(['period' => $year.'-'.$month,'year' => $year, 'month' => $month, 'model' => 'rental', 'type' => $type, 'results' => $results]);
+            } 
+            else {
+                return 'No api type was provided, give either view or api as value';
+            }
         }
-        //return view('services.edit')->with('services', $services);
+
     }
 
 

@@ -51,8 +51,7 @@ class Rent extends Model
         'rentStart' => 'string',
         'rentEnd' => 'string',
         'monthlyCost' => 'string',
-        'counterCost' => 'string',
-        
+        'counterCost' => 'string'
     ];
 
     /**
@@ -65,4 +64,8 @@ class Rent extends Model
     ];
 
     
+    public function units() {
+        return $this->belongsTo(\App\Models\Units::class);
+
+    }
 }
