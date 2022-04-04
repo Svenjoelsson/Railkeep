@@ -45,8 +45,8 @@
                           <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <a class="btn btn-primary" style="float:right;" href="{{ route('services.create', ['unit' => $units->unit]); }}">New service</a> 
                             <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">New type</a> 
-                            <br /><br />
-                            Current counter: {{ $activities->activity_message }} <br /><br />
+                            <h5><span style="float:lelft;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
+                             <br /><br />
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
