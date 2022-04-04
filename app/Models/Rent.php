@@ -52,6 +52,7 @@ class Rent extends Model
         'rentEnd' => 'string',
         'monthlyCost' => 'string',
         'counterCost' => 'string',
+        
     ];
 
     /**

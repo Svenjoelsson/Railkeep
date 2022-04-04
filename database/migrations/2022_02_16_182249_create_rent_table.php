@@ -25,6 +25,7 @@ class CreateRentTable extends Migration
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 
