@@ -44,7 +44,7 @@
                                 $latest = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', now()->format('Y'))->whereMonth('created_at', '=', now()->format('m'))->orderBy('created_at', 'desc')->first();
                                 $first = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('created_at', 'asc')->first();
 
-                                $calc = $latest->activity_message - $first->activity_message;
+                                $calc = intval($latest->activity_message) - intval($first->activity_message);
                                 echo $calc;
                             ?>
 
@@ -52,8 +52,8 @@
                         <td>{{ $rent->counterCost }} kr</td>
                         <td>
                             <?php 
-                            $subtotal = ($calc * $rent->counterCost) + $rent->monthlyCost;
-                            $total += $subtotal;
+                            $subtotal = ($calc * intval($rent->counterCost)) + intval($rent->monthlyCost);
+                            $total += intval($subtotal);
                                 echo $subtotal." kr";
                             ?>
                         </td>
