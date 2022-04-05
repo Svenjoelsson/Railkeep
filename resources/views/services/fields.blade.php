@@ -15,6 +15,7 @@
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }
+    sort($arr1);
     ?>
     {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single unitSelect', 'placeholder' => 'Select unit', 'required']) !!}
 </div>

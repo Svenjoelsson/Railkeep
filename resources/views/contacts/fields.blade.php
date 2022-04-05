@@ -6,6 +6,7 @@
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }
+    sort($arr);
     ?>
     {!! Form::select('customer', $arr, null, ['class' => 'form-control js-example-basic-single', 'required', 'placeholder' => 'Select customer']) !!}
     
