@@ -430,7 +430,11 @@ document.onreadystatechange = function() {
             });
         });
 
-
+        $("#updatePeriod").click(function(){
+            var url = $('#url').val();
+            var period = $('#period1').val();
+            window.location.href = "/"+url+"/"+period;
+        });
 
 
     </script>

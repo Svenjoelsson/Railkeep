@@ -26,7 +26,7 @@ class ReportsController extends Controller
                 return $units;
             }
             else if ($api == 'view') {
-                return view('reports.rental.'.$type)->with(['period' => $year.'-'.$month, 'model' => 'rental', 'type' => $type, 'units' => $units]);
+                return view('reports.rental.'.$type)->with(['period' => $year.'/'.$month, 'model' => 'rental', 'type' => $type, 'units' => $units]);
             } 
             else {
                 return 'No api type was provided, give either view or api as value';
@@ -39,7 +39,7 @@ class ReportsController extends Controller
                 return $results;
             }
             else if ($api == 'view') {
-                return view('reports.rental.'.$type)->with(['period' => $year.'-'.$month,'year' => $year, 'month' => $month, 'model' => 'rental', 'type' => $type, 'results' => $results]);
+                return view('reports.rental.'.$type)->with(['period' => $year.'/'.$month,'year' => $year, 'month' => $month, 'model' => 'rental', 'type' => $type, 'results' => $results]);
             } 
             else {
                 return 'No api type was provided, give either view or api as value';

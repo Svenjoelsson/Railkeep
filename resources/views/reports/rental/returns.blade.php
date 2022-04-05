@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Reports</h1>
-                    Viewing {{ $model }} {{ $type }} @if ($period) of period {{ $period }} @endif
+                    Viewing {{ $model }} {{ $type }} @if ($period) of period <a href="" data-toggle="modal" data-target="#period">{{ $period }}</a> @endif
                 </div>
             </div>
         </div>
@@ -40,5 +40,26 @@
             </div>
     </div>
 
+    <div class="modal fade" id="period" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Change period</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="url" class="form-control" value="<?php echo Request::segment(1)."/".Request::segment(2)."/".Request::segment(3)."/".Request::segment(4); ?>">
+                <label>Period (YYYY/MM)</label>
+              <input type="text" id="period1" class="form-control" value="<?php echo Request::segment(5)."/".Request::segment(6); ?>">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="updatePeriod" class="btn btn-primary">Change</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
 
