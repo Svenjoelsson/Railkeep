@@ -58,6 +58,20 @@
                         <button style="float:right;" class="btn btn-primary">Save</button>
                     </div>
                 </div>
+                <hr>
+                <h4>Profile photo</h4>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ $message }}
+                </div>
+                @endif
+                
+                <form action="{{ route('profile.photo.post') }}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="photo">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>

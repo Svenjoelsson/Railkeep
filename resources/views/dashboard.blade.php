@@ -159,8 +159,8 @@
                     //echo $value["unit"]." ".round($endTime / (60 * 60 * 24))."<br />";
 
                 }
-                echo round($counter/$totalDaysYTD*100, 2);
-                echo "%";
+                //echo round($counter/$totalDaysYTD*100, 2);
+                //echo "%";
 
 
                 ?>

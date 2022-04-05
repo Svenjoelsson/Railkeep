@@ -24,7 +24,7 @@ Route::get('/', function () {
         } else if (Auth::user()->role == 'vendor') {
             return redirect('/services');
         } else {
-            return view('dashboard');
+            return redirect('/dashboard');
         } 
     } else {
         return view('auth.login');
@@ -110,6 +110,8 @@ Route::post('/file-upload', [App\Http\Controllers\FileUploadController::class, '
 Route::get('/file-upload/download/{type}/{id}/{file}', [App\Http\Controllers\FileUploadController::class, 'getDownload']);
 Route::get('/file-upload/delete/{type}/{id}/{file}', [App\Http\Controllers\FileUploadController::class, 'getDelete']);
 
+
+Route::post('/profile/update/photo', [App\Http\Controllers\profileController::class, 'photo'])->name('profile.photo.post');
 
 
 
