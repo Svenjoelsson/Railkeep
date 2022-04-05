@@ -111,7 +111,7 @@ Route::get('/file-upload/download/{type}/{id}/{file}', [App\Http\Controllers\Fil
 Route::get('/file-upload/delete/{type}/{id}/{file}', [App\Http\Controllers\FileUploadController::class, 'getDelete']);
 
 
-Route::post('/profile/update/photo', [App\Http\Controllers\profileController::class, 'photo'])->name('profile.photo.post');
+Route::post('/profile/update/photo', [App\Http\Controllers\ProfileController::class, 'photo'])->name('profile.photo.post');
 
 
 
