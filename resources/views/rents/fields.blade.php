@@ -7,7 +7,6 @@
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }
-    sort($arr1);
     ?>
     {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single unitSelect', 'placeholder' => 'Select unit', 'required']) !!}
 </div>
@@ -20,7 +19,6 @@
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }
-    sort($arr);
     ?>
     {!! Form::select('customer', $arr, null, ['class' => 'form-control js-example-basic-single', 'placeholder' => 'Select customer', 'required']) !!}
 </div>
