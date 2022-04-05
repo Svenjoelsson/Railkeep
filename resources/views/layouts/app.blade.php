@@ -87,6 +87,10 @@
         }
         .custom-select {
             min-width: 50px;
+            background-color: white !important;
+        }
+        .form-control {
+            background-color: white !important;
         }
     </style>
     
