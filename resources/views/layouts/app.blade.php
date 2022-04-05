@@ -85,6 +85,9 @@
             right: 0;
             margin: auto;
         }
+        .custom-select {
+            min-width: 50px;
+        }
     </style>
     
 

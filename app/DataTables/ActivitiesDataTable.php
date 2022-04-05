@@ -47,7 +47,7 @@ class ActivitiesDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
-                'dom'       => 'Bfrtip',
+                'dom'       => 'Bfrtlip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
@@ -57,6 +57,8 @@ class ActivitiesDataTable extends DataTable
                     ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
+                'lengthMenu' => [[1, 10, 25, 50, -1], [1, 10, 25, 50, "All"]],
+                'pageLength' => 100,
             ]);
     }
 
