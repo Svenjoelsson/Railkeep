@@ -12,14 +12,21 @@ class searchController extends Controller
         $result = [];
 
         $unitSearch = \App\Models\Units::
-            where('unit', $search)
-            ->orWhere('make', $search)
-            ->orWhere('customer', $search)
+            where('unit', 'LIKE','%'.$search.'%')
+            ->orWhere('make', 'LIKE','%'.$search.'%')
+            ->orWhere('customer', 'LIKE','%'.$search.'%')
             ->get();
         
         $customerSearch = \App\Models\Customers::
-            where('name', $search)
-            ->orWhere('country', $search)
+            where('name', 'LIKE','%'.$search.'%')
+            ->orWhere('country', 'LIKE','%'.$search.'%')
+            ->get();
+
+        $contactSearch = \App\Models\Contacts::
+            where('customer', 'LIKE','%'.$search.'%')
+            ->orWhere('name', 'LIKE','%'.$search.'%')
+            ->orWhere('phone', 'LIKE','%'.$search.'%')
+            ->orWhere('email', 'LIKE','%'.$search.'%')
             ->get();
 
 
@@ -33,6 +40,11 @@ class searchController extends Controller
         if ($customerSearch) {
             foreach ($customerSearch as $val1) {
                 $result[] = ["title" => $val1["name"], "type" => "Customer", "link" => "customers/".$val1["id"]."/edit"];
+            }
+        } 
+        if ($contactSearch) {
+            foreach ($contactSearch as $val2) {
+                $result[] = ["title" => $val2["name"], "type" => "Contact", "link" => "contacts/".$val2["id"]."/edit"];
             }
         } 
 
