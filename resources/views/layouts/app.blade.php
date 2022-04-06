@@ -96,6 +96,24 @@
         .form-control {
             background-color: white !important;
         }
+
+        .activeNav {
+            background: #0f2027; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: white !important;
+        }
+        .solidRK {
+            background-color: #2c5364 !important;
+        }
+        .brand-link {
+            border: #2c5364 solid 1px !important;
+        }
+        .btn-primary, .btn-outline-primary {
+            background-color: #2c5364 !important;
+            border: #2c5364 solid 1px !important;
+
+        }
     </style>
     
 
@@ -109,7 +127,7 @@
     
     <div class="wrapper"><div id="loader" class="center"></div>
         <!-- Main Header -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand solidRK navbar-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -220,6 +238,7 @@
     
     
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"></script>
 
     
     

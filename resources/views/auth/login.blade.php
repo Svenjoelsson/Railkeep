@@ -26,6 +26,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset ('css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset ('css/main.css') }}">
 <!--===============================================================================================-->
+<style>
+	.btn-login100-form-btn {
+		background-color: #2c5364 !important;
+		border: #2c5364 solid 1px !important;
+	}
+
+</style>
 </head>
 <body style="background-color: #666666;">
 
