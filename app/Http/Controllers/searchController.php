@@ -22,7 +22,7 @@ class searchController extends Controller
             ->orWhere('country', 'LIKE','%'.$search.'%')
             ->get();
 
-        $contactSearch = \App\Models\Contacts::
+        $contactSearch = \App\Models\ontacts::
             where('customer', 'LIKE','%'.$search.'%')
             ->orWhere('name', 'LIKE','%'.$search.'%')
             ->orWhere('phone', 'LIKE','%'.$search.'%')
