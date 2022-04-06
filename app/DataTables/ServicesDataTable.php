@@ -7,6 +7,16 @@ use Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
+function isMobileDev(){
+    if(!empty($_SERVER['HTTP_USER_AGENT'])){
+       $user_ag = $_SERVER['HTTP_USER_AGENT'];
+       if(preg_match('/(Mobile|Android|Tablet|GoBrowser|[0-9]x[0-9]*|uZardWeb\/|Mini|Doris\/|Skyfire\/|iPhone|Fennec\/|Maemo|Iris\/|CLDC\-|Mobi\/)/uis',$user_ag)){
+          return true;
+       };
+    };
+    return false;
+}
+
 class ServicesDataTable extends DataTable
 {
     /**
@@ -94,15 +104,22 @@ class ServicesDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
-            'id',
-            'unit',
-            'customer',
-            'service_type',
-            'service_date',
-            'service_end',
-            'service_status',
-        ];
+        if (isMobileDev()) { 
+            return [
+                'unit',
+                'service_status',
+            ];
+        } else {
+            return [
+                'id',
+                'unit',
+                'customer',
+                'service_type',
+                'service_date',
+                'service_end',
+                'service_status',
+            ];
+        }
     }
 
     /**

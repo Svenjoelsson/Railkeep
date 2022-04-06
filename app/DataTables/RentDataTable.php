@@ -6,6 +6,16 @@ use App\Models\Rent;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
+function isMobileDev(){
+    if(!empty($_SERVER['HTTP_USER_AGENT'])){
+       $user_ag = $_SERVER['HTTP_USER_AGENT'];
+       if(preg_match('/(Mobile|Android|Tablet|GoBrowser|[0-9]x[0-9]*|uZardWeb\/|Mini|Doris\/|Skyfire\/|iPhone|Fennec\/|Maemo|Iris\/|CLDC\-|Mobi\/)/uis',$user_ag)){
+          return true;
+       };
+    };
+    return false;
+}
+
 class RentDataTable extends DataTable
 {
     /**
@@ -76,15 +86,23 @@ class RentDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
-            'unit',
-            'customer',
-            'rentStart',
-            'rentEnd',
-            'monthlyCost',
-            'counterCost',
-            'status',
-        ];
+        if (isMobileDev()) { 
+            return [
+                'unit',
+                'customer',
+            ];
+        } else {
+            return [
+                'unit',
+                'customer',
+                'rentStart',
+                'rentEnd',
+                'monthlyCost',
+                'counterCost',
+                'status',
+            ];
+        }
+
     }
 
     /**

@@ -6,6 +6,16 @@ use App\Models\inventory;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
+function isMobileDev(){
+    if(!empty($_SERVER['HTTP_USER_AGENT'])){
+       $user_ag = $_SERVER['HTTP_USER_AGENT'];
+       if(preg_match('/(Mobile|Android|Tablet|GoBrowser|[0-9]x[0-9]*|uZardWeb\/|Mini|Doris\/|Skyfire\/|iPhone|Fennec\/|Maemo|Iris\/|CLDC\-|Mobi\/)/uis',$user_ag)){
+          return true;
+       };
+    };
+    return false;
+}
+
 class inventoryDataTable extends DataTable
 {
     /**
@@ -65,13 +75,20 @@ class inventoryDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
-            'unit',
-            'partNumber',
-            'partName',
-            'CounterStatus',
-            'status'
-        ];
+        if (isMobileDev()) {
+            return [
+                'unit',
+                'partName',
+            ];
+        } else {
+            return [
+                'unit',
+                'partNumber',
+                'partName',
+                'CounterStatus',
+                'status'
+            ];
+        }
     }
 
     /**
