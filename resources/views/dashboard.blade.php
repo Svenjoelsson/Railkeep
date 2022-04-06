@@ -169,9 +169,25 @@
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
+          
         </div>
 
     </div>
+    <div id="chart" style="height: 300px;"></div>
+
+    <script>
+      
+   /* const chart = new Chartisan({
+      el: '#chart',
+      url: "@chart('sample_chart')",
+      hooks: new ChartisanHooks()
+        .legend({ position: 'bottom' })
+        .tooltip()
+        
+      });*/
+      
+  </script>
+
     
 </section>
 @endsection

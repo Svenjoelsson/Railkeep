@@ -8,7 +8,7 @@
         $arr1[$value1['unit']] = $value1['unit'];
     }
     ?>
-    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single js-example-basic-single-modal', 'placeholder' => 'Select unit']) !!}
+    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single inventoryUnit', 'placeholder' => 'Select unit']) !!}
 </div>
 
 <!-- Partnumber Field -->

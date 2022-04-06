@@ -36,6 +36,10 @@
         crossorigin="anonymous" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+
     <style>
         .select2-selection__rendered {
             line-height: 31px !important;
@@ -216,9 +220,9 @@
     
     
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        
-    
 
+    
+    
 
 
 
@@ -307,26 +311,14 @@ document.onreadystatechange = function() {
                             $('.customerSelect').trigger('change.select2');
                             $('.customerSelectDisable').prop("disabled", true);
 
-                            //console.log(element2.make);
-
                             // Load service types based on unit
                             $.get("{{ url('api/make_lists/') }}", function(data3) {
                                 var arr = [];
                                 $.each(data3.data, function(index3, element3) {
-                                    //console.log(element3);
                                     
                                     if (element2.make == element3.make) {
-                                        
-                                        //arr.push(element3.serviceName);
                                         var newOption = new Option(element3.serviceName, element3.serviceName, false, false);
                                         $('.serviceSelect').append(newOption).trigger('change');    
-                                        //arr[element3.serviceName] = element3.serviceName;
-                                        //console.log(element3.serviceName);
-                                        /*$('.contactpersons').append($('<option>', {
-                                            value: element1.name,
-                                            text: element1.name
-
-                                        }));*/
                                     }
                                     
                                 });
@@ -334,14 +326,6 @@ document.onreadystatechange = function() {
                                 $('.serviceSelect').append(newOption1).trigger('change');   
                                 var newOption2 = new Option('Övrigt', 'Övrigt', false, false);
                                 $('.serviceSelect').append(newOption1).trigger('change');   
-                                //console.log(arr);
-                                //$('.serviceSelect').val(arr).trigger('change');
-                                //$('.serviceSelect').val(arr);
-                                //var newOption = new Option(data.text, data.id, false, false);
-                                //$('.serviceSelect').append(newOption).trigger('change');        
-
-                                //$('.serviceSelect').trigger('change');
-                                
                                 
                             });
 
@@ -365,6 +349,10 @@ document.onreadystatechange = function() {
                         }
                     });
                 });
+        });
+
+        $('.inventoryUnit').change(function() {
+            
         });
 
         <?php 

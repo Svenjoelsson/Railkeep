@@ -9,6 +9,7 @@
         "alexusmai/laravel-file-manager": "^2.5",
         "barryvdh/laravel-snappy": "^1.0",
         "beyondcode/laravel-mailbox": "^2.2",
+        "consoletvs/charts": "7.*",
         "doctrine/dbal": "~2.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
