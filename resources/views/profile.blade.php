@@ -68,10 +68,16 @@
                 @endif
                 
                 <form action="{{ route('profile.photo.post') }}" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="photo">
-                    @csrf
+                    <div class="col-6">
+                    <div class="custom-file">
+                        <input type="file" name="photo" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    @csrf<br /><br />
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                </div>
+
             </div>
         </div>
     </div>
