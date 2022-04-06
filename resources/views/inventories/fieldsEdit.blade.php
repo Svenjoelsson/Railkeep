@@ -8,13 +8,13 @@
         $arr1[$value1['unit']] = $value1['unit'];
     }
     ?>
-    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single inventoryUnit', 'placeholder' => 'Select unit']) !!}
+    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single inventoryUnit', 'disabled', 'placeholder' => 'Select unit']) !!}
 </div>
 
 <!-- Usagecounter Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('usageCounter', 'Unit counter at mounting:') !!}
-    {!! Form::number('usageCounter', null, ['class' => 'form-control usagecounter'] ) !!}
+    {!! Form::number('usageCounter', null, ['class' => 'form-control usagecounter', 'disabled'] ) !!}
 </div>
 
 <!-- Partnumber Field -->

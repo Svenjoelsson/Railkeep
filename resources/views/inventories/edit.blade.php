@@ -21,7 +21,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    @include('inventories.fields')
+                    @include('inventories.fieldsEdit')
                 </div>
             </div>
 
