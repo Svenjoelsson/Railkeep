@@ -155,8 +155,11 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
-            <input type="text" class="form-control mac-style" name="Search" id='nav-search' placeholder="Search">
+            <form action="{{ route('globalSearch') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="text" class="form-control mac-style" list="searchresult" name="search" id='globalSearch' placeholder="Search">
 
+            </form>
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -272,6 +275,9 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
 
     <script>
+        $('#globalSearch').on('change', function() {
+            $(this).closest('form').submit();
+        });
 
 document.onreadystatechange = function() {
     if (document.readyState !== "complete") {
