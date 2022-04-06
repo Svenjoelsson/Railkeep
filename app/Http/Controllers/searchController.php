@@ -10,6 +10,7 @@ class searchController extends Controller
     {  
         $search = $request["search"];
         $result = [];
+        $searchVal[] = ["title" => $search, "type" => "Search", "link" => ""];
 
         $unitSearch = \App\Models\Units::
             where('unit', 'LIKE','%'.$search.'%')
@@ -22,7 +23,7 @@ class searchController extends Controller
             ->orWhere('country', 'LIKE','%'.$search.'%')
             ->get();
 
-        $contactSearch = \App\Models\ontacts::
+        $contactSearch = \App\Models\contacts::
             where('customer', 'LIKE','%'.$search.'%')
             ->orWhere('name', 'LIKE','%'.$search.'%')
             ->orWhere('phone', 'LIKE','%'.$search.'%')
@@ -67,7 +68,7 @@ class searchController extends Controller
         }
 
         return view('search')
-        ->with('result', $result);
+        ->with(['result' => $result, 'searchValue' => $searchVal]);
 
         
     }

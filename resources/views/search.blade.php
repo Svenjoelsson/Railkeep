@@ -16,6 +16,7 @@
     <div class="row">
         <div class="col-12 col-sm-12 col-md-12">
             @if ($result)
+            <label>Search value:</label> {{ $searchValue[0]["title"] }}<br /><br />
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -26,10 +27,13 @@
                 <tbody>
                 
                     @foreach ($result as $row)
+                    @if ($row["type"] != 'Search')
+
                     <tr style="cursor: pointer;" onclick="window.location='{{ $row["link"] }}';">
-                        <td>{{ $row["title"] }}</td>
+                        <td><?php if (str_contains($row["title"], $searchValue[0]["title"])) { echo "<label>".$row["title"]."</label>"; } else { echo $row["title"]; } ?></td>
                         <td>{{ $row["type"] }}</td>
                     </tr>
+                    @endif 
                 @endforeach
 
                 
