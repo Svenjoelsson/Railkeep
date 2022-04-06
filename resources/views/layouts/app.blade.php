@@ -114,6 +114,26 @@
             border: #2c5364 solid 1px !important;
 
         }
+        .showprofile {
+            margin-top:10px;
+        }
+        .mac-style{
+            width: 300px;
+            -webkit-transition: width 1s ease-in-out;
+            -moz-transition:width 1s ease-in-out;
+            -o-transition: width 1s ease-in-out;
+            transition: width 1s ease-in-out;
+            background-color:
+            float:right;
+            background-color: #2c5364 !important;
+            border: none;
+
+        }
+
+        .mac-style:focus{
+            width: 500px;
+            background-color: white !important;
+        }
     </style>
     
 
@@ -129,12 +149,14 @@
         <!-- Main Header -->
         <nav class="main-header navbar navbar-expand solidRK navbar-dark">
             <!-- Left navbar links -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav d-xl-none">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
+            <input type="text" class="form-control mac-style" name="Search" id='nav-search' placeholder="Search">
+
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -149,7 +171,7 @@
 
                         <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right showprofile">
                         <!-- User image -->
                         <li class="user-header">
                             @if (Auth::user()->photo)
