@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+<?php 
+function asDollars($value) {
+  if ($value<0) return "-".asDollars(-$value);
+  return number_format($value, 2);
+}
+?>
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -36,7 +44,7 @@
                     <tr>
                         <td>{{ $rent->unit }}</td>
                         <td>{{ $rent->customer }}</td>
-                        <td>{{ $rent->monthlyCost }} kr</td>
+                        <td>{{ asDollars($rent->monthlyCost) }} kr</td>
 
                         <td>
                             <?php 
@@ -45,7 +53,7 @@
                                 $first = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('created_at', 'asc')->first();
 
                                 $calc = intval($latest->activity_message) - intval($first->activity_message);
-                                echo $calc;
+                                echo asDollars($calc);
                             ?>
 
                         </td>
@@ -54,7 +62,7 @@
                             <?php 
                             $subtotal = ($calc * intval($rent->counterCost)) + intval($rent->monthlyCost);
                             $total += intval($subtotal);
-                                echo $subtotal." kr";
+                                echo asDollars($subtotal)." kr";
                             ?>
                         </td>
 
@@ -66,7 +74,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><b><?php echo $total; ?> kr</b></td>
+                        <td><b><?php echo asDollars($total); ?> kr</b></td>
                     </tr>
                 </table>
             </div>
