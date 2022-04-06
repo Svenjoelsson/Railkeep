@@ -101,7 +101,11 @@ Route::post('someurl', [App\Http\Controllers\ServicesController::class, 'someMet
 
 
 Route::resource('units', App\Http\Controllers\UnitsController::class);
+
 Route::resource('activities', App\Http\Controllers\ActivitiesController::class);
+Route::post('/activities/unitcounter', [App\Http\Controllers\ActivitiesController::class, 'unitCounter']);
+
+
 
 Route::get('/file-upload', [App\Http\Controllers\FileUploadController::class, 'fileUpload'])->name('file.upload');
 Route::post('/file-upload', [App\Http\Controllers\FileUploadController::class, 'fileUploadPost'])->name('file.upload.post');

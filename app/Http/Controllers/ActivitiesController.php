@@ -149,4 +149,18 @@ class ActivitiesController extends AppBaseController
 
         return redirect(route('activities.index'));
     }
+
+    # returns the latest unitcounter per unit
+    # access each with: $arr["V5-155"]
+    public function unitCounter()
+    {
+        $units = \App\Models\Units::whereNull('deleted_at')->orderBy('unit', 'asc')->get();
+        $arr = [];
+        foreach ($units as $unit) {
+            $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $unit->id)->orderBy('created_at', 'desc')->first();
+            $arr[$unit->unit] = $activities;
+        }
+        return $arr;
+
+    }
 }
