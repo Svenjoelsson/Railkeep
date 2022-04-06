@@ -61,6 +61,8 @@ class UnitsController extends AppBaseController
     {
         $input = $request->all();
 
+        $input["unit"] = $input["make"]."-".$input["unit"];
+
         $units = $this->unitsRepository->create($input);
 
 
@@ -157,6 +159,11 @@ class UnitsController extends AppBaseController
     public function edit($id)
     {
         $units = $this->unitsRepository->find($id);
+
+        if (str_contains($units["unit"], $units["make"])) { 
+            $units["unit"] = str_replace($units["make"]."-", "", $units["unit"]);
+        }
+
         $maka = makeList::distinct('make')->pluck('make');
     
         $array = []; 
@@ -185,6 +192,9 @@ class UnitsController extends AppBaseController
     public function update($id, UpdateUnitsRequest $request)
     {
         $units = $this->unitsRepository->find($id);
+        
+        $request["unit"] = $request["make"]."-".$request["unit"];
+        
 
         if (empty($units)) {
             Flash::error('Units not found');

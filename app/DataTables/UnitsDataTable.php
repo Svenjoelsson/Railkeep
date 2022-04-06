@@ -20,7 +20,6 @@ class UnitsDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         return $dataTable->addColumn('action', 'units.datatables_actions')
         ->addColumn('ServiceCounter', 'units.service_counter')->escapeColumns('active')
-        ->addColumn('Unit', 'units.units')->escapeColumns('active')
         ->addColumn('Stoplight', 'units.stoplight')->escapeColumns('active')
         ->addColumn('ServiceDate', 'units.service_date')->escapeColumns('active')
         ->addColumn('status', 'units.status')->escapeColumns('active');
@@ -71,7 +70,7 @@ class UnitsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'Unit',
+            'unit',
             'customer',
             'ServiceCounter',
             'ServiceDate',

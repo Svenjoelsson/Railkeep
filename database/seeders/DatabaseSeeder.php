@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('units')->insert([
-            'unit' => '1158',
+            'unit' => 'RC4-155',
             'make' => 'RC4',
             'model' => '',
             'year_model' => '',
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('units')->insert([
-            'unit' => '1525',
+            'unit' => 'TME-1525',
             'make' => 'TME',
             'model' => '',
             'year_model' => '',
@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()
         ]);
         DB::table('units')->insert([
-            'unit' => '155',
+            'unit' => 'V5-155',
             'make' => 'V5',
             'model' => '',
             'year_model' => '',
@@ -154,7 +154,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('inventory')->insert([
-            'unit' => '1158',
+            'unit' => 'RC4-155',
             'partNumber' => '3308207',
             'partName' => 'RC4 strömavtagare',
             'status' => 'New',
@@ -214,7 +214,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('Rent')->insert([
-            'unit' => '1158',
+            'unit' => 'RC4-155',
             'customer' => 'ProTrain',
             'rentStart' => '2022-01-01',
             'status' => 'Active',
@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('Rent')->insert([
-            'unit' => '155',
+            'unit' => 'V5-155',
             'customer' => 'ProTrain',
             'rentStart' => '2022-01-01',
             'status' => 'Active',
@@ -230,7 +230,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('Rent')->insert([
-            'unit' => '1525',
+            'unit' => 'TME-1525',
             'customer' => 'Hector Rail',
             'rentStart' => '2022-02-01',
             'status' => 'Active',

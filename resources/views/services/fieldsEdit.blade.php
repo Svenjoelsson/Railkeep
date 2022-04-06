@@ -1,7 +1,7 @@
 <!-- Unit Field -->
 <?php 
-    $unit = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
-    $make = \App\Models\makeList::where('make', $unit->make)->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
+    $unit = \App\Models\Units::where('unit', $services->unit)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
+    $make = \App\Models\makeList::where('make', $unit->make)->whereNull('deleted_at')->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
     
 ?>
 
