@@ -32,8 +32,21 @@ class FileUploadController extends Controller
         $request->validate([
             'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg|max:10240',
         ]);
+
+        // if file already exist, add increment number after filename.
+        $files = scandir($pathBuild);
+        $counter = 0;
+        foreach ($files as $val) { 
+            
+            if ($val === $request->file->getClientOriginalName() || str_contains($val, $request->file->getClientOriginalName())) {
+                $counter++;
+                $fileName = $request->file->getClientOriginalName()." (".$counter.")";
+            } else {
+                $fileName = $request->file->getClientOriginalName(); 
+            }
+        }
         
-        $fileName = date('Y-m-d h:i:s').'-'.$request->file->getClientOriginalName();  
+        
 
         DB::table('activities')->insert([
             'activity_type' => 'File',
