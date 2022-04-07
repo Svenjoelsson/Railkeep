@@ -30,7 +30,7 @@ class FileUploadController extends Controller
         //dd($request);
         $pathBuild = "uploads/".$request->firstUrl."/".$request->secondUrl;
         $request->validate([
-            'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg|max:2048',
+            'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg|max:10240',
         ]);
         
         $fileName = date('Y-m-d h:i:s').'-'.$request->file->getClientOriginalName();  
