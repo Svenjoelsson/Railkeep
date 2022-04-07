@@ -2,16 +2,35 @@
 <?php 
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
     $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
+    $makelist = \App\Models\makeList::where('make', $units->make)->whereNull('deleted_at')->get();
+
     if ($activities->activity_message) {
-        $services = \App\Models\Services::where('unit', $units->unit)->where('service_type', '!=', 'Reparation')->where('nextServiceCounter', '>', $activities->activity_message)->whereNull('deleted_at')->whereNotNull('nextServiceCounter')->orderBy('nextServiceCounter', 'asc')->first();
+        $arr = [];
+        foreach ($makelist as $val) {
+        $services = \App\Models\Services::where('unit', $units->unit)
+            ->where('service_type', $val->serviceName)
+            ->where('nextServiceCounter', '>', $activities->activity_message)
+            ->where('service_status', '!=', 'In progress')
+            ->orderBy('id', 'desc')
+            ->first();
+            if ($services) {
+                $arr[$val->serviceName] = $services;
+
+            }
+        }
+        usort($arr, function($a, $b) {
+            return $a['nextServiceCounter'] <=> $b['nextServiceCounter'];
+        });
+        
+        
+
     }
 
-    if ($services) {
-        if ($services->nextServiceCounter != '') {
-            $makelist = \App\Models\makeList::where('make', $units->make)->where('serviceName', $services->service_type)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
-
+    if (!empty($arr)) {
+        if ($arr[0]->nextServiceCounter != '') {
+            $makelist = \App\Models\makeList::where('make', $units->make)->where('serviceName', $arr[0]->service_type)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
             $current = $activities->activity_message;
-            $next = $services->nextServiceCounter;
+            $next = $arr[0]->nextServiceCounter;
             $math = $next - $current;
 
 
@@ -46,7 +65,7 @@
     }
     }
     
-    
+
      
 ?>
 </span>

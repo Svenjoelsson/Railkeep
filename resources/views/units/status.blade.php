@@ -1,6 +1,8 @@
 <?php
     $critical = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
-    $services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->whereNotNull('nextServiceDate')->orderBy('nextServiceDate', 'asc')->first();
+    //$services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->whereNotNull('nextServiceDate')->orderBy('nextServiceDate', 'asc')->first();
+    $services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->where('nextServiceDate', '>', now())->orderBy('nextServiceDate', 'asc')->first();
+
     $repairs = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->whereDate('service_date', '<=', now())->whereNull('deleted_at')->first();
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
 
