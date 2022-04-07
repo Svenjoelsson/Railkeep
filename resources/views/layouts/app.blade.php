@@ -165,7 +165,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
 
                         @if (Auth::user()->photo)
-                            <img src="{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
+                            <img src="/{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
                                 alt="User Image">
                         @else
                             <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
@@ -178,7 +178,7 @@
                         <!-- User image -->
                         <li class="user-header">
                             @if (Auth::user()->photo)
-                                <img src="{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
+                                <img src="/{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
                                     alt="User Image">
                             @else
                                 <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
