@@ -534,9 +534,20 @@
     </table>
     <p class="c5"><span class="c0"></span></p>
     <p class="c5"><span class="c0"></span></p><a id="t.295372d8604cf957132312eff2ed1d18df91d3a8"></a><a id="t.3"></a>
-
-
+    <table class="c8">
+        <tbody>
+            <tr class="c12">
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c4">Signed by:</span></p>
+                </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{{ Auth::user()->name }}</span></p>
+                </td>   
+            </tr>
+        </tbody>
+    </table>
     <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.295372d8604cf957132312eff2ed1d18df91d3a8"></a><a id="t.3"></a>
 </body>
 
 </html>
