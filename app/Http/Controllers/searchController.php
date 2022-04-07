@@ -63,7 +63,9 @@ class searchController extends Controller
         if ($search == "report" || $search == "Report" || $search == "Reports" || $search == "reports") {
 
             $result[] = ["title" => "Rental returns", "type" => "Report", "link" => "reports/view/rental/returns/".now()->format('Y')."/".now()->format('m')];
-            $result[] = ["title" => "Rental invoice", "type" => "Report", "link" => "reports/view/rental/invoice/".now()->format('Y')."/".now()->format('m')];
+            $result[] = ["title" => "Rental invoice total", "type" => "Report", "link" => "reports/view/rental/invoice/".now()->format('Y')."/".now()->format('m')];
+            $result[] = ["title" => "Rental invoice counter", "type" => "Report", "link" => "reports/view/rental/invoice_counter/".now()->format('Y')."/".now()->format('m')];
+            $result[] = ["title" => "Rental invoice monthly", "type" => "Report", "link" => "reports/view/rental/invoice_monthly/".now()->format('Y')."/".now()->format('m')];
 
         }
 

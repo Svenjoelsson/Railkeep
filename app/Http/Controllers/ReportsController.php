@@ -45,6 +45,29 @@ class ReportsController extends Controller
                 return 'No api type was provided, give either view or api as value';
             }
         }
+        else if ($type == 'invoice_counter') { 
+            $results = \App\Models\Rent::where('status', 'Active')->get();
+            if ($api == 'api') {
+                return $results;
+            }
+            else if ($api == 'view') {
+                return view('reports.rental.'.$type)->with(['period' => $year.'/'.$month,'year' => $year, 'month' => $month, 'model' => 'rental', 'type' => $type, 'results' => $results]);
+            } 
+            else {
+                return 'No api type was provided, give either view or api as value';
+            }
+        }         else if ($type == 'invoice_monthly') { 
+            $results = \App\Models\Rent::where('status', 'Active')->get();
+            if ($api == 'api') {
+                return $results;
+            }
+            else if ($api == 'view') {
+                return view('reports.rental.'.$type)->with(['period' => $year.'/'.$month,'year' => $year, 'month' => $month, 'model' => 'rental', 'type' => $type, 'results' => $results]);
+            } 
+            else {
+                return 'No api type was provided, give either view or api as value';
+            }
+        }
 
     }
 
