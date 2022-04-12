@@ -250,9 +250,14 @@ class ServicesController extends AppBaseController
             if (!file_exists($filePath)) {
                 mkdir($filePath, 0777, true);
             }
+            $filePath1 = public_path('uploads/units/'.$unit->id.'/');
+            if (!file_exists($filePath1)) {
+                mkdir($filePath1, 0777, true);
+            }
             $fileName = 'return-to-service '.now().'.pdf';
             DomPDF::loadView('email/return-to-service-PDF', $data)
-            ->save($filePath . $fileName);
+            ->save($filePath . $fileName)
+            ->save($filePath1 . $fileName);
 
             // Send the email
             Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName) {

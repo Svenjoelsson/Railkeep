@@ -30,9 +30,9 @@ class Kernel extends ConsoleKernel
             foreach ($activity as $val) {
                 
                 if ($val->activity_message < now()) {
-                    
                     $services = \App\Models\Services::where('id', $val->activity_id)->first();
-                    
+                    $unit = \App\Models\Units::where('unit', $services->unit)->first();
+
                     $data = array(
                         'serviceId' => $services->id,
                         'unit' => $services->unit, 
@@ -47,11 +47,16 @@ class Kernel extends ConsoleKernel
                     if (!file_exists($filePath)) {
                         mkdir($filePath, 0777, true);
                     }
+                    $filePath1 = public_path('uploads/units/'.$unit->id.'/');
+                    if (!file_exists($filePath1)) {
+                        mkdir($filePath1, 0777, true);
+                    }
 
-                    $fileName = 'out-of-service-PDF '.now().'.pdf';
+                    $fileName = 'out-of-service '.now().'.pdf';
 
                     DomPDF::loadView('email/out-of-service-PDF', $data)
-                    ->save($filePath . $fileName);
+                    ->save($filePath . $fileName)
+                    ->save($filePath1 . $fileName);
 
                    
 
