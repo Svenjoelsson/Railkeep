@@ -167,7 +167,7 @@ if ($make !== null && isset($make->counter)) {
 
 <?php 
     } else { ?>
-        <input type="hidden" name="currentCounter">
+        <input type="hidden" name="doneCounter">
     <?php } ?>
 <div class="form-group col-sm-6 col-lg-6 hiddenInputs" style="display:none;">
     {!! Form::label('remarks', 'Remark/comment: ') !!}
