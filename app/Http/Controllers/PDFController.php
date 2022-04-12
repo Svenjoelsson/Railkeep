@@ -19,8 +19,12 @@ class PDFController extends Controller
             'date' => date('m/d/Y')
         ];
           
-        $pdf = DomPDF::loadView('myPDF', $data);
-    
-        return $pdf->download('itsolutionstuff.pdf');
-    }
+        DomPDF::loadView('myPDF', $data)
+        ->save(public_path('uploads/') . 'test111.pdf');
+     
+
+        //return $pdf->download('itsolutionstuff.pdf');
+
+
+        }
 }

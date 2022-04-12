@@ -3,6 +3,9 @@
 namespace App\Console;
 
 use Mail;
+use DomPDF;
+use Storage;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +28,9 @@ class Kernel extends ConsoleKernel
             $activity = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->whereNull('deleted_at')->get();
             
             foreach ($activity as $val) {
+                
                 if ($val->activity_message < now()) {
+                    
                     $services = \App\Models\Services::where('id', $val->activity_id)->first();
                     
                     $data = array(
@@ -36,10 +41,24 @@ class Kernel extends ConsoleKernel
                         'serviceType' => $services->service_type,
                         'critical' => $services->critical
                     );
-                    
-                    Mail::send('email/out-of-service', $data, function($message) use ($data) {
+
+                    // Create PDF generated file
+                    $filePath = public_path('uploads/services/'.$val->activity_id.'/');
+                    if (!file_exists($filePath)) {
+                        mkdir($filePath, 0777, true);
+                    }
+
+                    $fileName = 'out-of-service-PDF '.now().'.pdf';
+
+                    DomPDF::loadView('email/out-of-service-PDF', $data)
+                    ->save($filePath . $fileName);
+
+                   
+
+                    Mail::send('email/out-of-service', $data, function($message) use ($data, $filePath, $fileName) {
                     $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
                     ->subject('Unit out of service - #'.$data["serviceId"]);
+                    $message->attach($filePath.$fileName);
                     $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
                     });
 

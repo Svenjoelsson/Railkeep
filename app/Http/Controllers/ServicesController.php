@@ -245,14 +245,21 @@ class ServicesController extends AppBaseController
                 'critical' => $services->critical,
             );
 
+            // Create PDF generated file
+            $filePath = public_path('uploads/services/'.$id.'/');
+            if (!file_exists($filePath)) {
+                mkdir($filePath, 0777, true);
+            }
+            $fileName = 'return-to-service '.now().'.pdf';
+            DomPDF::loadView('email/return-to-service-PDF', $data)
+            ->save($filePath . $fileName);
 
-            $pdf = DomPDF::loadView('email/return-to-service-PDF', $data);
-
-
-            Mail::send('email/return-to-service', $data, function($message) use ($data, $pdf) {
+            // Send the email
+            Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
             ->subject('Unit return to service - #'.$data["serviceId"]);
-            //$message->attach($pdf->output());
+            
+            $message->attach($filePath.$fileName);
             $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
             });
 
