@@ -60,6 +60,9 @@ class ServicesController extends AppBaseController
         $input = $request->all();
         $input["service_type"] = collect($input["service_type"])->implode(', ');
         $input["service_status"] = "In progress";
+        if (!isset($input["oos"])) {
+            $input["oos"] = 'off';
+        }
 
         $services = DB::table('services')->where('unit', $input["unit"])->where('service_type', $input["service_type"])->where('service_status', 'In progress')->whereNull('deleted_at')->first();
         $unit = DB::table('units')->where('unit', $input["unit"])->whereNull('deleted_at')->first();

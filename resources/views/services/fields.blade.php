@@ -85,13 +85,11 @@ if (isset($_GET["unit"])) {
 <div class="form-group col-sm-6">
     <input type="checkbox" name="critical" value="1" class="btn-check" id="critical" autocomplete="off">
     <label class="btn btn-outline-danger" for="critical">Critical</label>
-    
 </div>
 
 <div class="form-group col-sm-6">
     <input type="checkbox" name="oos" checked class="btn-check" id="oos" autocomplete="off">
-    <label class="btn btn-outline-primary" for="oos">Set unit Out of service</label>
-    
+    <label class="btn btn-outline-info" for="oos">Set unit Out of service</label>
 </div>
 
 <!-- Service Desc Field -->
