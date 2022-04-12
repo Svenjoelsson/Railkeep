@@ -100,6 +100,7 @@ Route::resource('services', App\Http\Controllers\ServicesController::class);
 Route::post('someurl', [App\Http\Controllers\ServicesController::class, 'someMethod']);
 
 
+
 Route::resource('units', App\Http\Controllers\UnitsController::class);
 
 Route::resource('activities', App\Http\Controllers\ActivitiesController::class);
@@ -147,3 +148,5 @@ Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generate
 
 Route::get('unitStatus/counter', [App\Http\Controllers\UnitStatusController::class, 'counter']);
 Route::get('unitStatus/dates', [App\Http\Controllers\UnitStatusController::class, 'dates']);
+
+Route::get('units/servicePlan/{id}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\UnitsDataTable;
 use App\Http\Requests;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\CreateUnitsRequest;
 use App\Http\Requests\UpdateUnitsRequest;
 use App\Repositories\UnitsRepository;
@@ -12,6 +14,8 @@ use Flash;
 use App\Models\makeList;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use DomPDF;
+use Storage;
 
 class UnitsController extends AppBaseController
 {
@@ -146,6 +150,7 @@ class UnitsController extends AppBaseController
         $array['services'] = $serviceArray;
         $array['planned'] = $plannedArray;
 
+
         return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService]);
     }
 
@@ -252,5 +257,58 @@ class UnitsController extends AppBaseController
         Flash::success('Units deleted successfully.');
 
         return redirect(route('units.index'));
+    }
+
+    public function generateServicePlan($id)
+    {
+        $units = \App\Models\Units::where('id', $id)->whereNull('deleted_at')->first();
+        $makelist = DB::table('makeList')->where('make', $units->make)->whereNull('deleted_at')->orderBy('level')->get();
+        $services = DB::table('services')->where('unit', $units->unit)->where('service_status', 'Done')->whereNull('deleted_at')->get();
+        $activities = DB::table('activities')->where('activity_id', $id)->where('activity_type', 'UnitCounter')->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
+        $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->orderBy('service_date', 'desc')->get();
+        //serviceName
+        $i = 0;
+        $array = []; 
+        $makeArray = []; 
+        $serviceArray = []; 
+        
+
+        foreach ($makelist as $make) {
+            $makeArray[$make->serviceName] = $make; 
+        }
+
+        foreach ($services as $service) { 
+            $serviceArray[$service->service_type] = $service;
+        }
+
+        if ($plannedService) {
+            $plannedArray = []; 
+
+            foreach ($plannedService as $planned) { 
+                $plannedArray[$planned->service_type] = $planned;
+            }
+        }
+
+        
+
+        
+        //$makeArray['make'] = $makelist;
+        $array['make'] = $makeArray;
+        $array['services'] = $serviceArray;
+        $array['planned'] = $plannedArray;
+        $array['unit'] = $units->unit;
+        $make = [];
+        $make['make'] = $array;
+        $make['activities'] = $activities;
+
+        //dd($array);
+        $fileName = 'servicePlan '.now().'.pdf';
+        $pdf = DomPDF::loadView('email/service-plan-PDF', $make);
+        $pdf->setPaper('A4', 'landscape');
+
+        return $pdf->download($fileName);
+        //return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService]);
+
+        //->save($filePath . $fileName)
     }
 }
