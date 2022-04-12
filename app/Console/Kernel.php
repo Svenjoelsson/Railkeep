@@ -76,6 +76,100 @@ class Kernel extends ConsoleKernel
         })->everyMinute()->timezone('Europe/Stockholm');
 
 
+        $schedule->call(function () {
+        // CHECK COUNTERS
+        $units = \App\Models\Units::whereNull('deleted_at')->get();
+
+        foreach ($units as $unit) {
+            $makes = \App\Models\makeList::where('make', $unit->make)->where('counter', '!=', '')->whereNull('deleted_at')->get();
+            $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->whereNull('deleted_at')->orderBy('id','desc')->first();
+
+            if ($makes) {
+                foreach ($makes as $make) {
+                    $services = \App\Models\Services::where('service_type', $make->serviceName)->where('unit', $unit->unit)->whereNull('deleted_at')->where('nextServiceCounter', '!=', null)->orderBy('id','desc')->first();
+                    if ($services) {
+
+                        $current = $counter->activity_message;
+                        $next = $services->nextServiceCounter;
+                        $math = $next - $current;
+                        $perc = $math/$make->counter*100;
+
+                        if ($services->nextServiceCounter < $counter->activity_message) {
+                            $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                            if (!$duplicate) { 
+                                DB::table('activities')->insert([
+                                    'activity_type' => 'Overdue-counter-'.$make->serviceName,
+                                    'activity_id' => $unit->id,
+                                    'activity_message' => '1',
+                                    'created_at' => now()
+                                ]);
+                            }
+                            
+                        }
+                        else if (round($perc, 1) <= 10) {
+                            $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', '90%-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                            if (!$duplicate) { 
+                                DB::table('activities')->insert([
+                                    'activity_type' => '90%-counter-'.$make->serviceName,
+                                    'activity_id' => $unit->id,
+                                    'activity_message' => '1',
+                                    'created_at' => now()
+                                ]);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        // CHECK DATES
+        $units = \App\Models\Units::whereNull('deleted_at')->get();
+        foreach ($units as $unit) {
+            $makes = \App\Models\makeList::where('make', $unit->make)->where('calendarDays', '!=', '')->whereNull('deleted_at')->get();
+            if ($makes) {
+                foreach ($makes as $make) {
+                    $services = \App\Models\Services::where('service_type', $make->serviceName)->where('unit', $unit->unit)->whereNull('deleted_at')->where('nextServiceDate', '!=', null)->orderBy('id','desc')->first();
+                    if ($services) {
+                        if ($services->nextServiceDate < now()) {
+                            $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-date-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                            if (!$duplicate) { 
+                                DB::table('activities')->insert([
+                                    'activity_type' => 'Overdue-date-'.$make->serviceName,
+                                    'activity_id' => $unit->id,
+                                    'activity_message' => '1',
+                                    'created_at' => now()
+                                ]);
+                            }
+                        }
+                        $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', '90%-date-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                        if (!$duplicate) { 
+                            $nextservicedate = strtotime($services->nextServiceDate->format('Y-m-d'));
+                            $today = strtotime(date('Y-m-d'));
+                            //$today = strtotime('2022-05-20');
+                            $calc = $nextservicedate - $today;
+                            $days = round($calc / (60 * 60 * 24));
+                            $percLeft = $days/$make->calendarDays*100;
+
+                            if ($percLeft <= 10 && $percLeft > 0) {
+
+                                DB::table('activities')->insert([
+                                    'activity_type' => '90%-date-'.$make->serviceName,
+                                    'activity_id' => $unit->id,
+                                    'activity_message' => '1',
+                                    'created_at' => now()
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        })->everyThirtyMinutes()->timezone('Europe/Stockholm');
+
+        
+
     }
 
     /**
