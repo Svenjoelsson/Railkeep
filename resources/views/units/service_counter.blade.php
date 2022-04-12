@@ -1,6 +1,25 @@
 
 <?php 
-    $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
+    $counter = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+    //echo $id;
+    foreach ($counter as $key) {
+        $overdue = str_replace("Overdue-counter-","", $key->activity_type);
+        echo '<a href="/units/'.$id.'"><span style="font-size:12px; margin-right:2px;" class="badge bg-danger">'.$overdue.'</span></a>';
+    }
+
+    $ninty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '90%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+    //echo $id;
+    foreach ($ninty as $val) {
+        $overdue1 = str_replace("90%-counter-","", $val->activity_type);
+        echo '<a href="/units/'.$id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" class="badge bg-warning">'.$overdue1.'</span></a>';
+    }
+
+
+    
+
+
+    //echo $counter;
+/*    $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
     $units = \App\Models\Units::where('id', $id)->orderBy('created_at', 'desc')->first();
     $makelist = \App\Models\makeList::where('make', $units->make)->whereNull('deleted_at')->get();
 
@@ -49,7 +68,7 @@
 
             // if more than 20% left
             else  {
-                $color = "bg-success";
+                $color = "bg-white";
             }
             
             ?>
@@ -65,7 +84,7 @@
     }
     }
     
-
-     
+    echo "</span>";
+     */
 ?>
-</span>
+

@@ -2,7 +2,9 @@
 
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
     <style type="text/css">
+    @page { margin: -20; }
         ol {
             margin: 0;
             padding: 0
@@ -306,10 +308,104 @@
             widows: 2;
             text-align: left
         }
+
+        .alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+
+.alert .alert-link {
+  font-weight: bold;
+}
+
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+
+.alert > p + p {
+  margin-top: 5px;
+}
+
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+
+.alert-info .alert-link {
+  color: #245269;
+}
+
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+
+.alert-danger .alert-link {
+  color: #843534;
+}
     </style>
 </head>
 
-<body class="c15">
+<body class="c15" style="100%;">
     <p class="c7"><span
             style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 283.00px; height: 52.00px;"><img
                 alt="" src="https://www.nordicrefinance.se/wp-content/themes/nordic-re-finance/img/logo.png"
@@ -319,7 +415,16 @@
     <p class="c7"><span class="c14"><a class="c16"
                 href="mailto:ecm@nordicrefinance.se">ecm@nordicrefinance.se</a></span></p>
     <p class="c5"><span class="c0"></span></p><br />
-    <p class="c7"><span class="c4">New service order</span></p><a id="t.3e386578592c6a20851df59b3c9fe44e569643e8"></a><a
+    @if ($notPerformedActions == '') 
+        <div class="alert alert-success" role="alert">
+            Unit return to service
+        </div>
+    @else
+        <div class="alert alert-warning" role="alert">
+            Unit return to service but still with unfinished actions.
+        </div>
+    @endif
+    <p class="c7"><span class="c4" style="color:red;"></span></p><a id="t.3e386578592c6a20851df59b3c9fe44e569643e8"></a><a
         id="t.0"></a>
     <table class="c8">
         <tbody>
@@ -339,16 +444,16 @@
             </tr>
             <tr class="c12">
                 <td class="c2" colspan="1" rowspan="1">
-                    <p class="c9"><span class="c4">Arrival date:</span></p>
+                    <p class="c9"><span class="c4">Service start:</span></p>
                 </td>
                 <td class="c2" colspan="1" rowspan="1">
                     <p class="c1"><span class="c0">{{ $serviceDate }}</span></p>
                 </td>
                 <td class="c2" colspan="1" rowspan="1">
-                    <p class="c9"><span class="c4">Departure date:</span></p>
+                    <p class="c9"><span class="c4">service end:</span></p>
                 </td>
                 <td class="c2" colspan="1" rowspan="1">
-                    <p class="c1"><span class="c0">{{ $serviceEnd }}</span></p>
+                    <p class="c1"><span class="c0"> {{ $serviceEnd }}</span></p>
                 </td>
             </tr>
         </tbody>
@@ -358,11 +463,22 @@
     <table class="c8">
         <tbody>
             <tr class="c12">
-                <td class="c6" colspan="1" rowspan="1">
+                <td class="c2" colspan="1" rowspan="1">
                     <p class="c9"><span class="c4">Service type:</span></p>
                 </td>
-                <td class="c6" colspan="1" rowspan="1">
-                    <p class="c1"><span class="c0">{{ $serviceType }} @if ($critical == '1') <span style="color:red">Critical</span> @endif </span></p>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{{ $serviceType }}</span></p>
+                </td>   
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c4">Critical:</span></p>
+                </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">                    
+                        @if ($critical == '1') 
+                        <span style="color:red;">Yes</span>
+                        @else
+                        No
+                        @endif</span></p>
                 </td>
             </tr>
         </tbody>
@@ -373,11 +489,53 @@
         <tbody>
             <tr class="c3">
                 <p class="c9"><span class="c4">Description:</span></p>
+            </tr>
+            <tr class="c3">
                 <td class="c10" colspan="1" rowspan="1">
-                    <p class="c1"><span class="c0">{!! nl2br($serviceDesc) !!}</span></p>
-                    <p class="c1"><span class="c4"></span></p>
-                    <p class="c1"><span class="c4"></span></p>
+                    <p class="c1"><span class="c0">{!! nl2br($serviceDesc) !!}</span><br /></p>
                 </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.4810164e8121afac9f610079f90a17a31f6bf27b"></a><a id="t.2"></a>
+    <table class="c8">
+        <tbody>
+            <tr class="c3">
+                <p class="c9"><span style="text-align:left" class="c4">Remark/comment:</span></p>
+            </tr>
+            <tr class="c3">
+                <td class="c10" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{!! nl2br($remarks) !!}</span><br /></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.4810164e8121afac9f610079f90a17a31f6bf27b"></a><a id="t.2"></a>
+    <table class="c8">
+        <tbody>
+            <tr class="c3">
+                <p class="c9"><span class="c4">Not performed action:</span></p>
+            </tr>
+            <tr class="c3">
+                <td class="c10" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{!! nl2br($notPerformedActions) !!}</span><br /></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.b6abd4fbdb84e130228064a57283b6450e701192"></a><a id="t.1"></a>
+    <table class="c8">
+        <tbody>
+            <tr class="c12">
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c4">Return to service:</span></p>
+                </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{{ $doneDate }}</span></p>
+                </td>   
             </tr>
         </tbody>
     </table>
@@ -386,30 +544,17 @@
     <table class="c8">
         <tbody>
             <tr class="c12">
-                <td class="c13" colspan="1" rowspan="1">
-                    <p class="c9"><span class="c4">Vendor:</span></p>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c4">Signed by:</span></p>
                 </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c1"><span class="c0">{{ $vendor }}</span></p>
-                </td>
-            </tr>
-            <tr class="c12">
-                <td class="c13" colspan="1" rowspan="1">
-                    <p class="c9"><span class="c4">Associated documents:</span></p>
-                </td>
-                <td class="c11" colspan="1" rowspan="1">
-                    <p class="c1"><span class="c0">
-                        @if($fileNames)
-                            @foreach($fileNames as $file)
-                                {{ $file }}
-                            @endforeach
-                        @endif
-                    </span></p>
-                </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{{ Auth::user()->name }}</span></p>
+                </td>   
             </tr>
         </tbody>
     </table>
     <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.295372d8604cf957132312eff2ed1d18df91d3a8"></a><a id="t.3"></a>
 </body>
 
 </html>

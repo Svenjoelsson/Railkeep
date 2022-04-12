@@ -1,3 +1,19 @@
+<?php 
+if (isset($_GET["unit"])) {
+    $unit = \App\Models\Units::where('unit', $_GET["unit"])->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
+    $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$_GET["service_type"])->whereNull('deleted_at')->orderBy('id','desc')->get();
+    $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$_GET["service_type"])->whereNull('deleted_at')->orderBy('id','desc')->get();    
+    
+    if (count($counter) != '0' || count($date)!= '0') {
+        echo '<div class="alert alert-info" role="alert">';
+        echo "This event will update an overdue service.";
+        echo '</div>';
+    }
+}
+
+
+?>
+
 <!-- Unit Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
@@ -85,13 +101,13 @@
 </div>
 
 <!-- Service Date Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('service_date', 'Service Date: *') !!}
-    {!! Form::text('service_date', null, ['class' => 'form-control service_date', 'required']) !!}
+<div class="form-group col-sm-6 hideDates">
+    {!! Form::label('service_date', 'Service Date:') !!}
+    {!! Form::text('service_date', null, ['class' => 'form-control service_date']) !!}
 </div>
 
 <!-- Service Date Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-6 hideDates">
     {!! Form::label('service_end', 'Service End:') !!}
     {!! Form::text('service_end', null, ['class' => 'form-control service_end']) !!}
 </div>
@@ -100,6 +116,9 @@
 
 @push('page_scripts')
     <script type="text/javascript">
+    $( document ).ready(function() {
+
+    });
         $('.service_date').datetimepicker({
             format: 'YYYY-MM-DD HH:mm',
             useCurrent: true,
@@ -134,5 +153,21 @@
                 clear: "fa fa-trash-o"
             }
         });
+        <?php 
+        if (isset($_GET["unit"])) { ?>
+            $('.unitSelect').val('<?php echo $_GET["unit"]; ?>').trigger('change');
+        <?php } ?>
+
+        <?php
+        if (isset($_GET["unit"])) { ?>
+            $('.serviceSelect').prop( "disabled", true);
+            setTimeout(
+            function() 
+            {
+                
+            $('.serviceSelect').val('<?php echo $_GET["service_type"]; ?>').trigger('change');
+            $('.serviceSelect').prop( "disabled", false);
+            }, 500);
+        <?php } ?>
     </script>
 @endpush

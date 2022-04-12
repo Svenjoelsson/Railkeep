@@ -142,3 +142,8 @@ Route::get('reports/{api}/rental/{type}/{year}/{month}', [App\Http\Controllers\R
 Route::get('reports/{api}/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);
 
 Route::post('/search', [App\Http\Controllers\searchController::class, 'search'])->name('globalSearch');
+
+Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generatePDF']);
+
+Route::get('unitStatus/counter', [App\Http\Controllers\UnitStatusController::class, 'counter']);
+Route::get('unitStatus/dates', [App\Http\Controllers\UnitStatusController::class, 'dates']);

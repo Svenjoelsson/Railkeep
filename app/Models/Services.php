@@ -47,7 +47,8 @@ class Services extends Model
         'critical',
         'remarks',
         'notPerformedActions',
-        'doneDate'
+        'doneDate',
+        'doneCounter'
     ];
     /**
      * The attributes that should be casted to native types.
@@ -70,6 +71,7 @@ class Services extends Model
         'remarks' => 'string',
         'notPerformedActions' => 'string',
         'doneDate' => 'date',
+        'doneCounter' => 'string',
     ];
 
     /**
@@ -99,7 +101,11 @@ class Services extends Model
 
     public function getServiceDateAttribute($value)
     {
-        return Carbon::parse($value)->format('Y-m-d H:i');
+        if ($value) {
+            return Carbon::parse($value)->format('Y-m-d H:i');
+        } else {
+            return '';
+        }
     }
 
     public function getServiceEndAttribute($value)

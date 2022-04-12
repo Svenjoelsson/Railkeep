@@ -3,9 +3,9 @@
 @section('content')
 
 <?php 
-function asDollars($value) {
-  if ($value<0) return "-".asDollars(-$value);
-  return number_format($value);
+function asSEK($value) {
+  $fmt = numfmt_create( 'se-SE', NumberFormatter::CURRENCY );
+  return numfmt_format_currency($fmt, $value, "SEK");
 }
 ?>
 
@@ -44,13 +44,13 @@ function asDollars($value) {
                     <tr>
                         <td>{{ $rent->unit }}</td>
                         <td>{{ $rent->customer }}</td>
-                        <td>{{ asDollars($rent->monthlyCost) }} kr</td>
+                        <td>{{ asSEK($rent->monthlyCost) }}</td>
                     </tr>
                 @endforeach
                     <tr style="background-color:#ccc;">
                         <td><b>Total:</b></td>
                         <td></td>
-                        <td><b><?php echo asDollars($total); ?> kr</b></td>
+                        <td><b><?php echo asSEK($total); ?></b></td>
                     </tr>
                 </table>
             </div>

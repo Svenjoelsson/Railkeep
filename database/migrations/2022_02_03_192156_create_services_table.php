@@ -21,13 +21,14 @@ class CreateServicesTable extends Migration
             $table->string('customerContact');
             $table->string('service_type');
             $table->mediumText('service_desc');
-            $table->string('service_date');
+            $table->string('service_date')->nullable();
             $table->string('service_end')->nullable();
             $table->string('nextServiceDate')->nullable();
             $table->string('nextServiceCounter')->nullable();
             $table->string('remarks')->nullable();
             $table->string('notPerformedActions')->nullable();
             $table->string('doneDate')->nullable();
+            $table->boolean('doneCounter')->nullable();
             $table->boolean('critical')->nullable();
             $table->string('service_status');
             $table->timestamps();

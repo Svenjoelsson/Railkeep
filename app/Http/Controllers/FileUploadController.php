@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\File; 
+use DomPDF;
 
-  
 class FileUploadController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -45,8 +46,7 @@ class FileUploadController extends Controller
                 $fileName = $request->file->getClientOriginalName(); 
             }
         }
-        
-        
+
 
         DB::table('activities')->insert([
             'activity_type' => 'File',

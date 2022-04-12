@@ -13,6 +13,8 @@ use App\Repositories\ServicesRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use DomPDF;
+use Storage;
 
 class ServicesController extends AppBaseController
 {
@@ -166,12 +168,31 @@ class ServicesController extends AppBaseController
         if ($input["service_status"] == "Done") {
             $request["doneDate"] = now();
  
+
+            
+ 
+
+
+
             // Update all services where level is below this level.
             $unit = \App\Models\Units::where('unit', $input["unit"])->first();
             $activities = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->orderBy('created_at', 'desc')->first();
             $make = \App\Models\makeList::where('make', $unit->make)->orderBy('level', 'desc')->get();
             $level = \App\Models\makeList::where('serviceName', $services->service_type)->where('make', $unit->make)->orderBy('level', 'desc')->first();
             $services = \App\Models\Services::where('id', $id)->first();
+
+
+            $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$services->service_type)->whereNull('deleted_at')->orderBy('id','desc')->first();
+            $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$services->service_type)->whereNull('deleted_at')->orderBy('id','desc')->first();    
+            // Deletes where activity is found
+
+            if ($counter) {
+                \App\Models\Activities::where('id', $counter->id)->delete();
+            }
+            if ($date) {
+                \App\Models\Activities::where('id', $date->id)->delete();
+            }
+
             if ($make) { // IF MAKE IS FOUND IN MAKELIST
                 if ($level) { // IF SERVICE TYPE EXISTS IN MAKELIST
                     foreach ($make as $value) {
@@ -180,7 +201,7 @@ class ServicesController extends AppBaseController
 
                         $counter = null;
                             if (!empty($value["counter"])) {
-                                $counter = intval($input["currentCounter"]) + intval($value["counter"]);
+                                $counter = intval($input["doneCounter"]) + intval($value["counter"]);
 
                             } else {
                                 $counter = null;
@@ -202,7 +223,7 @@ class ServicesController extends AppBaseController
                                 'nextServiceCounter' => $counter,
                                 'nextServiceDate' => $calendarDays,
                                 'service_end' => $input["service_end"],
-                                'service_status' => 'Done'
+                                'service_status' => 'Done',
                             ]);
                         }
                     }
@@ -222,23 +243,29 @@ class ServicesController extends AppBaseController
                 'notPerformedActions' => $input["notPerformedActions"],
                 'doneDate' => now(),
                 'critical' => $services->critical,
-
             );
-            
-            Mail::send('email/return-to-service', $data, function($message) use ($data) {
+
+
+            $pdf = DomPDF::loadView('email/return-to-service-PDF', $data);
+
+
+            Mail::send('email/return-to-service', $data, function($message) use ($data, $pdf) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
             ->subject('Unit return to service - #'.$data["serviceId"]);
+            //$message->attach($pdf->output());
             $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
             });
 
 
+            $request["doneCounter"] = $input["doneCounter"];
 
 
             } else {
                 $message = "Service #".$request->serviceId." has been updated";
             }
+       
         $units = DB::table('units')->where('unit', $input["unit"])->first();
-        //$units = \App\Models\Units::where('unit', $input->unit)->orderBy('created_at', 'desc')->first();
+
         // Create activity
         DB::table('activities')->insert([
             'activity_type' => 'Service',
@@ -247,11 +274,11 @@ class ServicesController extends AppBaseController
             'created_at' => now()
         ]);
         
-        if ($input["currentCounter"]) {
+        if ($input["doneCounter"]) {
             DB::table('activities')->insert([
                 'activity_type' => 'UnitCounter',
                 'activity_id' => $units->id,
-                'activity_message' => $input["currentCounter"],
+                'activity_message' => $input["doneCounter"],
                 'created_at' => now()
             ]);
         }
@@ -265,7 +292,7 @@ class ServicesController extends AppBaseController
         $services = $this->servicesRepository->update($request->all(), $id);
 
         Flash::success('Services updated successfully.');
-
+        //$pdf->download('Return to service '.now()." ".$input["unit"].".pdf")
         return redirect(route('services.index'));
     }
 

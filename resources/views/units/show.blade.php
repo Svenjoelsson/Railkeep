@@ -23,7 +23,7 @@
           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home" aria-selected="true">Service plan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile" aria-selected="false">Activities</a>
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile" aria-selected="false">Activity log</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="counter-tab" data-toggle="tab" href="#counter" role="tab" aria-controls="counter" aria-selected="false">Counters</a>
@@ -32,7 +32,7 @@
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="contact" aria-selected="false">File upload</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Inventory</a>
+          <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Parts</a>
         </li>
 
       </ul>
@@ -43,8 +43,7 @@
                       <div class="col-12">
                         <div class="tab-content" id="v-pills-tabContent">
                           <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <a class="btn btn-primary" style="float:right;" href="{{ route('services.create', ['unit' => $units->unit]); }}">New service</a> 
-                            <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">New type</a> 
+                            <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage service plan</a> 
                             <h5><span style="float:lelft;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
                              <br /><br />
                             <table class="table table-hover">
@@ -67,7 +66,8 @@
                                   $counterType = $value1->counterType;
                                 }
                                 echo "<tr>";
-                                echo "<td><b>".$value1->serviceName."</b>";
+                                  echo "";
+                                echo "<td><a href='".route('makeLists.edit', $value1->id)."'>".$value1->serviceName."</a>";
                                 echo "<br />";
 
 
@@ -102,8 +102,9 @@
                                       echo "<span style='font-size:12px; margin-right:5px;' class='badge badge-primary'><a href='".route('services.edit', $make['planned'][$value1->serviceName]->id)."'>".$make['planned'][$value1->serviceName]->service_date."</a>*</span>";
                                   }
                                 echo "</td>";
-                                echo "<td>";
-                                echo "<a href='".route('makeLists.edit', $value1->id)."' class='btn btn-default btn-xs'><i class='fa fa-edit'></i></a>";
+                                echo "<td><div class='btn-group'>";
+                                echo "<a href='".route('services.create', ['unit' => $units->unit, 'service_type' => $value1->serviceName])."' class='btn btn-default btn-xs'><i class='fa fa-plus'></i></a>";
+                                echo "</div>";
                                 //echo "<a href='".route('services.create', ['unit' => $units->unit]) ."' class='btn btn-default btn-xs'><i class='fa fa-edit'></i></a>";
 
                                 echo "</td>";
@@ -117,6 +118,7 @@
                             <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned service</span>
                           </div>
                           <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -128,10 +130,21 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            $unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::Where('activity_type', 'service-counter-overdue')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
-                                echo "<td>".$value['activity_message']."</td>";
+                                echo "<td>";
+                                  $test = var_dump($value['activity_message']);
+                                  if (is_string($test)) {
+                                    echo 'string ';
+                                  }
+                                  if (is_array($test)) {
+                                    echo 'array ';
+                                  }
+                                  echo $test;
+                                echo "</td>";
                                 echo "<td>".$value['created_at']."</td>";
                                 echo "</tr>";
                             };
@@ -143,7 +156,7 @@
                           </div>
                           <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="v-pills-upload-tab">
                             <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#newinventory">
-                              Create inventory
+                              Create part
                           </button><br /><br />
                             <table class="table table-hover">
                               <thead>
@@ -203,7 +216,7 @@
       <div class="modal-dialog modal-fullscreen" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Create inventory</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Create part</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

@@ -371,8 +371,8 @@ document.onreadystatechange = function() {
                                 });
                                 var newOption1 = new Option('Reparation', 'Reparation', false, false);
                                 $('.serviceSelect').append(newOption1).trigger('change');   
-                                var newOption2 = new Option('Övrigt', 'Övrigt', false, false);
-                                $('.serviceSelect').append(newOption1).trigger('change');   
+                                var newOption2 = new Option('Rapport', 'Rapport', false, false);
+                                $('.serviceSelect').append(newOption2).trigger('change');   
                                 
                             });
 
@@ -443,6 +443,14 @@ document.onreadystatechange = function() {
             $('.serviceSelect').val(null).trigger('change');
 
         });
+
+        $('.serviceSelect').on('select2:select', function (e) {
+            var data = e.params.data.id;
+            if (data === 'Reparation' || data === 'Rapport') {
+                $('.hideDates').hide();
+            }
+        });
+
 
         $('.makeBlur').blur(function() {
             

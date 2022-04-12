@@ -39,14 +39,7 @@
 
 
 @endif
-@if(Auth::user()->role != '')
-<li class="nav-item">
-    <a href="{{ route('services.index') }}"
-       class="nav-link {{ Request::is('services*') ? 'activeNav' : '' }}">
-       <i class="fas fa-tools right"></i> <p>Services</p>
-    </a>
-</li>
-@endif
+
 @if(Auth::user()->role == 'user')
 
 
@@ -61,15 +54,23 @@
 <li class="nav-item">
     <a href="{{ route('inventories.index') }}"
        class="nav-link {{ Request::is('inventories*') ? 'activeNav' : '' }}">
-       <i class="fas fa-cogs right"></i><p>Inventories</p>
+       <i class="fas fa-cogs right"></i><p>Parts</p>
     </a>
 </li>
+@if(Auth::user()->role != '')
+<li class="nav-item">
+    <a href="{{ route('services.index') }}"
+       class="nav-link {{ Request::is('services*') ? 'activeNav' : '' }}">
+       <i class="fas fa-tools right"></i> <p>Event log</p>
+    </a>
+</li>
+@endif
 
 @if(Auth::user()->is_admin == '1')
 <li class="nav-item">
     <a href="{{ route('activities.index') }}"
        class="nav-link {{ Request::is('activities*') ? 'activeNav' : '' }}">
-        <i class="fas fa-bell right"></i><p>Activities</p>
+        <i class="fas fa-bell right"></i><p>Activity log</p>
     </a>
 </li>
 @endif

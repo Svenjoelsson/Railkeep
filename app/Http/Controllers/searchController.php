@@ -52,11 +52,17 @@ class searchController extends Controller
 
         if ($search == "create" || $search == "Create" || $search == "CREATE") {
                 $result[] = ["title" => "Create unit", "type" => "Unit", "link" => "units/create"];
-                $result[] = ["title" => "Create service", "type" => "Service", "link" => "services/create"];
+                $result[] = ["title" => "Create event", "type" => "Service", "link" => "services/create"];
                 $result[] = ["title" => "Create contact", "type" => "Contacts", "link" => "contacts/create"];
                 $result[] = ["title" => "Create vendor", "type" => "Vendor", "link" => "vendors/create"];
                 $result[] = ["title" => "Create agreement", "type" => "Agreement", "link" => "rents/create"];
                 $result[] = ["title" => "Create inventory", "type" => "Inventory", "link" => "inventories/create"];
+
+        }
+
+        if ($search == "Cron" || $search == "cron" || $search == "CRON") {
+            $result[] = ["title" => "Run unit counter status update", "type" => "Cron job", "link" => "unitStatus/counter"];
+            $result[] = ["title" => "Run unit dates status update", "type" => "Cron job", "link" => "unitStatus/dates"];
 
         }
 

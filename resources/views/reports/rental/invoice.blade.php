@@ -3,9 +3,9 @@
 @section('content')
 
 <?php 
-function asDollars($value) {
-  if ($value<0) return "-".asDollars(-$value);
-  return number_format($value);
+function asSEK($value) {
+  $fmt = numfmt_create( 'se-SE', NumberFormatter::CURRENCY );
+  return numfmt_format_currency($fmt, $value, "SEK");
 }
 ?>
 
@@ -44,7 +44,7 @@ function asDollars($value) {
                     <tr>
                         <td>{{ $rent->unit }}</td>
                         <td>{{ $rent->customer }}</td>
-                        <td>{{ asDollars($rent->monthlyCost) }} kr</td>
+                        <td>{{ asSEK($rent->monthlyCost) }}</td>
 
                         <td>
                             <?php 
@@ -53,16 +53,16 @@ function asDollars($value) {
                                 $first = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('created_at', 'asc')->first();
 
                                 $calc = intval($latest->activity_message) - intval($first->activity_message);
-                                echo asDollars($calc);
+                                echo $calc;
                             ?>
 
                         </td>
-                        <td>{{ $rent->counterCost }} kr</td>
+                        <td><?php echo $rent->counterCost ?> kr</td>
                         <td>
                             <?php 
                             $subtotal = ($calc * intval($rent->counterCost)) + intval($rent->monthlyCost);
                             $total += intval($subtotal);
-                                echo asDollars($subtotal)." kr";
+                                echo asSEK($subtotal);
                             ?>
                         </td>
 
@@ -74,8 +74,13 @@ function asDollars($value) {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><b><?php echo asDollars($total); ?> kr</b></td>
+                        <td><b><?php echo asSEK($total); ?></b></td>
                     </tr>
+                    <?php 
+                    
+
+                    
+?>
                 </table>
             </div>
     </div>

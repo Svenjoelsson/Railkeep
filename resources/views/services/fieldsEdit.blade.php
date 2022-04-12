@@ -2,7 +2,14 @@
 <?php 
     $unit = \App\Models\Units::where('unit', $services->unit)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
     $make = \App\Models\makeList::where('make', $unit->make)->whereNull('deleted_at')->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
+    $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+    $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();    
     
+    if (count($counter) != '0' || count($date)!= '0') {
+        echo '<div class="alert alert-info" role="alert">';
+        echo "This event will update an overdue service.";
+        echo '</div>';
+    }
 ?>
 
 <div class="form-group col-sm-6">
@@ -94,7 +101,7 @@
 <!-- Service Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('service_date', 'Service Date: *') !!}
-    {!! Form::text('service_date', null, ['class' => 'form-control disableAll service_date', 'required']) !!}
+    {!! Form::text('service_date', null, ['class' => 'form-control disableAll service_date']) !!}
 </div>
 
 <!-- Service Date Field -->
@@ -110,9 +117,10 @@
 </div>
 <?php 
     if ($make !== null && isset($make->calendarDays)) {
+        $labelDate = 'Next'
 ?>
 <div class="form-group col-sm-6 hiddenInputs" style="display:none;">
-    {!! Form::label('nextServiceDate', 'Next service date: *') !!}
+    {!! Form::label('nextServiceDate', 'Next "'.$services->service_type.'" date: *') !!}
     <span style="float:right"><a href="#" onclick="calcDays()">Calculate (<span id="newServiceDay"></span>)</a></span>
 
     <?php 
@@ -133,33 +141,28 @@
 <?php } ?>
 
 <?php 
-    
-$id = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
-$unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $unit->id)->orderBy('created_at', 'desc')->first();
-//$newCounter = intval($unitData->activity_message) + $make->counter;
-//echo $unitData->activity_message;
-?>
-<?php 
-//dd($make);
+    $id = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
+    $unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $unit->id)->orderBy('created_at', 'desc')->first();
+
 if ($make !== null && isset($make->counter)) {
 ?>
 <div class="form-group col-sm-6 hiddenInputs" style="display:none;">
-    {!! Form::label('currentCounter', 'Counter at service: *') !!}
-    {!! Form::text('currentCounter', intval($unitData->activity_message), ['class' => 'form-control disableAll currentCounter']) !!}
-    <small>Will override GPS tracker counter.</small>
-</div>
-
-<div class="form-group col-sm-6 hiddenInputs" style="display:none;">
-    
-    {!! Form::label('nextServiceCounter', 'Next service counter in: *') !!}
-    <span style="float:right"><a href="#" onclick="calcCounter()">Calculate (<span id="newService"></span>)</a></span>
-    {!! Form::number('nextServiceCounter', null, ['class' => 'form-control disableAll nextCounter']) !!}
+    {!! Form::label('doneCounter', 'Counter at service: *') !!}
+    {!! Form::text('doneCounter', null, ['class' => 'form-control disableAll currentCounter']) !!}
     <small>    
         <?php
         
         echo "Current: ".$unitData->activity_message." ".$id->maintenanceType;
         ?>
     </small>
+</div>
+
+<div class="form-group col-sm-6 hiddenInputs" style="display:none;">
+    
+    {!! Form::label('nextServiceCounter', 'Next counter at "'.$services->service_type.'": *') !!}
+    <span style="float:right"><a href="#" onclick="calcCounter()">Calculate (<span id="newService"></span>)</a></span>
+    {!! Form::number('nextServiceCounter', null, ['class' => 'form-control disableAll nextCounter']) !!}
+
 </div>
 
 <?php 
