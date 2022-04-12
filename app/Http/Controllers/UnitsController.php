@@ -302,7 +302,7 @@ class UnitsController extends AppBaseController
         $make['activities'] = $activities;
 
         //dd($array);
-        $fileName = 'servicePlan '.now().'.pdf';
+        $fileName = 'service plan '.now().'.pdf';
         $pdf = DomPDF::loadView('email/service-plan-PDF', $make);
         $pdf->setPaper('A4', 'landscape');
 
