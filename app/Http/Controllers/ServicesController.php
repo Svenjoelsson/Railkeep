@@ -97,6 +97,13 @@ class ServicesController extends AppBaseController
 
         }
 
+        DB::table('activities')->insert([
+            'activity_type' => 'Service',
+            'activity_id' => $services->id,
+            'activity_message' => 'Service has been created',
+            'created_at' => now()
+        ]);
+
         Flash::success('Services saved successfully.');
 
         return redirect(route('services.index'));
@@ -233,7 +240,6 @@ class ServicesController extends AppBaseController
                 }
             }
 
-            $message = "Service #".$request->serviceId." has been set to Done";
 
             $data = array(
                 'serviceId' => $id,
@@ -263,6 +269,13 @@ class ServicesController extends AppBaseController
             ->save($filePath . $fileName)
             ->save($filePath1 . $fileName);
 
+            DB::table('activities')->insert([
+                'activity_type' => 'Service',
+                'activity_id' => $id,
+                'activity_message' => 'Return to service PDF has been generated.',
+                'created_at' => now()
+            ]);
+
             // Send the email
             Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
@@ -272,12 +285,26 @@ class ServicesController extends AppBaseController
             $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
             });
 
+            DB::table('activities')->insert([
+                'activity_type' => 'Service',
+                'activity_id' => $id,
+                'activity_message' => 'Unit has returned to service.',
+                'created_at' => now()
+            ]);
+
+            DB::table('activities')->insert([
+                'activity_type' => 'Unit',
+                'activity_id' => $unit->id,
+                'activity_message' => 'Unit has returned to service.',
+                'created_at' => now()
+            ]);
 
             $request["doneCounter"] = $input["doneCounter"];
 
+                $message = "Service #".$id." has been set to Done";
 
             } else {
-                $message = "Service #".$request->serviceId." has been updated";
+                $message = "Service #".$id." has been updated";
             }
        
         $units = DB::table('units')->where('unit', $input["unit"])->first();
@@ -285,7 +312,7 @@ class ServicesController extends AppBaseController
         // Create activity
         DB::table('activities')->insert([
             'activity_type' => 'Service',
-            'activity_id' => $request->serviceId,
+            'activity_id' => $id,
             'activity_message' => $message,
             'created_at' => now()
         ]);
@@ -308,7 +335,7 @@ class ServicesController extends AppBaseController
         $services = $this->servicesRepository->update($request->all(), $id);
 
         Flash::success('Services updated successfully.');
-        //$pdf->download('Return to service '.now()." ".$input["unit"].".pdf")
+
         return redirect(route('services.index'));
     }
 

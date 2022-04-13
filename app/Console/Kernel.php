@@ -67,6 +67,13 @@ class Kernel extends ConsoleKernel
                     $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
                     });
 
+                    DB::table('activities')->insert([
+                        'activity_type' => 'Unit',
+                        'activity_id' => $unit->id,
+                        'activity_message' => 'Unit is now out of service.',
+                        'created_at' => now()
+                    ]);
+
                 \App\Models\Activities::where('id', $val->id)->delete();
                 }
             } 
