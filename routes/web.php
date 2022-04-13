@@ -142,6 +142,8 @@ Route::resource('customers', App\Http\Controllers\CustomersController::class);
 // example "reports/view/rental/returns/2022/04"
 Route::get('reports/{api}/rental/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'rental']);
 
+Route::get('reports/{api}/rental/gantt/{type}/', [App\Http\Controllers\ReportsController::class, 'gantt']);
+
 Route::get('reports/{api}/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);
 
 Route::post('/search', [App\Http\Controllers\searchController::class, 'search'])->name('globalSearch');

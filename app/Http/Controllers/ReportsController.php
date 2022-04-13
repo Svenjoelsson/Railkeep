@@ -20,7 +20,7 @@ class ReportsController extends Controller
         if ($type == 'returns') {
             $from = $year.'-'.$month.'-01';
             $to = $year.'-'.$month.'-31';
-            $units = \App\Models\Rent::whereBetween('rentEnd', [$from, $to])->get();
+            $units = \App\Models\Rent::whereBetween('rentEnd', [$from, $to])->whereNull('deleted_at')->get();
 
             if ($api == 'api') {
                 return $units;
@@ -34,7 +34,7 @@ class ReportsController extends Controller
         } 
         
         else if ($type == 'invoice') { 
-            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
@@ -46,7 +46,7 @@ class ReportsController extends Controller
             }
         }
         else if ($type == 'invoice_counter') { 
-            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
@@ -57,7 +57,7 @@ class ReportsController extends Controller
                 return 'No api type was provided, give either view or api as value';
             }
         }         else if ($type == 'invoice_monthly') { 
-            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
@@ -76,7 +76,7 @@ class ReportsController extends Controller
     {
         $from = strtotime($year.'-'.$month.'-01');
         $to = strtotime($year.'-'.$month.'-31');
-        $counters = \App\Models\Activities::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->get();
+        $counters = \App\Models\Activities::whereDate('created_at', '>=', $from)->whereNull('deleted_at')->whereDate('created_at', '<=', $to)->get();
 
 
         if ($api == 'api') {
@@ -84,6 +84,24 @@ class ReportsController extends Controller
         }
         else if ($api == 'view') {
             return view('reports.counter.'.$type)->with(['period' => $year.'-'.$month, 'model' => 'rental', 'type' => $type, 'counters' => $counters]);
+        } 
+        else {
+            return 'No api type was provided, give either view or api as value';
+        }
+
+        //return view('services.edit')->with('services', $services);
+    }
+
+    public function gantt($api, $type)
+    {
+        $rents = \App\Models\Rent::where('status', '!=', 'Done')->whereNull('deleted_at')->orderBy('unit', 'asc')->get();
+        //dd($rents);
+        
+        if ($api == 'api') {
+            //return $counters;
+        }
+        else if ($api == 'view') {
+            return view('reports.gantt.'.$type)->with(['model' => 'rental', 'type' => $type, 'rents' => $rents]);
         } 
         else {
             return 'No api type was provided, give either view or api as value';

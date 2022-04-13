@@ -15,6 +15,10 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="/reports/view/rental/returns/{{ now()->format('Y')."/".now()->format('m') }}">Returns</a>
                           <a class="dropdown-item" href="/reports/view/rental/invoice/{{ now()->format('Y')."/".now()->format('m') }}">Invoice</a>
+                          <a class="dropdown-item" href="/reports/view/rental/gantt/rents">Gantt</a>
+
+                          
+                       
                         </div>
                       </div>
                       
