@@ -36,7 +36,7 @@
               <a class="nav-link" id="contact-tab" data-toggle="tab" href="#documentation" role="tab" aria-controls="contact" aria-selected="false">File upload</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#history" role="tab" aria-controls="contact" aria-selected="false">History</a>
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#history" role="tab" aria-controls="contact" aria-selected="false">Activity log</a>
             </li>
           </ul>
         <div class="card">
@@ -71,7 +71,7 @@
                                         foreach ($serviceVendor as $key => $value1) {
                                             echo "<tr>";
                                             $vendor = \App\Models\Vendors::where('id', $value1['vendorId'])->first();
-                                            echo "<td>".$vendor->name."</td>";
+                                            echo "<td>".$vendor->name." (".$vendor->address.")</td>";
                                             echo "<td><a href='mailto:".$vendor->contact_email."'>".$vendor->contact_email."</a></td>";
                                             echo "<td><a href='tel:".$vendor->contact_phone."'>".$vendor->contact_phone."</a></td>";
                                             echo "<td>".$value1['created_at']."</td>";
@@ -91,7 +91,7 @@
                                         <?php 
                                         $vendors = \App\Models\Vendors::all();
                                         foreach ($vendors as $key => $value) {
-                                            echo "<option value='".$value["name"]."'>".$value["name"]."</option>";
+                                            echo "<option value='".$value["name"]."'>".$value["name"]." (".$value["address"].")</option>";
                                         };
                                         ?>
                                         </select><br /><br />
@@ -110,7 +110,36 @@
                         <div class="tab-pane fade" id="documentation" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                             @include('fileUpload') 
                         </div>
-                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="v-pills-settings-tab">Show historical data</div>
+                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">Type</th>
+                                      <th scope="col">Message</th>
+                                      <th scope="col">Timestamp</th>
+                                    </tr>
+                                  </thead>
+                            <?php 
+                            //return Datatables::collection(User::all())->make(true);
+                            // should be changed..
+                            //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $act = \App\Models\Activities::Where('activity_type', 'Service')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+
+                            foreach ($act as $value) {
+                                echo "<tr>";
+                                echo "<td>";
+                                  echo $value['activity_type'];
+                                echo "</td>";
+                                echo "<td>";
+                                  echo $value['activity_message'];
+                                echo "</td>";
+                                echo "<td>".$value['created_at']."</td>";
+                                echo "</tr>";
+                            };
+                            ?>
+                            </table>
+                        </div>
+
                       </div>
                     </div>
                   </div>

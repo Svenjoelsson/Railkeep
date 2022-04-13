@@ -22,7 +22,7 @@
 <li class="nav-item">
     <a href="{{ route('vendors.index') }}"
        class="nav-link {{ Request::is('vendors*') ? 'activeNav' : '' }}">
-       <i class="fas fa-warehouse right"></i> <p>Vendors</p>
+       <i class="fas fa-warehouse right"></i> <p>Workshops</p>
     </a>
 </li>
 
@@ -61,7 +61,7 @@
 <li class="nav-item">
     <a href="{{ route('services.index') }}"
        class="nav-link {{ Request::is('services*') ? 'activeNav' : '' }}">
-       <i class="fas fa-tools right"></i> <p>Event log</p>
+       <i class="fas fa-tools right"></i> <p>Service log</p>
     </a>
 </li>
 @endif
@@ -74,7 +74,12 @@
     </a>
 </li>
 @endif
-
+<li class="nav-item">
+    <a href="{{ route('map') }}"
+       class="nav-link {{ Request::is('map*') ? 'activeNav' : '' }}">
+        <i class="fas fa-map right"></i><p>Map</p>
+    </a>
+</li>
 @endif
 
 

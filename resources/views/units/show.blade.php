@@ -125,7 +125,8 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                      <th scope="col">Activity</th>
+                                      <th scope="col">Type</th>
+                                      <th scope="col">Message</th>
                                       <th scope="col">Timestamp</th>
                                     </tr>
                                   </thead>
@@ -134,21 +135,14 @@
                             // should be changed..
                             $id = $units->id;
                             //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
-                            $unitData = \App\Models\Activities::Where('activity_type', 'service-counter-overdue')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::Where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
 
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
-                                echo "<td>";
-                                  $test = var_dump($value['activity_message']);
-                                  if (is_string($test)) {
-                                    echo 'string ';
-                                  }
-                                  if (is_array($test)) {
-                                    echo 'array ';
-                                  }
-                                  echo $test;
-                                echo "</td>";
+                                echo "<td>".$value['activity_type']."</td>";
+                                echo "<td>".$value['activity_message']."</td>";
                                 echo "<td>".$value['created_at']."</td>";
+                                
                                 echo "</tr>";
                             };
                             ?>

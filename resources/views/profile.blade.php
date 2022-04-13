@@ -74,7 +74,7 @@
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                     @csrf<br /><br />
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
                 </div>
 
