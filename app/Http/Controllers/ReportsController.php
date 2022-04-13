@@ -34,7 +34,7 @@ class ReportsController extends Controller
         } 
         
         else if ($type == 'invoice') { 
-            $results = \App\Models\Rent::where('status', 'Active')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
@@ -46,7 +46,7 @@ class ReportsController extends Controller
             }
         }
         else if ($type == 'invoice_counter') { 
-            $results = \App\Models\Rent::where('status', 'Active')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
@@ -57,7 +57,7 @@ class ReportsController extends Controller
                 return 'No api type was provided, give either view or api as value';
             }
         }         else if ($type == 'invoice_monthly') { 
-            $results = \App\Models\Rent::where('status', 'Active')->get();
+            $results = \App\Models\Rent::where('status', 'Active')->orderBy('customer', 'asc')->get();
             if ($api == 'api') {
                 return $results;
             }
