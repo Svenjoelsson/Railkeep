@@ -37,6 +37,8 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/map', [App\Http\Controllers\DashboardController::class, 'map'])->name('map');
+
 
 
 Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('io_generator_builder');

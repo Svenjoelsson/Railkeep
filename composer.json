@@ -22,6 +22,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
+        "larswiegers/laravel-maps": "^0.12.0",
         "mikehaertl/phpwkhtmltopdf": "^2.5",
         "nesbot/carbon": "^2.56",
         "yajra/laravel-datatables": "^1.5"

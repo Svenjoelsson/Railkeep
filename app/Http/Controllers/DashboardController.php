@@ -31,4 +31,11 @@ class DashboardController extends Controller
 
         return view('dashboard');
     }
+
+    public function map()
+    {
+        // https://github.com/LarsWiegers/laravel-maps
+        
+        return view('map');
+    }
 }
