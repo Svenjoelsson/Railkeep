@@ -52,13 +52,18 @@ function asSEK($value) {
 
                                 $calc = intval($latest->activity_message) - intval($first->activity_message);
                                 echo $calc;
+
+                                // removes , from the cost price
+                                if (str_contains($rent->counterCost, ',')) {
+                                  $rent->counterCost = str_replace(",", ".", $rent->counterCost);
+                                }
                             ?>
 
                         </td>
-                        <td>{{ $rent->counterCost }} kr</td>
+                        <td>{{ asSEK($rent->counterCost) }}</td>
                         <td>
                             <?php 
-                            $subtotal = ($calc * intval($rent->counterCost));
+                            $subtotal = ($calc * $rent->counterCost);
                             $total += intval($subtotal);
                                 echo asSEK($subtotal);
                             ?>
