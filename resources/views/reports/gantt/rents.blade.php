@@ -48,8 +48,8 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Reports</h1>
-                    Viewing {{ $model }} {{ $type }}
+                    <h1>Gantt</h1>
+                    Rental gantt schedule
                 </div>
             </div>
         </div>
