@@ -727,7 +727,7 @@ border: 0;
 
 <body class="c15">
                 <img
-                alt="" src="https://www.nordicrefinance.se/wp-content/themes/nordic-re-finance/img/logo.png"
+                alt="" src="https://www.nordicrefinance.se/userfiles/media/default/logo_2.png"
                 style="width: 283.00px; float:left; height: 52.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                 title=""></span><span style="font-size:30px; float:right;"><b>Service plan</b></span><br /><br /><br /><br />
 

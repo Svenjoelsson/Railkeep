@@ -409,7 +409,7 @@
 <body class="c15" style="100%;">
     <p class="c7"><span
             style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 283.00px; height: 52.00px;"><img
-                alt="" src="https://www.nordicrefinance.se/wp-content/themes/nordic-re-finance/img/logo.png"
+                alt="" src="https://www.nordicrefinance.se/userfiles/media/default/logo_2.png"
                 style="width: 283.00px; height: 52.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                 title=""></span></p>
                 <br /><br />
