@@ -74,12 +74,7 @@
     </a>
 </li>
 @endif
-<li class="nav-item">
-    <a href="{{ route('map') }}"
-       class="nav-link {{ Request::is('map*') ? 'activeNav' : '' }}">
-        <i class="fas fa-map right"></i><p>Map</p>
-    </a>
-</li>
+
 @endif
 
 
