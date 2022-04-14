@@ -44,12 +44,15 @@
                 echo "<tr>";
                 if ($val !== '.' && $val !== '..') {
                     if (str_contains($val, '.pdf')) {
-                        echo "<td><img src='https://cdn-icons-png.flaticon.com/128/482/482216.png' height='50'/></td>";  
+                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271042.png' height='50'/></td>";  
                     }
                     else if (str_contains($val, '.xlsx')) {
-                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/28/28841.png' height='50'/></td>";  
+                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271067.png' height='50'/></td>";  
                     }
-                    
+                    else if (str_contains($val, '.docx')) {
+                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271015.png' height='50'/></td>";  
+                    }
+
                     else {
                         echo "<td><img style='border: 2px solid #000;' src='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' height='50'/></td>";  
                     }
