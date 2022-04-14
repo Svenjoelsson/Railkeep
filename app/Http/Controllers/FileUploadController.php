@@ -34,8 +34,12 @@ class FileUploadController extends Controller
             'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg|max:10240',
         ]);
 
+        if (!file_exists($pathBuild)) {
+            mkdir($pathBuild, 0777, true);
+        }
         // if file already exist, add increment number after filename.
         $files = scandir($pathBuild);
+
         $counter = 0;
         foreach ($files as $val) { 
             
@@ -55,6 +59,7 @@ class FileUploadController extends Controller
             'created_at' => now()
         ]);
 
+        
         $request->file->move(public_path($pathBuild), $fileName);
    
         return back()
