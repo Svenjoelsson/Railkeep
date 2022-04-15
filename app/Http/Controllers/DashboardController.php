@@ -38,8 +38,9 @@ class DashboardController extends Controller
         $critical = \App\Models\Services::where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->count();
         $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->count();
 
-        $monthlyInvoice = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
-        
+        $monthlyInvoice = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->sum('monthlyCost');
+        $agreements = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->count();
+
         $dateOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();    
         $counterOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
 
@@ -56,13 +57,10 @@ class DashboardController extends Controller
         $perc = round(intval($operatingUnits) / intval($units) * 100, 1);
 
 
-        $sum = 0;
-        foreach ($monthlyInvoice as $revenue) {
-            $sum += intval($revenue['monthlyCost']);
-        }
-        $sum = asSEK($sum);
+
+        $sum = asSEK($monthlyInvoice);
         
-        return view('dashboard')->with(['monthlyInvoice' => $sum, 'critical' => $critical, 'planned' => $planned, 'overdue' => $sumOverdue, 'ninty' => $sumNinty, 'operatingUnits' => $operatingUnits, 'units' => $units, 'perc' => $perc]);
+        return view('dashboard')->with(['monthlyInvoice' => $sum, 'agreements' => $agreements, 'critical' => $critical, 'planned' => $planned, 'overdue' => $sumOverdue, 'ninty' => $sumNinty, 'operatingUnits' => $operatingUnits, 'units' => $units, 'perc' => $perc]);
     }
 
     public function map()
