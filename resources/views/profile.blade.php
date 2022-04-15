@@ -40,24 +40,7 @@
                         <input type="text" disabled id="email" value="{{ Auth::user()->updated_at }}" class="form-control">
                     </div>
                 </div>
-                <hr>
-                <h4>Update password</h4>
-                <div class="row">
-                    <div class="col-4">
-                        <label for="pass">Current password</label>
-                        <input type="password"  id="pass" value="" class="form-control">
-                    </div>
-                    <div class="col-4">
-                      <label for="pass1">New password</label>
-                      <input type="password"  id="pass1" value="" class="form-control">
-                    </div>
-                    <div class="col-4">
-                        <label for="pass2">Repeat password</label>
-                        <input type="password" id="pass2" value="" class="form-control">
-                        <br />
-                        <button style="float:right;" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
+
                 <hr>
                 <h4>Profile photo</h4>
                 @if ($message = Session::get('success'))
