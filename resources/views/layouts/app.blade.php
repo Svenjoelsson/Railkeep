@@ -533,10 +533,13 @@ document.onreadystatechange = function() {
 
         $('#gantt .cell').each(function() {
             var cellVal = $(this).html();
+            console.log(cellVal);
             if (cellVal !== '') {
-                console.log(cellVal);
                 $(this).css("background-color","#ccc");
-            } 
+            }
+            if (cellVal === 'Continuous') {
+                $(this).css("background-color","yellow");
+            }
         });
 
 

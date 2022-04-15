@@ -62,6 +62,9 @@
                                                 if ($convertStartDate <= date("Y-m", strtotime("$iM/12/".$thisYear)) && $convertEndDate >= date("Y-m", strtotime("$iM/12/".$thisYear))) {
                                                    echo "<span data-toggle='tooltip' title='".$val["rentStart"]." - ".$val["rentEnd"]."'>".$val["customer"]."</span>";                                                    
                                                 }   
+                                                else if ($val["status"] == 'Active' && $val["rentEnd"] < date("Y-m-d") && $convertEndDate < date("Y-m", strtotime(date("Y-m-d")))) {
+                                                    echo "Continuous";
+                                                }
                                             }   
                                             echo '</td>';
                                         }
