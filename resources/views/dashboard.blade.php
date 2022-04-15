@@ -11,175 +11,61 @@
         </div>
     </div>
 </section>
-
 <section class="content-header">
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box">
-            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-address-card"></i></span>
+    <div class="container-fluid">
+        <div class="row">
 
-            <div class="info-box-content">
-              <span class="info-box-text">Customers</span>
-              <span class="info-box-number">
-                <?php 
-                $customers = \App\Models\Customers::count();
-                echo $customers;
-                ?>
-              </span>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-success">
+                    <span class="info-box-icon"><i class="fas fa-check"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Fully operational</span>
+                        <span class="info-box-number">{{ $operatingUnits}} ({{$perc}}%)</span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-warehouse"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">Vendors</span>
-              <span class="info-box-number">
-                <?php 
-                $vendors = \App\Models\Vendors::count();
-                echo $vendors;
-                ?>
-              </span>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-warning">
+                    <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="color:white !important;">Over 90% reached</span>
+                        <span class="info-box-number" style="color:white !important;">{{ $ninty }}</span>
+                    </div>
+                </div>
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">Users</span>
-              <span class="info-box-number">
-                <?php 
-                $users = \App\Models\User::count();
-                echo $users;
-                ?>
-              </span>
+            <div class="col-md-3 col-sm-6 col-12" >
+              <div class="info-box shadow-lg bg-gradient-blue">
+                  <span class="info-box-icon"><i class="far fa-clock"></i></span>
+                  <div class="info-box-content">
+                      <span class="info-box-text" >Planned</span>
+                      <span class="info-box-number">{{ $planned }}</span>
+                  </div>
+
+              </div>
+
+          </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-danger">
+                    <span class="info-box-icon"><i class="fas fa-ban"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Overdue</span>
+                        <span class="info-box-number">{{ $overdue }}</span>
+                    </div>
+                </div>
+                <div class="info-box shadow-lg bg-gradient-danger">
+                  <span class="info-box-icon"><i class="fas fa-ban"></i></span>
+                  <div class="info-box-content">
+                      <span class="info-box-text">Critical</span>
+                      <span class="info-box-number">{{ $critical }}</span>
+                  </div>
+              </div>
+
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
         </div>
-        <!-- /.col -->
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tools"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Services</span>
-              <span class="info-box-number">
-                In progress:
-                <?php 
-                $services = \App\Models\Services::where('service_status', 'In progress')->count();
-                $servicesTotal = \App\Models\Services::count();
-                echo $services."/".$servicesTotal;
-                ?>
-              </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-          
-        </div>
-        
-      </div>        
-      <div class="row mb-2">
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-train"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Units</span>
-              <span class="info-box-number">
-                <?php 
-                $units = \App\Models\Units::count();
-                echo $units;
-                ?>
-              </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-3">
-          <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-train"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Utilization</span>
-              <span class="info-box-number">
-                <?php 
-                $unit = \App\Models\Units::all();
-                $totalDaysYTD = 0;
-                foreach ($unit as $x) {
-                  $startTime = new DateTime($x["created_at"]);
-
-                  $endTime = new DateTime(date('Y-m-d'));
-
-                  $y = $endTime->diff($startTime)->format("%a"); //3
-                  $totalDaysYTD+= $y;
-                }
-
-
-
-
-/*
-                $now = time();
-                $Year = date("Y")."-01-01";
-                $your_date = strtotime($Year);
-                $datediff = $now - $your_date;
-
-                $totalDaysYTD = (round($datediff / (60 * 60 * 24))-1) * $units;
-*/
-                $rent = \App\Models\Rent::all();
-
-                $counter = 0;
-                foreach ($rent as $value) {
-
-                    $startTime = new DateTime($value["rentStart"]);
-
-                    if ($value["rentEnd"] !== null) {
-                      $endTime = new DateTime($value["rentEnd"]);
-                    } else {
-                      $endTime = new DateTime(date('Y-m-d'));
-                    }
-                    $abs_diff = $endTime->diff($startTime)->format("%a"); //3
-
-                    $counter+= $abs_diff;
-
-                    //$diff = $now - $your_date;
-                    //echo $value["unit"]." ".round($endTime / (60 * 60 * 24))."<br />";
-
-                }
-                //echo round($counter/$totalDaysYTD*100, 2);
-                //echo "%";
-
-
-                ?>
-              </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-          
-        </div>
-
     </div>
-
-    <script>
-      
-
-      
-  </script>
-
-    
 </section>
 @endsection
