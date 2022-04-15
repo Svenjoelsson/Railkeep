@@ -60,6 +60,7 @@
     {!! Form::text('monthlyCost', null, ['class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6">
     {!! Form::label('counterCost', 'Counter cost:') !!}
     {!! Form::text('counterCost', null, ['class' => 'form-control']) !!}

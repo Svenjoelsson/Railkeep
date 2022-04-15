@@ -134,6 +134,47 @@
             width: 500px;
             background-color: white !important;
         }
+
+        .year {
+        font-weight: bold;
+        color:white !important;
+        background-color:gray !important; 
+    }
+
+    .wrapper {
+    position: relative;
+    overflow: auto;
+    white-space: nowrap;
+    }
+
+    .sticky-col {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white;
+    }
+
+    .first-col {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    left: 0px;
+    background-color: white !important;
+    }
+    td {
+        height: 60px;
+        min-height: 60px;
+        max-height: 60px;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    .second-col {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    left: 150px;
+    background-color: white !important;
+    }
     </style>
     
 
@@ -484,6 +525,18 @@ document.onreadystatechange = function() {
             var url = $('#url').val();
             var period = $('#period1').val();
             window.location.href = "/"+url+"/"+period;
+        });
+
+        $(function () {
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+        });
+
+        $('#gantt .cell').each(function() {
+            var cellVal = $(this).html();
+            if (cellVal !== '') {
+                console.log(cellVal);
+                $(this).css("background-color","#ccc");
+            } 
         });
 
 

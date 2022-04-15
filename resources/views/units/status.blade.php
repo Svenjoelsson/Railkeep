@@ -37,7 +37,7 @@
     }
     if ($planned) { // Planned events
 
-        echo '<a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg"><i style="color:blue;" class="fas fa-clock"></i></span></a>';
+        echo '<a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$planned->service_type." ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a>';
 
     }
 ?>

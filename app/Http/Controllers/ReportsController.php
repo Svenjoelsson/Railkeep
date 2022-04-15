@@ -95,13 +95,20 @@ class ReportsController extends Controller
     public function gantt($api, $type)
     {
         $rents = \App\Models\Rent::where('status', '!=', 'Done')->whereNull('deleted_at')->orderBy('unit', 'asc')->get();
-        //dd($rents);
-        
+
+        $array = [];
+        $count = 0;
+        foreach ($rents as $rent) {
+            $count++;
+            $test = \App\Models\Rent::where('id', $rent->id)->whereNull('deleted_at')->orderBy('unit', 'asc')->first();
+            $array[$rent->unit][] = $test;
+        }
+
         if ($api == 'api') {
             //return $counters;
         }
         else if ($api == 'view') {
-            return view('reports.gantt.'.$type)->with(['model' => 'rental', 'type' => $type, 'rents' => $rents]);
+            return view('reports.gantt.'.$type)->with(['model' => 'rental', 'type' => $type, 'rents' => $array]);
         } 
         else {
             return 'No api type was provided, give either view or api as value';
