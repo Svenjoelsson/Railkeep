@@ -17,8 +17,8 @@
 
         <div class="clearfix"></div>
 
-            <div class="card-body p-0">
-                @include('activities.table')
+        <div class="container-fluid shadow-lg card card-body">
+            @include('activities.table')
 
                 <div class="clearfix">
                     <div class="float-right">

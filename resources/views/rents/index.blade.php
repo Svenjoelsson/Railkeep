@@ -34,8 +34,8 @@
 
         <div class="clearfix"></div>
 
-            <div class="card-body p-0">
-                @include('rents.table')
+        <div class="container-fluid shadow-lg card card-body">
+            @include('rents.table')
 
                 <div class=" clearfix">
                     <div class="float-right">

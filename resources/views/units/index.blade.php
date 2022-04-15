@@ -17,7 +17,8 @@
 
         <div class="clearfix"></div>
 
-            <div class="card-body p-0">
+            <!--<div class="card-body p-0">-->
+                <div class="container-fluid shadow-lg card card-body">
                 @include('units.table')
 
                 <div class="clearfix">

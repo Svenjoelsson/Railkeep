@@ -18,8 +18,8 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-            <div class="card-body p-0">
-                @include('inventories.table')
+        <div class="container-fluid shadow-lg card card-body">
+            @include('inventories.table')
 
                 <div class="clearfix">
                     <div class="float-right">

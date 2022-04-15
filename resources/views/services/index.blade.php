@@ -16,7 +16,7 @@
         @include('flash::message')
 
         <div class="clearfix"></div>
-        <div class="card-body p-0">
+        <div class="container-fluid shadow-lg card card-body">
             @include('services.table')
 
             <div class="clearfix">

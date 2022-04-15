@@ -18,7 +18,7 @@
         <div class="clearfix"></div>
 
         <!-- <div class="card"> -->
-            <div class="card-body p-0">
+            <div class="container-fluid shadow-lg card card-body">
                 @include('vendors.table')
 
                 <div class="clearfix">
