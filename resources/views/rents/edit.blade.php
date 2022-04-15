@@ -31,7 +31,13 @@
             </div>
 
             {!! Form::close() !!}
-
+            
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3 style="float:left;">File upload</h3>
+                @include('fileUpload') 
+            </div>
         </div>
     </div>
 @endsection
