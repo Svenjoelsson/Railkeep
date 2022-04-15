@@ -160,7 +160,7 @@
     left: 0px;
     background-color: white !important;
     }
-    td {
+    .cell {
         height: 60px;
         min-height: 60px;
         max-height: 60px;
