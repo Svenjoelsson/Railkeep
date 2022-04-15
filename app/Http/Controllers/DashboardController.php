@@ -36,7 +36,7 @@ class DashboardController extends Controller
             return numfmt_format_currency($fmt, $value, "SEK");
         }
         $critical = \App\Models\Services::where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->count();
-        $planned = \App\Models\Services::where('service_status', 'In progress')->whereNull('deleted_at')->count();
+        $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->count();
 
         $monthlyInvoice = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
         
@@ -53,7 +53,7 @@ class DashboardController extends Controller
         $sumNinty = intval($dateNinty) + intval($counterNinty);
 
         $operatingUnits = intval($units) - $sumNinty - $sumOverdue - $critical - $planned;
-        $perc = intval($operatingUnits) / intval($units) * 100;
+        $perc = round(intval($operatingUnits) / intval($units) * 100, 1);
 
 
         $sum = 0;

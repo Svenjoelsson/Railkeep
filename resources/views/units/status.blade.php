@@ -3,7 +3,7 @@
     //$services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->whereNotNull('nextServiceDate')->orderBy('nextServiceDate', 'asc')->first();
     //$services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->where('nextServiceDate', '>', now())->orderBy('nextServiceDate', 'asc')->first();
 
-    $planned = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->whereNull('deleted_at')->first();
+    $planned = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->first();
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
 
     $dateOverdue = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->first();    
