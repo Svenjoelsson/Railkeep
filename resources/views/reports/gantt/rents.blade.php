@@ -14,7 +14,7 @@
 
     <div class="view" style="background-color:#f4f6fa; height:auto;">
 
-            <div class="wrapper">
+            <div class="ganttWrapper">
                 <table class="table" id="gantt">
                     <thead>
                         <tr>

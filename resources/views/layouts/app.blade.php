@@ -141,7 +141,7 @@
         background-color:gray !important; 
     }
 
-    .wrapper {
+    .ganttWrapper {
     position: relative;
     overflow: auto;
     white-space: nowrap;
