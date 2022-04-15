@@ -85,7 +85,7 @@
                                         <input type="hidden" name="serviceId" value="{{ $services->id }}">
                                         @csrf <!-- {{ csrf_field() }} -->
                                         
-                                        <label>Select vendor</label>
+                                        <label>Select vendor</label><br />
                                         <select name="vendor" class="form-control js-example-basic-single vendorSelect">
                                             <option></option>
                                         <?php 
