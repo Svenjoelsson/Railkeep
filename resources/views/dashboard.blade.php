@@ -17,8 +17,8 @@
         <div class="row well">
 
 
-            <div class="col-md-2 col-sm-6 col-12">
-                <div class="info-box bg-gradient-success">
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-success">
                     <span class="info-box-icon"><i class="fas fa-check"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Fully operational</span>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-md-2 col-sm-6 col-12">
-                <div class="info-box bg-gradient-warning">
+                <div class="info-box shadow-lg bg-gradient-warning">
                     <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text" style="color:white !important;">Over 90% reached</span>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-md-2 col-sm-6 col-12" >
-              <div class="info-box bg-gradient-blue">
+              <div class="info-box shadow-lg bg-gradient-blue">
                   <span class="info-box-icon"><i class="far fa-clock"></i></span>
                   <div class="info-box-content">
                       <span class="info-box-text">Planned</span>
@@ -50,7 +50,7 @@
           </div>
 
             <div class="col-md-2 col-sm-6 col-12">
-                <div class="info-box bg-gradient-danger">
+                <div class="info-box shadow-lg bg-gradient-danger">
                     <span class="info-box-icon"><i class="fas fa-ban"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Overdue</span>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="col-md-2 col-sm-6 col-12">
-              <div class="info-box bg-gradient-danger">
+              <div class="info-box shadow-lg bg-gradient-danger">
                 <span class="info-box-icon"><i class="fas fa-ban"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Critical</span>
@@ -68,11 +68,10 @@
                 </div>
             </div>
           </div>
-          <hr>
           <h4>Agreements</h4>
           <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
+            <div class="col-12 col-sm-6 col-md-6">
+            <div class="info-box shadow-lg">
             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-file-contract"></i></span>
             <div class="info-box-content">
             <span class="info-box-text">Agreements</span>
@@ -85,8 +84,8 @@
             
             </div>
             
-            <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
+            <div class="col-12 col-sm-6 col-md-6">
+            <div class="info-box shadow-lg mb-3">
             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
             <div class="info-box-content">
             <span class="info-box-text">Total revenue</span>
