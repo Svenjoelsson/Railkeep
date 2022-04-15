@@ -537,7 +537,7 @@ document.onreadystatechange = function() {
             if (cellVal !== '') {
                 $(this).css("background-color","#ccc");
             }
-            if (cellVal === 'Continuous') {
+            if (cellVal.includes("Continuous")) {
                 $(this).css("background-color","yellow");
             }
         });

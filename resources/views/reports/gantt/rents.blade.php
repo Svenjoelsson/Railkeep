@@ -63,7 +63,7 @@
                                                    echo "<span data-toggle='tooltip' title='".$val["rentStart"]." - ".$val["rentEnd"]."'>".$val["customer"]."</span>";                                                    
                                                 }   
                                                 else if ($val["status"] == 'Active' && $val["rentEnd"] < date("Y-m-d") && $convertEndDate < date("Y-m", strtotime(date("Y-m-d")))) {
-                                                    echo "Continuous";
+                                                    echo "<span data-toggle='tooltip' title='".$val["customer"]."'>"."Continuous</span>";
                                                 }
                                             }   
                                             echo '</td>';
