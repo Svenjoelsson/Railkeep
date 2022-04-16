@@ -1,5 +1,18 @@
 {!! Form::open(['route' => ['services.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
+<?php
+$activities = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->first();
+if ($activities) { ?>
+    <a class='btn btn-default btn-xs' data-toggle='tooltip' title='{{ $activities->activity_message }}'>
+        <i style='color:blue;' class='fas fa-clock'></i>
+    </a>
+<?php } else { ?>
+    <a class='btn btn-default btn-xs'>
+        <i style='color:gray;' class='fas fa-clock'></i>
+    </a>
+<?php } ?>
+
+    
     @if (Auth::user()->role == 'user')
     <a href="{{ route('services.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>

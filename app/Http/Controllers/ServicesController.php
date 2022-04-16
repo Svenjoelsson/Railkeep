@@ -173,8 +173,13 @@ class ServicesController extends AppBaseController
     public function update($id, UpdateServicesRequest $request)
     {
         $services = $this->servicesRepository->find($id);
-
         $input = $request->all();
+
+        if ($services->service_date != $input['service_date']) {
+            //dd('asd');
+            \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->update(['activity_message' => $input['service_date']]);
+        }
+
         if ($input["service_status"] == "Done") {
             $request["doneDate"] = now();
  
@@ -349,6 +354,8 @@ class ServicesController extends AppBaseController
     public function destroy($id)
     {
         $services = $this->servicesRepository->find($id);
+
+        \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->delete();
 
         if (empty($services)) {
             Flash::error('Services not found');
