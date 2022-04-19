@@ -61,8 +61,14 @@
                                     </tr>
                                   </thead>
                             <?php 
-                            
+
                             foreach ($make['make'] as $value1) {
+                              $counterNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', '90%-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                              $dateNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', '90%-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+
+                              $counterOverdue = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', 'Overdue-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                              $dateOverdue = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', 'Overdue-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();    
+
 
                                 $counterType = '';
                                 if ($value1->counter) {
@@ -78,25 +84,33 @@
                                 echo "</td>";
                                 echo "<td><b>".$value1->operationDays."</b></td>";
                                 echo "<td>".$value1->calendarDays;
+                                  ########## DATE ##########
                                   if (array_key_exists($value1->serviceName, $make['services']) && $make['services'][$value1->serviceName]->nextServiceDate) {
                                     echo "<br />Due date: ";
                                     $remove = str_replace(' 00:00:00', '', $make['services'][$value1->serviceName]->nextServiceDate);
                                     echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."'>".$remove."</a>";
-                                    if (now() > $make['services'][$value1->serviceName]->nextServiceDate) {
+                                    if ($dateOverdue) {
                                       echo " <span class='badge bg-danger'>Overdue</span>";
-
+                                    }
+                                    if ($dateNinty) {
+                                      echo " <span class='badge bg-warning' style='color:white !important;'>Upcoming</span>";
                                     }
 
                                   }  
                                 echo "</td>";
                                 echo "<td><b>".$value1->counter." ".$counterType."</b>";
+                                  ########## COUNTER ##########
                                   if (array_key_exists($value1->serviceName, $make['services']) && $value1->counter) {
                                     echo "<br />Due in: ";
                                     echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."' data-toggle='tooltip' title='Due at: ".$make['services'][$value1->serviceName]->nextServiceCounter."'>".(intval($make['services'][$value1->serviceName]->nextServiceCounter) - intval($activities->activity_message))."</a> ".$units->maintenanceType;
                                     // echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."'>".$make['services'][$value1->serviceName]->nextServiceCounter."</a> ".$counterType;
-                                    if ($activities->activity_message > $make['services'][$value1->serviceName]->nextServiceCounter) {
+                                    if ($counterOverdue) {
                                       echo " <span class='badge bg-danger'>Overdue</span>";
+                                    } 
+                                    if ($counterNinty) {
+                                      echo " <span class='badge bg-warning' style='color:white !important;'>Upcoming</span>";
                                     }
+                                    
                                     //var_dump($make['services'][$value1->serviceName]);
 
                                   }  
