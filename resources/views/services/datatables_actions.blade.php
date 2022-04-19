@@ -3,12 +3,12 @@
 <?php
 $activities = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->first();
 if ($activities) { ?>
-    <a class='btn btn-default btn-xs' data-toggle='tooltip' title='{{ $activities->activity_message }}'>
-        <i style='color:blue;' class='fas fa-clock'></i>
+    <a class='btn btn-default btn-xs' data-toggle='tooltip' title='Email will be sent at: {{ $activities->activity_message }}'>
+        <i style='color:blue;' class='fa fa-envelope'></i>
     </a>
 <?php } else { ?>
     <a class='btn btn-default btn-xs'>
-        <i style='color:gray;' class='fas fa-clock'></i>
+        <i style='color:gray;' class='fa fa-envelope'></i>
     </a>
 <?php } ?>
 
