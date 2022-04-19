@@ -150,7 +150,7 @@
                             // should be changed..
                             $id = $units->id;
                             //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
-                            $unitData = \App\Models\Activities::Where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::Where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->where('activity_id', $id)->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
