@@ -48,24 +48,21 @@
 					</span>
 				
 	
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100 form-control form-control-lg @error('email') is-invalid @enderror" autocomplete="off" type="email" name="email">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
-            @error('email')
-            <span class="error invalid-feedback">{{ $message }}</span>
-            @enderror
+					<div class="validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Email" autocomplete="off" type="email" name="email">
+						@error('email')
+						<span class="error invalid-feedback">{{ $message }}</span>
+						@enderror
 					</div>
+					<br />
 					
-					
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100 form-control form-control-lg @error('password') is-invalid @enderror" type="password" name="password">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
-            @error('password')
-            <span class="error invalid-feedback">{{ $message }}</span>
-            @enderror
+					<div class="validate-input" data-validate="Password is required">
+						<input class="form-control form-control-lg @error('password') is-invalid @enderror" placeholder="Password" type="password" name="password">
+						@error('password')
+						<span class="error invalid-feedback">{{ $message }}</span>
+						@enderror
 					</div>
+					<br />
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div class="contact100-form-checkbox">
