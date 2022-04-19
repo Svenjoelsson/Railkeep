@@ -13,11 +13,11 @@ use Flash;
 use App\Models\makeList;
 use App\Http\Controllers\AppBaseController;
 use Response;
-use App\Traits\servicePlanTrait;
+use App\Traits\ServicePlanTrait;
 
 class UnitsController extends AppBaseController
 {
-    use serviceplanTrait;
+    use ServiceplanTrait;
 
     /** @var  UnitsRepository */
     private $unitsRepository;
