@@ -769,14 +769,23 @@ border: 0;
             echo "</td>";
             echo "<td>".$value1->counter." ".$counterType;
               if (array_key_exists($value1->serviceName, $make['services']) && $value1->counter) {
-                echo "<br />Due at: ";
-                echo $make['services'][$value1->serviceName]->nextServiceCounter." ".$counterType;
+                echo "<br />Due in: ";
+                //echo $make['services'][$value1->serviceName]->nextServiceCounter." ".$counterType;
+                echo intval($make['services'][$value1->serviceName]->nextServiceCounter) - intval($activities->activity_message)." ".$counterType;
                 if ($activities->activity_message > $make['services'][$value1->serviceName]->nextServiceCounter) {
                   echo " <span class='badge bg-danger' style='color:white;'>Overdue</span>";
                 }
                 //var_dump($make['services'][$value1->serviceName]);
 
               }  
+
+
+                //echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."' data-toggle='tooltip' title='Due at: ".$make['services'][$value1->serviceName]->nextServiceCounter."'>".(intval($make['services'][$value1->serviceName]->nextServiceCounter) - intval($activities->activity_message))."</a> ".$units->maintenanceType;
+                // echo "<a href='".route('services.edit', $make['services'][$value1->serviceName]->id)."'>".$make['services'][$value1->serviceName]->nextServiceCounter."</a> ".$counterType;
+
+                //var_dump($make['services'][$value1->serviceName]);
+
+              
             echo "</td>";
 
 
