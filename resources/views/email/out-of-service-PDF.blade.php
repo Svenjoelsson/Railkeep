@@ -444,6 +444,12 @@
                 <td class="c2" colspan="1" rowspan="1">
                     <p class="c1"><span class="c0">{{ $serviceDate }}</span></p>
                 </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c4"></span></p>
+                </td>
+                <td class="c2" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0"></span></p>
+                </td>
             </tr>
         </tbody>
     </table>
