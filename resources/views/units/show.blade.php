@@ -45,7 +45,7 @@
                           <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
                             <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage</a> 
-                            <a class="btn btn-default" style="float:right; margin-right:5px;" href="/units/servicePlan/<?php echo $units->id ?>">Export</a> 
+                            <a class="btn btn-default" style="float:right; margin-right:5px;" href="/units/servicePlan/<?php echo $units->id ?>/download">Export</a> 
 
                             <h5><span style="float:left;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
                              <br /><br /><br />

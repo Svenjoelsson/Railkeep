@@ -153,4 +153,4 @@ Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generate
 Route::get('unitStatus/counter', [App\Http\Controllers\UnitStatusController::class, 'counter']);
 Route::get('unitStatus/dates', [App\Http\Controllers\UnitStatusController::class, 'dates']);
 
-Route::get('units/servicePlan/{id}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);
+Route::get('units/servicePlan/{id}/{type}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);

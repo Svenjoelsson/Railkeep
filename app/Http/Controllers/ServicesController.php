@@ -12,12 +12,15 @@ use App\Http\Requests\UpdateServicesRequest;
 use App\Repositories\ServicesRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Traits\ServicePlanTrait;
 use Response;
 use DomPDF;
 use Storage;
 
 class ServicesController extends AppBaseController
 {
+    use serviceplanTrait;
+
     /** @var  ServicesRepository */
     private $servicesRepository;
 
@@ -228,6 +231,10 @@ class ServicesController extends AppBaseController
                                 $calendarDays = null;
                             }
 
+                            // Delete overdue activities for each
+                            \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$value["serviceName"])->delete();
+                            \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$value["serviceName"])->delete();    
+                
                             \App\Models\services::create([
                                 'unit' => $unit->unit, 
                                 'customer' => $unit->customer, 
@@ -280,13 +287,16 @@ class ServicesController extends AppBaseController
                 'activity_message' => 'Return to service PDF has been generated.',
                 'created_at' => now()
             ]);
-
+            $services = $this->servicesRepository->update($request->all(), $id);
             // Send the email
-            Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName) {
+            Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName, $unit) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
             ->subject('Unit return to service - #'.$data["serviceId"]);
             
             $message->attach($filePath.$fileName);
+            $message->attachData($this->generate($unit->id, 'attachment'), 'service plan.pdf', [
+                'mime' => 'application/pdf',
+            ]);
             $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
             });
 
@@ -433,7 +443,8 @@ class ServicesController extends AppBaseController
         );
         //dd($data["files"]);
         
-        Mail::send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach) {
+
+        Mail::send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach, $unitData) {
            $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
            ->subject('New service order - #'.$serviceData->id);
             if ($attach) {
@@ -441,7 +452,8 @@ class ServicesController extends AppBaseController
                     $message->attach($file);
                 }
             }
-           $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
+
+            $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
         });
 
 
@@ -450,7 +462,7 @@ class ServicesController extends AppBaseController
             'serviceId' => $serviceData->id,
             'created_at' => now()
         ]);
-        
+
         return back()
         ->with('success','You have activated vendor.');
     }
