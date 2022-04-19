@@ -17,7 +17,7 @@ use App\Traits\ServicePlanTrait;
 
 class UnitsController extends AppBaseController
 {
-    use ServiceplanTrait;
+    use ServicePlanTrait;
 
     /** @var  UnitsRepository */
     private $unitsRepository;

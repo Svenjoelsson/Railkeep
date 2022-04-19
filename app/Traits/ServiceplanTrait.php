@@ -6,7 +6,7 @@ use DB;
 use DomPDF;
 use Storage;
 
-trait ServiceplanTrait {
+trait ServicePlanTrait {
 
 
     public function generate($id, $type)
