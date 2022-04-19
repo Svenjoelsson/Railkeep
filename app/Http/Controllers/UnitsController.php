@@ -13,7 +13,7 @@ use Flash;
 use App\Models\makeList;
 use App\Http\Controllers\AppBaseController;
 use Response;
-use App\Traits\ServicePlanTrait;
+use App\Traits\servicePlanTrait;
 
 class UnitsController extends AppBaseController
 {
