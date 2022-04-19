@@ -4,6 +4,9 @@
 
 <?php 
 function asSEK($value) {
+  if (str_contains($value, ' ')) {
+    $value = str_replace(" ", "", $value);
+  }
   $fmt = numfmt_create( 'se-SE', NumberFormatter::CURRENCY );
   return numfmt_format_currency($fmt, $value, "SEK");
 }
