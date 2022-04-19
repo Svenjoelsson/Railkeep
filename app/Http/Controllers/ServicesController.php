@@ -12,14 +12,14 @@ use App\Http\Requests\UpdateServicesRequest;
 use App\Repositories\ServicesRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
-use App\Traits\ServicePlanTrait;
+use App\Traits\ServiceplanTrait;
 use Response;
 use DomPDF;
 use Storage;
 
 class ServicesController extends AppBaseController
 {
-    use serviceplanTrait;
+    use ServicePlanTrait;
 
     /** @var  ServicesRepository */
     private $servicesRepository;
