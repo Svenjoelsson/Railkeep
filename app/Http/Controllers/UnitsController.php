@@ -14,6 +14,7 @@ use App\Models\makeList;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Traits\ServiceplanTrait;
+use Carbon\Carbon;
 
 class UnitsController extends AppBaseController
 {
@@ -125,6 +126,11 @@ class UnitsController extends AppBaseController
         $makeArray = []; 
         $serviceArray = []; 
         
+        if ($activities->created_at >= Carbon::now()->subHours(24)->toDateTimeString()) {
+            $noCounterUpdate = "0";
+        } else {
+            $noCounterUpdate = "1";
+        }
 
         foreach ($makelist as $make) {
             $makeArray[$make->serviceName] = $make; 
@@ -151,7 +157,7 @@ class UnitsController extends AppBaseController
         $array['planned'] = $plannedArray;
 
 
-        return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService]);
+        return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService, 'noCounterUpdate' => $noCounterUpdate]);
     }
 
     /**

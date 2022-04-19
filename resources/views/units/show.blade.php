@@ -14,7 +14,17 @@
                     </a>
                 </div>
             </div>
+            @if ($noCounterUpdate == '1') 
+              <div class="alert alert-danger" role="alert">
+                Counter has not been updated for the last 24h, please check the connection to tracking system.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+            
         </div>
+        
     </section>
 
     <div class="content px-3">
