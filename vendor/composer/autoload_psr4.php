@@ -93,6 +93,7 @@ return array(
     'Gajus\\Dindent\\' => array($vendorDir . '/gajus/dindent/src'),
     'Fruitcake\\Cors\\' => array($vendorDir . '/fruitcake/laravel-cors/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
+    'FlexFlux\\LaravelElasticEmail\\' => array($vendorDir . '/flexflux/laravel-elastic-email/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Facade\\Ignition\\' => array($vendorDir . '/facade/ignition/src'),
     'Facade\\IgnitionContracts\\' => array($vendorDir . '/facade/ignition-contracts/src'),

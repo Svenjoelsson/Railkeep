@@ -453,7 +453,7 @@ class ServicesController extends AppBaseController
                 }
             }
 
-            $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
+            $message->from('hello@railkeep.app', env('APP_NAME'));
         });
 
 

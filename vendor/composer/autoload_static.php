@@ -23,16 +23,16 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
-        '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
-        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
@@ -184,6 +184,7 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         array (
             'Fruitcake\\Cors\\' => 15,
             'FontLib\\' => 8,
+            'FlexFlux\\LaravelElasticEmail\\' => 29,
             'Faker\\' => 6,
             'Facade\\Ignition\\' => 16,
             'Facade\\IgnitionContracts\\' => 25,
@@ -592,6 +593,10 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
+        'FlexFlux\\LaravelElasticEmail\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/flexflux/laravel-elastic-email/src',
+        ),
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
@@ -930,6 +935,7 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'App\\Repositories\\makeListRepository' => __DIR__ . '/../..' . '/app/Repositories/makeListRepository.php',
         'App\\Repositories\\serviceTypeRepository' => __DIR__ . '/../..' . '/app/Repositories/serviceTypeRepository.php',
         'App\\Repositories\\serviceVendorRepository' => __DIR__ . '/../..' . '/app/Repositories/serviceVendorRepository.php',
+        'App\\Traits\\ServicePlanTrait' => __DIR__ . '/../..' . '/app/Traits/ServicePlanTrait.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -2335,6 +2341,9 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'Faker\\Provider\\zh_TW\\Text' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Provider/zh_TW/Text.php',
         'Faker\\UniqueGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/UniqueGenerator.php',
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/ValidGenerator.php',
+        'FlexFlux\\LaravelElasticEmail\\ElasticTransport' => __DIR__ . '/..' . '/flexflux/laravel-elastic-email/src/ElasticTransport.php',
+        'FlexFlux\\LaravelElasticEmail\\LaravelElasticEmailServiceProvider' => __DIR__ . '/..' . '/flexflux/laravel-elastic-email/src/LaravelElasticEmailServiceProvider.php',
+        'FlexFlux\\LaravelElasticEmail\\MailManager' => __DIR__ . '/..' . '/flexflux/laravel-elastic-email/src/MailManager.php',
         'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
         'FontLib\\Autoloader' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Autoloader.php',
         'FontLib\\BinaryStream' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',

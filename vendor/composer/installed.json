@@ -1819,6 +1819,57 @@
             "install-path": "../filp/whoops"
         },
         {
+            "name": "flexflux/laravel-elastic-email",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wouterdeberg/laravel-elastic-email.git",
+                "reference": "038922441d84e51911ac2bde7f4dc0033d0c85b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wouterdeberg/laravel-elastic-email/zipball/038922441d84e51911ac2bde7f4dc0033d0c85b6",
+                "reference": "038922441d84e51911ac2bde7f4dc0033d0c85b6",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~8.12"
+            },
+            "time": "2021-03-19T17:13:16+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "FlexFlux\\LaravelElasticEmail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wouter de Berg",
+                    "email": "info@wouterdeberg.nl"
+                }
+            ],
+            "description": "Package to send emails with attachements via an Elastic Email Mailer.",
+            "keywords": [
+                "elastic",
+                "elastic email",
+                "email",
+                "flexflux",
+                "laravel"
+            ],
+            "support": {
+                "email": "info@wouterdeberg.nl",
+                "issues": "https://github.com/wouterdeberg/laravel-elastic-email/issues",
+                "source": "https://github.com/wouterdeberg/laravel-elastic-email/tree/1.0.1"
+            },
+            "install-path": "../flexflux/laravel-elastic-email"
+        },
+        {
             "name": "fruitcake/laravel-cors",
             "version": "v2.2.0",
             "version_normalized": "2.2.0.0",

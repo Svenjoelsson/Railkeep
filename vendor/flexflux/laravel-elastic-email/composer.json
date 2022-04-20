@@ -1,0 +1,31 @@
+{
+    "name": "flexflux/laravel-elastic-email",
+    "description": "Package to send emails with attachements via an Elastic Email Mailer.",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "elastic",
+        "email",
+        "elastic email",
+        "flexflux"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wouter de Berg",
+            "email": "info@wouterdeberg.nl"
+        }
+    ],
+    "support": {
+        "email": "info@wouterdeberg.nl"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "FlexFlux\\LaravelElasticEmail\\": "src/"
+        }
+    },
+    "require": {
+        "laravel/framework": "~8.12"
+    }
+}

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '565862b949750c6c5332c2266c35f493d9a9900c',
+        'reference' => 'dfe400483b5ee5d8f44d8dea130267fcc5e56deb',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -246,6 +246,15 @@
             'aliases' => array(),
             'reference' => 'a63e5e8f26ebbebf8ed3c5c691637325512eb0dc',
             'dev_requirement' => true,
+        ),
+        'flexflux/laravel-elastic-email' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../flexflux/laravel-elastic-email',
+            'aliases' => array(),
+            'reference' => '038922441d84e51911ac2bde7f4dc0033d0c85b6',
+            'dev_requirement' => false,
         ),
         'fruitcake/laravel-cors' => array(
             'pretty_version' => 'v2.2.0',
@@ -582,7 +591,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '565862b949750c6c5332c2266c35f493d9a9900c',
+            'reference' => 'dfe400483b5ee5d8f44d8dea130267fcc5e56deb',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

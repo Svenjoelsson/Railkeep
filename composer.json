@@ -12,6 +12,7 @@
         "beyondcode/laravel-mailbox": "^2.2",
         "consoletvs/charts": "7.*",
         "doctrine/dbal": "~2.3",
+        "flexflux/laravel-elastic-email": "^1.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/adminlte-templates": "^3.0",

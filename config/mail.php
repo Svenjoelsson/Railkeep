@@ -61,6 +61,12 @@ return [
             'transport' => 'sendmail',
             'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
         ],
+        
+        'elastic_email' => [
+            'transport' => 'elasticemail',
+            'key' => env('ELASTIC_KEY'),
+            'account' => env('ELASTIC_ACCOUNT')
+        ],  
 
         'log' => [
             'transport' => 'log',
