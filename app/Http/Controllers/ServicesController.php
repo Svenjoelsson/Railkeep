@@ -232,8 +232,8 @@ class ServicesController extends AppBaseController
                             }
 
                             // Delete overdue activities for each
-                            \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$value["serviceName"])->delete();
-                            \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$value["serviceName"])->delete();    
+                            //\App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$value["serviceName"])->delete();
+                            //\App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$value["serviceName"])->delete();    
                 
                             \App\Models\services::create([
                                 'unit' => $unit->unit, 
