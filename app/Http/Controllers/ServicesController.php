@@ -444,7 +444,7 @@ class ServicesController extends AppBaseController
         //dd($data["files"]);
         
 
-        Mail::send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach, $unitData) {
+        Mail::mailer('elastic_email')->send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach, $unitData) {
            $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
            ->subject('New service order - #'.$serviceData->id);
             if ($attach) {
@@ -453,9 +453,8 @@ class ServicesController extends AppBaseController
                 }
             }
 
-            $message->from('hello@railkeep.app', env('APP_NAME'));
+            $message->from('nils@microsoft.com', env('APP_NAME'));
         });
-        dd('email sent');
 
         DB::table('serviceVendor')->insert([
             'vendorId' => $vendorData->id,
