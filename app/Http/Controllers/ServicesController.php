@@ -455,7 +455,7 @@ class ServicesController extends AppBaseController
 
             $message->from('hello@railkeep.app', env('APP_NAME'));
         });
-
+        dd('email sent');
 
         DB::table('serviceVendor')->insert([
             'vendorId' => $vendorData->id,
