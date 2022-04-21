@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -15,6 +18,63 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        Permission::create(['name' => 'use search']);
+        Permission::create(['name' => 'view dasboard']);
+
+        Permission::create(['name' => 'view services']);
+        Permission::create(['name' => 'view customers']);
+        Permission::create(['name' => 'view contacts']);
+        Permission::create(['name' => 'view workshops']);
+        Permission::create(['name' => 'view units']);
+        Permission::create(['name' => 'view agreements']);
+        Permission::create(['name' => 'view parts']);
+        Permission::create(['name' => 'view activities']);
+        Permission::create(['name' => 'view reports']);
+
+        Permission::create(['name' => 'create services']);
+        Permission::create(['name' => 'create customers']);
+        Permission::create(['name' => 'create contacts']);
+        Permission::create(['name' => 'create workshops']);
+        Permission::create(['name' => 'create units']);
+        Permission::create(['name' => 'create agreements']);
+        Permission::create(['name' => 'create parts']);
+        Permission::create(['name' => 'create reports']);
+
+        Permission::create(['name' => 'edit services']);
+        Permission::create(['name' => 'edit customers']);
+        Permission::create(['name' => 'edit contacts']);
+        Permission::create(['name' => 'edit workshops']);
+        Permission::create(['name' => 'edit units']);
+        Permission::create(['name' => 'edit agreements']);
+        Permission::create(['name' => 'edit parts']);
+
+        Permission::create(['name' => 'delete services']);
+        Permission::create(['name' => 'delete customers']);
+        Permission::create(['name' => 'delete contacts']);
+        Permission::create(['name' => 'delete workshops']);
+        Permission::create(['name' => 'delete units']);
+        Permission::create(['name' => 'delete agreements']);
+        Permission::create(['name' => 'delete parts']);
+
+
+        $role = Role::create(['name' => 'workshop'])
+        ->givePermissionTo(['view services', 'edit services']
+        );
+        $role = Role::create(['name' => 'customer'])
+        ->givePermissionTo(
+            ['view services', 
+            'view units', 
+            'view contacts',
+            'view agreements',
+            'create services']
+        );
+
+        $role = Role::create(['name' => 'admin']);
+        $role->givePermissionTo(Permission::all());
+
         // \App\Models\User::factory(10)->create();
         //$user = ['name' => 'Joel Gjerde', 'email' => 'joel@gjerdeinvest.se', 'email_verified_at' => now(), 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'remember_token' => random(10)];
         //\App\Models\User::create($user);
