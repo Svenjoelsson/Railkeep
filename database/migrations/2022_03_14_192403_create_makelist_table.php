@@ -17,7 +17,7 @@ class CreateMakeListTable extends Migration
         Schema::create('makeList', function (Blueprint $table) {
             $table->increments('id');
             $table->string('make');
-            $table->integer('level');
+            $table->integer('level')->nullable();
             $table->string('serviceName');
             $table->integer('operationDays')->nullable();
             $table->integer('calendarDays')->nullable();
