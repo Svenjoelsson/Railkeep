@@ -30,6 +30,10 @@
     {!! Form::label('traction_force', 'Traction Force:') !!}
     {!! Form::text('traction_force', null, ['class' => 'form-control']) !!}
 </div>
+<div class="form-group col-sm-6">
+    {!! Form::label('trackerId', 'Tracker Id:') !!}
+    {!! Form::text('trackerId', null, ['class' => 'form-control']) !!}
+</div>
 <hr>
 <div class="form-group col-sm-6">
     {!! Form::label('currentCounter', 'Current counter:') !!}

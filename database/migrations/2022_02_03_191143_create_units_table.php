@@ -23,6 +23,7 @@ class CreateUnitsTable extends Migration
             $table->string('traction_force')->nullable();
             $table->string('customer')->nullable();
             $table->string('maintenanceType');
+            $table->string('trackerId')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

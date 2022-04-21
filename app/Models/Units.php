@@ -41,6 +41,7 @@ class Units extends Model
         'traction_force',
         'customer',
         'maintenanceType',
+        'trackerId',
         'dateMounted',
         'dateUnmounted'
     ];
@@ -59,6 +60,7 @@ class Units extends Model
         'traction_force' => 'string',
         'customer' => 'string',
         'maintenanceType' => 'string',
+        'trackerId' => 'string',
         'dateMounted' => 'string',
         'dateUnmounted' > 'string'
     ];
