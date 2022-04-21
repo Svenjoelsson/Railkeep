@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\File; 
 use DomPDF;
+use Storage;
 
 class FileUploadController extends Controller
 {
@@ -59,7 +60,6 @@ class FileUploadController extends Controller
             'created_at' => now()
         ]);
 
-        
         $request->file->move(public_path($pathBuild), $fileName);
    
         return back()
