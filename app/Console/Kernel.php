@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                 if (intval($unit->trackerId) == $val['physical_id']) {
                     
                     if ($unit->maintenanceType == 'Km') {
-                        $counter = $val['tripmeter'] / 1000;
+                        $counter = round($val['tripmeter'] / 1000);
     
                     }
                     if ($unit->maintenanceType == 'h') {
