@@ -10,8 +10,8 @@ use App\Repositories\ActivitiesRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class ActivitiesController extends AppBaseController
 {
@@ -21,6 +21,15 @@ class ActivitiesController extends AppBaseController
     public function __construct(ActivitiesRepository $activitiesRepo)
     {
         $this->activitiesRepository = $activitiesRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view activities')->only('index');
+        $this->middleware('permission:create activities')->only('create');
+        $this->middleware('permission:create activities')->only('store');
+        $this->middleware('permission:view activities')->only('show');
+        $this->middleware('permission:edit activities')->only('edit');
+        $this->middleware('permission:edit activities')->only('update');
+        $this->middleware('permission:delete activities')->only('destroy');
     }
 
     /**
@@ -31,11 +40,7 @@ class ActivitiesController extends AppBaseController
      */
     public function index(ActivitiesDataTable $activitiesDataTable)
     {
-        if (auth()->user()->hasPermissionTo('view profile')) { 
-            return $activitiesDataTable->render('activities.index');
-        } else {
-            return view('denied');
-        }
+        return $activitiesDataTable->render('activities.index');
     }
 
     /**
