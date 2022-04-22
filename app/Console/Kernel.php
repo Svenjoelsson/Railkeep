@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Http;
 
 class Kernel extends ConsoleKernel
 {
@@ -23,6 +24,35 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            $response = Http::get('https://nordicrefinance.cpctracking.dk/api/v2/external/trackers?api_key=V7ibePYiafPg4jASdx5qJuZX');
+            //dd($response->json());
+    
+            $units = \App\Models\Units::whereNull('deleted_at')->where('trackerId', '!=', '')->get();
+            $data = $response->json();
+            foreach ($data['data'] as $val) {
+                foreach ($units as $unit) {
+                if (intval($unit->trackerId) == $val['physical_id']) {
+                    
+                    if ($unit->maintenanceType == 'Km') {
+                        $counter = $val['tripmeter'] / 1000;
+    
+                    }
+                    if ($unit->maintenanceType == 'h') {
+                        $counter = $val['running_hours'];
+                    }
+                    DB::table('activities')->insert([
+                        'activity_type' => 'UnitCounter',
+                        'activity_id' => $unit->id,
+                        'activity_message' => $counter,
+                        'created_at' => now()
+                    ]);
+                }
+            }
+    
+            }
+        })->everySixHours()->timezone('Europe/Stockholm');
+
 
         $schedule->call(function () {
             $activity = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->whereNull('deleted_at')->get();

@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Auth;
 use Flash;
 use App\Models\Users;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
 
 class profileController extends AppBaseController
 {
@@ -24,6 +26,7 @@ class profileController extends AppBaseController
      */
     public function index()
     {
+
         if (auth()->user()->hasPermissionTo('view profile')) {
             return view('profile');
         } else {
