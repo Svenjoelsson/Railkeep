@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,8 +23,10 @@ class DatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         Permission::create(['name' => 'use search']);
-        Permission::create(['name' => 'view dasboard']);
+        Permission::create(['name' => 'view dashboard']);
+        Permission::create(['name' => 'action services']);
 
+        Permission::create(['name' => 'view serviceplan']);
         Permission::create(['name' => 'view services']);
         Permission::create(['name' => 'view customers']);
         Permission::create(['name' => 'view contacts']);
@@ -33,7 +36,9 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'view parts']);
         Permission::create(['name' => 'view activities']);
         Permission::create(['name' => 'view reports']);
+        Permission::create(['name' => 'view profile']);
 
+        Permission::create(['name' => 'create serviceplan']);
         Permission::create(['name' => 'create services']);
         Permission::create(['name' => 'create customers']);
         Permission::create(['name' => 'create contacts']);
@@ -43,6 +48,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'create parts']);
         Permission::create(['name' => 'create reports']);
 
+        Permission::create(['name' => 'edit serviceplan']);
         Permission::create(['name' => 'edit services']);
         Permission::create(['name' => 'edit customers']);
         Permission::create(['name' => 'edit contacts']);
@@ -51,6 +57,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'edit agreements']);
         Permission::create(['name' => 'edit parts']);
 
+        Permission::create(['name' => 'delete serviceplan']);
         Permission::create(['name' => 'delete services']);
         Permission::create(['name' => 'delete customers']);
         Permission::create(['name' => 'delete contacts']);
@@ -60,10 +67,10 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'delete parts']);
 
 
-        $role = Role::create(['name' => 'workshop'])
+        $role3 = Role::create(['name' => 'workshop'])
         ->givePermissionTo(['view services', 'edit services']
         );
-        $role = Role::create(['name' => 'customer'])
+        $role2 = Role::create(['name' => 'customer'])
         ->givePermissionTo(
             ['view services', 
             'view units', 
@@ -72,13 +79,27 @@ class DatabaseSeeder extends Seeder
             'create services']
         );
 
-        $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(Permission::all());
+        $userRole = Role::create(['name' => 'user'])
+        ->givePermissionTo(
+            ['view services', 'edit services', 'create services', 
+            'view dashboard', 'use search', 'action services', 'view profile', 
+            'view units', 'edit units', 'create services',
+            'view agreements', 'edit agreements', 'create agreements',
+            'view parts', 'edit parts', 'create parts',
+            'view customers', 'edit customers', 'create customers',
+            'view contacts', 'edit contacts', 'create contacts', 
+            'view units', 'edit units', 'create services',
+            'view workshops', 'edit workshops', 'create workshops',
+            'view serviceplan', 'edit serviceplan', 'create serviceplan',
+            ]);
+
+        $role1 = Role::create(['name' => 'admin']);
+        $role1->givePermissionTo(Permission::all());
 
         // \App\Models\User::factory(10)->create();
         //$user = ['name' => 'Joel Gjerde', 'email' => 'joel@gjerdeinvest.se', 'email_verified_at' => now(), 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'remember_token' => random(10)];
         //\App\Models\User::create($user);
-        DB::table('users')->insert([
+        $user1 = \App\Models\User::create([
             'name' => 'Joel Gjerde',
             'email' => 'joel@gjerdeinvest.se',
             'photo' => '/uploads/profile/1/joel.jpeg',
@@ -90,7 +111,11 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        DB::table('users')->insert([
+
+
+        $user1->assignRole($role1);
+
+        $user2 = \App\Models\User::create([
             'name' => 'Arvid Haag',
             'email' => 'arvid@nordicrefinance.se',
             'photo' => '',
@@ -102,7 +127,9 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        DB::table('users')->insert([
+        $user2->assignRole($userRole);
+
+        $user3 = \App\Models\User::create([
             'name' => 'RailCare',
             'email' => 'anna@gjerdeinvest.se',
             'photo' => '',
@@ -113,6 +140,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now()
         ]);
+        $user3->assignRole($role3);
 
         DB::table('customers')->insert([
             'name' => 'Green Cargo',

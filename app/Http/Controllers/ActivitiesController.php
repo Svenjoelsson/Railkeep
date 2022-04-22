@@ -10,6 +10,8 @@ use App\Repositories\ActivitiesRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class ActivitiesController extends AppBaseController
 {
@@ -29,7 +31,11 @@ class ActivitiesController extends AppBaseController
      */
     public function index(ActivitiesDataTable $activitiesDataTable)
     {
-        return $activitiesDataTable->render('activities.index');
+        if (auth()->user()->hasPermissionTo('view profile')) { 
+            return $activitiesDataTable->render('activities.index');
+        } else {
+            return view('denied');
+        }
     }
 
     /**
@@ -39,7 +45,7 @@ class ActivitiesController extends AppBaseController
      */
     public function create()
     {
-        return view('activities.create');
+        return view('denied');
     }
 
     /**

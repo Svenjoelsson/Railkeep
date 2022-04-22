@@ -196,11 +196,13 @@
                             class="fas fa-bars"></i></a>
                 </li>
             </ul>
+            @if (auth()->user()->hasPermissionTo('use search')) 
             <form action="{{ route('globalSearch') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="text" class="form-control mac-style" list="searchresult" name="search" id='globalSearch' placeholder="Search">
 
             </form>
+            @endif
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">

@@ -10,6 +10,8 @@ use App\Repositories\inventoryRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class inventoryController extends AppBaseController
 {
@@ -19,6 +21,15 @@ class inventoryController extends AppBaseController
     public function __construct(inventoryRepository $inventoryRepo)
     {
         $this->inventoryRepository = $inventoryRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view parts')->only('index');
+        $this->middleware('permission:create parts')->only('create');
+        $this->middleware('permission:create parts')->only('store');
+        $this->middleware('permission:view parts')->only('show');
+        $this->middleware('permission:edit parts')->only('edit');
+        $this->middleware('permission:edit parts')->only('update');
+        $this->middleware('permission:delete parts')->only('destroy');
     }
 
     /**

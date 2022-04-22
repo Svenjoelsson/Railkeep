@@ -12,6 +12,8 @@ use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use Redirect;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class RentController extends AppBaseController
 {
@@ -21,6 +23,15 @@ class RentController extends AppBaseController
     public function __construct(RentRepository $rentRepo)
     {
         $this->rentRepository = $rentRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view agreements')->only('index');
+        $this->middleware('permission:create agreements')->only('create');
+        $this->middleware('permission:create agreements')->only('store');
+        $this->middleware('permission:view agreements')->only('show');
+        $this->middleware('permission:edit agreements')->only('edit');
+        $this->middleware('permission:edit agreements')->only('update');
+        $this->middleware('permission:delete agreements')->only('destroy');
     }
 
     /**

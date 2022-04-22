@@ -18,6 +18,11 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        
+        // Spatie permissions
+        $this->middleware('permission:view dashboard')->only('index');
+        $this->middleware('permission:view customers')->only('map');
+
     }
 
 

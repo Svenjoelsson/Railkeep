@@ -12,6 +12,8 @@ use App\Repositories\contactsRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class contactsController extends AppBaseController
 {
@@ -31,7 +33,11 @@ class contactsController extends AppBaseController
      */
     public function index(contactsDataTable $contactsDataTable)
     {
-        return $contactsDataTable->render('contacts.index');
+        if (auth()->user()->hasPermissionTo('view contacts')) {
+            return $contactsDataTable->render('contacts.index'); 
+        } else {
+            return view('denied');
+        }
     }
 
     /**
@@ -41,7 +47,11 @@ class contactsController extends AppBaseController
      */
     public function create()
     {
-        return view('contacts.create');
+        if (auth()->user()->hasPermissionTo('create contacts')) {
+            return view('contacts.create');
+        } else {
+            return view('denied');
+        }
     }
 
     /**
@@ -52,36 +62,30 @@ class contactsController extends AppBaseController
      * @return Response
      */
     public function store(CreatecontactsRequest $request)
-    {
-        $input = $request->all();
+    { 
+        if (auth()->user()->hasPermissionTo('create contacts')) {
+            $input = $request->all();
 
-        $contacts = $this->contactsRepository->create($input);
+            $contacts = $this->contactsRepository->create($input);
 
-        $test = DB::table('contact')->latest()->first();
-        $id = $test->id;
-        $email = $test->email;
+            $test = DB::table('contact')->latest()->first();
+            $id = $test->id;
+            $email = $test->email;
 
-        DB::table('activities')->insert([
-            'activity_type' => 'Contact',
-            'activity_id' => $id,
-            'activity_message' => 'Contact has been created',
-            'created_at' => now()
-        ]);
+            DB::table('activities')->insert([
+                'activity_type' => 'Contact',
+                'activity_id' => $id,
+                'activity_message' => 'Contact has been created',
+                'created_at' => now()
+            ]);
 
-        /*
-        $data = array('name' => $input['name'], 'messege' => 'Your email and data has been stored in our database to be able to contact you easier. If you no longer wish to be contact by us, please reply to this email.');
-        Mail::send('email/contact', $data, function($message) use ($input) {
-           $message->to($input['email'], $input['name'])->subject
-              ('Nordic Re finance');
-           $message->from('joel@gjerdeinvest.se','Lara message');
-        });
-        */
+            Flash::success('Contacts saved successfully.');
 
-        Flash::success('Contacts saved successfully.');
-
-        return redirect(route('contacts.index'));
+            return redirect(route('contacts.index'));
+        } else {
+            return view('denied');
+        }
     }
-
     /**
      * Display the specified contacts.
      *
@@ -91,15 +95,19 @@ class contactsController extends AppBaseController
      */
     public function show($id)
     {
-        $contacts = $this->contactsRepository->find($id);
+        if (auth()->user()->hasPermissionTo('view contacts')) {
+            $contacts = $this->contactsRepository->find($id);
 
-        if (empty($contacts)) {
-            Flash::error('Contacts not found');
+            if (empty($contacts)) {
+                Flash::error('Contacts not found');
 
-            return redirect(route('contacts.index'));
+                return redirect(route('contacts.index'));
+            }
+
+            return view('contacts.show')->with('contacts', $contacts);
+        } else {
+            return view('denied');
         }
-
-        return view('contacts.show')->with('contacts', $contacts);
     }
 
     /**
@@ -111,15 +119,19 @@ class contactsController extends AppBaseController
      */
     public function edit($id)
     {
-        $contacts = $this->contactsRepository->find($id);
+        if (auth()->user()->hasPermissionTo('edit contacts')) {
+            $contacts = $this->contactsRepository->find($id);
 
-        if (empty($contacts)) {
-            Flash::error('Contacts not found');
+            if (empty($contacts)) {
+                Flash::error('Contacts not found');
 
-            return redirect(route('contacts.index'));
+                return redirect(route('contacts.index'));
+            }
+
+            return view('contacts.edit')->with('contacts', $contacts);
+        } else {
+            return view('denied');
         }
-
-        return view('contacts.edit')->with('contacts', $contacts);
     }
 
     /**
@@ -132,19 +144,24 @@ class contactsController extends AppBaseController
      */
     public function update($id, UpdatecontactsRequest $request)
     {
-        $contacts = $this->contactsRepository->find($id);
+        if (auth()->user()->hasPermissionTo('edit contacts')) {
 
-        if (empty($contacts)) {
-            Flash::error('Contacts not found');
+            $contacts = $this->contactsRepository->find($id);
+
+            if (empty($contacts)) {
+                Flash::error('Contacts not found');
+
+                return redirect(route('contacts.index'));
+            }
+
+            $contacts = $this->contactsRepository->update($request->all(), $id);
+
+            Flash::success('Contacts updated successfully.');
 
             return redirect(route('contacts.index'));
+        } else {
+            return view('denied');
         }
-
-        $contacts = $this->contactsRepository->update($request->all(), $id);
-
-        Flash::success('Contacts updated successfully.');
-
-        return redirect(route('contacts.index'));
     }
 
     /**
@@ -156,18 +173,22 @@ class contactsController extends AppBaseController
      */
     public function destroy($id)
     {
-        $contacts = $this->contactsRepository->find($id);
+        if (auth()->user()->hasPermissionTo('delete contacts')) {
+            $contacts = $this->contactsRepository->find($id);
 
-        if (empty($contacts)) {
-            Flash::error('Contacts not found');
+            if (empty($contacts)) {
+                Flash::error('Contacts not found');
+
+                return redirect(route('contacts.index'));
+            }
+
+            $this->contactsRepository->delete($id);
+
+            Flash::success('Contacts deleted successfully.');
 
             return redirect(route('contacts.index'));
+        } else {
+            return view('denied');
         }
-
-        $this->contactsRepository->delete($id);
-
-        Flash::success('Contacts deleted successfully.');
-
-        return redirect(route('contacts.index'));
     }
 }

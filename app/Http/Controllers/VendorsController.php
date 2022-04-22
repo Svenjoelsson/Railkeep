@@ -10,6 +10,8 @@ use App\Repositories\VendorsRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class VendorsController extends AppBaseController
 {
@@ -19,6 +21,15 @@ class VendorsController extends AppBaseController
     public function __construct(VendorsRepository $vendorsRepo)
     {
         $this->vendorsRepository = $vendorsRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view workshops')->only('index');
+        $this->middleware('permission:create workshops')->only('create');
+        $this->middleware('permission:create workshops')->only('store');
+        $this->middleware('permission:view workshops')->only('show');
+        $this->middleware('permission:edit workshops')->only('edit');
+        $this->middleware('permission:edit workshops')->only('update');
+        $this->middleware('permission:delete workshops')->only('destroy');
     }
 
     /**

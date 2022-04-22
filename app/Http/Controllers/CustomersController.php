@@ -10,6 +10,8 @@ use App\Repositories\CustomersRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class CustomersController extends AppBaseController
 {
@@ -19,6 +21,15 @@ class CustomersController extends AppBaseController
     public function __construct(CustomersRepository $customersRepo)
     {
         $this->CustomersRepository = $customersRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view customers')->only('index');
+        $this->middleware('permission:create customers')->only('create');
+        $this->middleware('permission:create customers')->only('store');
+        $this->middleware('permission:view customers')->only('show');
+        $this->middleware('permission:edit customers')->only('edit');
+        $this->middleware('permission:edit customers')->only('update');
+        $this->middleware('permission:delete customers')->only('destroy');
     }
 
     /**

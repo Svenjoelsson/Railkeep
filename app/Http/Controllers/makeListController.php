@@ -10,6 +10,8 @@ use App\Repositories\makeListRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class makeListController extends AppBaseController
 {
@@ -19,6 +21,15 @@ class makeListController extends AppBaseController
     public function __construct(makeListRepository $makeListRepo)
     {
         $this->makeListRepository = $makeListRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view serviceplan')->only('index');
+        $this->middleware('permission:create serviceplan')->only('create');
+        $this->middleware('permission:create serviceplan')->only('store');
+        $this->middleware('permission:view serviceplan')->only('show');
+        $this->middleware('permission:edit serviceplan')->only('edit');
+        $this->middleware('permission:edit serviceplan')->only('update');
+        $this->middleware('permission:delete serviceplan')->only('destroy');
     }
 
     /**

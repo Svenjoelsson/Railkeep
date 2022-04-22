@@ -15,6 +15,8 @@ use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Traits\ServiceplanTrait;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class UnitsController extends AppBaseController
 {
@@ -26,6 +28,15 @@ class UnitsController extends AppBaseController
     public function __construct(UnitsRepository $unitsRepo)
     {
         $this->unitsRepository = $unitsRepo;
+
+        // Spatie permissions
+        $this->middleware('permission:view units')->only('index');
+        $this->middleware('permission:create units')->only('create');
+        $this->middleware('permission:create units')->only('store');
+        $this->middleware('permission:view units')->only('show');
+        $this->middleware('permission:edit units')->only('edit');
+        $this->middleware('permission:edit units')->only('update');
+        $this->middleware('permission:delete units')->only('destroy');
     }
 
     /**

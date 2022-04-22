@@ -1,3 +1,5 @@
+
+
 {!! Form::open(['route' => ['services.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
 <?php
@@ -13,15 +15,17 @@ if ($activities) { ?>
 <?php } ?>
 
     
-    @if (Auth::user()->role == 'user')
+    @if (auth()->user()->hasPermissionTo('action services')) 
     <a href="{{ route('services.show', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>
     </a>
     @endif
+    @if (auth()->user()->hasPermissionTo('edit services')) 
     <a href="{{ route('services.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>
-    @if (Auth::user()->role == 'user')
+    @endif
+    @if (auth()->user()->hasPermissionTo('delete services')) 
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
