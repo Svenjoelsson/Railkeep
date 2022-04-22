@@ -25,6 +25,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function () {
+            DB::table('activities')->insert([
+                'activity_type' => 'CronJob',
+                'activity_id' => '',
+                'activity_message' => 'Running Tracker API',
+                'created_at' => now()
+            ]);
+
+
             $response = Http::get('https://nordicrefinance.cpctracking.dk/api/v2/external/trackers?api_key=V7ibePYiafPg4jASdx5qJuZX');
             //dd($response->json());
     
