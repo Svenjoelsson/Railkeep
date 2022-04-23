@@ -187,7 +187,7 @@ class Kernel extends ConsoleKernel
                             DB::table('activities')->insert([
                                 'activity_type' => 'Overdue-date-'.$make->serviceName,
                                 'activity_id' => $unit->id,
-                                'activity_message' => $services->nextServiceDate,
+                                'activity_message' => $services->nextServiceDate->format('Y-m-d'),
                                 'created_at' => now()
                             ]);
                             
@@ -209,7 +209,7 @@ class Kernel extends ConsoleKernel
                                 DB::table('activities')->insert([
                                     'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-date-'.$make->serviceName,
                                     'activity_id' => $unit->id,
-                                    'activity_message' => $services->nextServiceDate,
+                                    'activity_message' => $services->nextServiceDate->format('Y-m-d'),
                                     'created_at' => now()
                                 ]);
                             }
