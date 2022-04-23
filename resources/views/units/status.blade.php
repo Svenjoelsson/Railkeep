@@ -7,10 +7,10 @@
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
 
     $dateOverdue = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->first();    
-    $dateNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '90%-date-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
+    $dateNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
 
     $counterOverdue = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
-    $counterNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '90%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
+    $counterNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
 
 
     if ($critical) { // Critical in progress events

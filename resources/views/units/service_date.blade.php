@@ -7,10 +7,10 @@
         echo '<a href="/units/'.$id.'"><span style="font-size:12px; margin-right:2px;" class="badge bg-danger">'.$overdue.'</span></a>';
     }
 
-    $ninty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '90%-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+    $ninty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
     //echo $id;
     foreach ($ninty as $val) {
-        $overdue1 = str_replace("90%-date-","", $val->activity_type);
+        $overdue1 = str_replace(env('THRESHOLD_SOON_OVERDUE')."-date-","", $val->activity_type);
         echo '<a href="/units/'.$id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" class="badge bg-warning">'.$overdue1.'</span></a>';
     }
 

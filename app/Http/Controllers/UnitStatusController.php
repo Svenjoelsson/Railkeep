@@ -31,28 +31,28 @@ class UnitStatusController extends Controller
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                             if ($duplicate) { 
                                 \App\Models\Activities::where('id', $duplicate->id)->delete();
-                            } else {
-                                DB::table('activities')->insert([
-                                    'activity_type' => 'Overdue-counter-'.$make->serviceName,
-                                    'activity_id' => $unit->id,
-                                    'activity_message' => $math,
-                                    'created_at' => now()
-                                ]);
                             }
+                            DB::table('activities')->insert([
+                                'activity_type' => 'Overdue-counter-'.$make->serviceName,
+                                'activity_id' => $unit->id,
+                                'activity_message' => $math,
+                                'created_at' => now()
+                            ]);
+                            
                             
                         }
                         else if (round($perc, 1) <= $cal) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                             if ($duplicate) { 
                                 \App\Models\Activities::where('id', $duplicate->id)->delete();
-                            } else {
-                                DB::table('activities')->insert([
-                                    'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName,
-                                    'activity_id' => $unit->id,
-                                    'activity_message' => $math,
-                                    'created_at' => now()
-                                ]);
-                            }
+                            } 
+                            DB::table('activities')->insert([
+                                'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName,
+                                'activity_id' => $unit->id,
+                                'activity_message' => $math,
+                                'created_at' => now()
+                            ]);
+                            
                         }
                         
                     }
@@ -72,17 +72,21 @@ class UnitStatusController extends Controller
                     if ($services) {
                         if ($services->nextServiceDate < now()) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-date-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
-                            if (!$duplicate) { 
+                            if ($duplicate) { 
+                                \App\Models\Activities::where('id', $duplicate->id)->delete();
+                            }
                                 DB::table('activities')->insert([
                                     'activity_type' => 'Overdue-date-'.$make->serviceName,
                                     'activity_id' => $unit->id,
-                                    'activity_message' => '1',
+                                    'activity_message' => $services->nextServiceDate,
                                     'created_at' => now()
                                 ]);
                             }
+                        
+                        $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', env('THRESHOLD_SOON_OVERDUE').'-date-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                        if ($duplicate) { 
+                            \App\Models\Activities::where('id', $duplicate->id)->delete();
                         }
-                        $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', '90%-date-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
-                        if (!$duplicate) { 
                             $nextservicedate = strtotime($services->nextServiceDate->format('Y-m-d'));
                             $today = strtotime(date('Y-m-d'));
                             //$today = strtotime('2022-05-20');
@@ -93,17 +97,15 @@ class UnitStatusController extends Controller
                             if ($percLeft <= 10 && $percLeft > 0) {
 
                                 DB::table('activities')->insert([
-                                    'activity_type' => '90%-date-'.$make->serviceName,
+                                    'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-date-'.$make->serviceName,
                                     'activity_id' => $unit->id,
-                                    'activity_message' => '1',
+                                    'activity_message' => $services->nextServiceDate,
                                     'created_at' => now()
                                 ]);
                             }
                         }
-                    }
+                    }}
                 }
             }
         }
 
-    }
-}

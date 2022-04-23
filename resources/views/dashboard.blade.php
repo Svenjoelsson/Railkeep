@@ -31,7 +31,7 @@
                 <div class="info-box shadow-lg bg-gradient-warning">
                     <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text" style="color:white !important;">Over 90% reached</span>
+                        <span class="info-box-text" style="color:white !important;">Over {{ env('THRESHOLD_SOON_OVERDUE') }}% reached</span>
                         <span class="info-box-number" style="color:white !important;">{{ $ninty }}</span>
                     </div>
                 </div>

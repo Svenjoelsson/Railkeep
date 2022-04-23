@@ -59,7 +59,12 @@ class searchController extends Controller
                 $result[] = ["title" => "Create inventory", "type" => "Inventory", "link" => "inventories/create"];
 
         }
+        if ($search == "settings" || $search == "Settings" || $search == "SETTINGS") {
+            $result[] = ["title" => "Soon overdue threshold: ", "type" => env('THRESHOLD_SOON_OVERDUE')."%", "link" => ""];
+            $result[] = ["title" => "Overdue threshold: ", "type" => env('THRESHOLD_OVERDUE')."%", "link" => ""];
 
+
+        }
         if ($search == "Cron" || $search == "cron" || $search == "CRON") {
             $result[] = ["title" => "Run unit counter status update", "type" => "Cron job", "link" => "unitStatus/counter"];
             $result[] = ["title" => "Run unit dates status update", "type" => "Cron job", "link" => "unitStatus/dates"];

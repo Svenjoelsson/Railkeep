@@ -49,8 +49,8 @@ class DashboardController extends Controller
         $dateOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();    
         $counterOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
 
-        $dateNinty = \App\Models\Activities::where('activity_type', 'like', '90%-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
-        $counterNinty = \App\Models\Activities::where('activity_type', 'like', '90%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
+        $dateNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
+        $counterNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
     
         $units = \App\Models\Units::whereNull('deleted_at')->count();
 

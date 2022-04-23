@@ -18,9 +18,9 @@ trait ServicePlanTrait {
             if (str_contains($service, 'Overdue')) {
                 $overdue = str_replace("Overdue-counter-","", $val->activity_type);
             }
-            //$new = str_replace("90%-counter-", "", $val->activity_type);
-            if (str_contains($service, '90%')) {
-                $overdue = str_replace("90%-counter-","", $val->activity_type);
+            //$new = str_replace("-counter-", "", $val->activity_type);
+            if (str_contains($service, env('THRESHOLD_SOON_OVERDUE'))) {
+                $overdue = str_replace(env('THRESHOLD_SOON_OVERDUE')."-counter-","", $val->activity_type);
             }
             $next = intval($test['make']['services'][$overdue]->nextServiceCounter);
             $current = intval($test['activities']->activity_message);
