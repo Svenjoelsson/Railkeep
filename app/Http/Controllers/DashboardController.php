@@ -58,7 +58,7 @@ class DashboardController extends Controller
         $sumOverdue = intval($dateOverdue) + intval($counterOverdue);
         $sumNinty = intval($dateNinty) + intval($counterNinty);
 
-        $operatingUnits = intval($units) - $sumNinty - $sumOverdue - $critical - $planned;
+        $operatingUnits = intval($units) - $sumOverdue - $critical;
         $perc = round(intval($operatingUnits) / intval($units) * 100, 1);
 
 
