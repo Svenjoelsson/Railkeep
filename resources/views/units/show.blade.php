@@ -56,7 +56,6 @@
 
                             <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage</a> 
                             <a class="btn btn-default" style="float:right; margin-right:5px;" href="/units/servicePlan/<?php echo $units->id ?>/download">Export</a> 
-
                             <h5><span style="float:left;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
                              <br /><br /><br />
                             <table class="table table-hover">
@@ -73,8 +72,8 @@
                             <?php 
 
                             foreach ($make['make'] as $value1) {
-                              $counterNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', '90%-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
-                              $dateNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', '90%-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                              $counterNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                              $dateNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
 
                               $counterOverdue = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', 'Overdue-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                               $dateOverdue = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', 'Overdue-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();    

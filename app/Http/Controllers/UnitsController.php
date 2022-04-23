@@ -167,7 +167,6 @@ class UnitsController extends AppBaseController
         $array['services'] = $serviceArray;
         $array['planned'] = $plannedArray;
 
-
         return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService, 'noCounterUpdate' => $noCounterUpdate]);
     }
 

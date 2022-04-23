@@ -8,6 +8,29 @@ use Storage;
 
 trait ServicePlanTrait {
 
+    public function unitLookup($id, $type, $service)
+    {
+        $test = $this->generate($id, 'raw');
+        //$unit = \App\Models\Units::where('id', $id)->whereNull('deleted_at')->first();
+        //$services = DB::table('services')->where('unit', $unit->unit)->where('service_type', $type)->where('service_status', 'Done')->whereNull('deleted_at')->get();
+        $val = DB::table('activities')->where('activity_id', $id)->where('activity_type', $service)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
+        if ($val) {
+            if (str_contains($service, 'Overdue')) {
+                $overdue = str_replace("Overdue-counter-","", $val->activity_type);
+            }
+            //$new = str_replace("90%-counter-", "", $val->activity_type);
+            if (str_contains($service, '90%')) {
+                $overdue = str_replace("90%-counter-","", $val->activity_type);
+            }
+            $next = intval($test['make']['services'][$overdue]->nextServiceCounter);
+            $current = intval($test['activities']->activity_message);
+            $calc = $next - $current;
+            return ($calc);
+        }
+        //dd($activities);
+        
+        //return $services;
+    }
 
     public function generate($id, $type)
     {
@@ -59,6 +82,12 @@ trait ServicePlanTrait {
             $pdf = $pdf->output();
 
             return $pdf;
+        }
+        else if ($type == 'raw') {
+            unset($make['make']['make']);
+            unset($make['make']['unit']);
+            unset($make['make']['planned']);
+            return $make;
         }
         else {
             return 'error';

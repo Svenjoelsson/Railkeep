@@ -7,6 +7,8 @@ use App\Models\Services;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Illuminate\Support\Facades\Http;
+use App\Traits\ServiceplanTrait;
+
 
 
 function isMobileDev(){
@@ -22,6 +24,7 @@ function isMobileDev(){
 
 class UnitsDataTable extends DataTable
 {
+    use ServicePlanTrait;
     /**
      * Build DataTable class.
      *
@@ -30,6 +33,7 @@ class UnitsDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        
         $dataTable = new EloquentDataTable($query);
         return $dataTable->addColumn('action', 'units.datatables_actions')
         ->addColumn('ServiceCounter', 'units.service_counter')->escapeColumns('active')
