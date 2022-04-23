@@ -39,10 +39,10 @@ class UnitStatusController extends Controller
                             
                         }
                         else if (round($perc, 1) <= 10) {
-                            $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', '90%-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
+                            $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                             if (!$duplicate) { 
                                 DB::table('activities')->insert([
-                                    'activity_type' => '90%-counter-'.$make->serviceName,
+                                    'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName,
                                     'activity_id' => $unit->id,
                                     'activity_message' => '1',
                                     'created_at' => now()
