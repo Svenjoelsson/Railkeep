@@ -13,14 +13,8 @@
     $counterNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
 
 
-    if ($critical) { // Critical in progress events
-        if ($critical->critical == '1') {
-            echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span></a>';
-        } else {
-            echo '<span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
-        }
-    } 
-     else if ($dateOverdue) {
+
+    if ($dateOverdue) {
         echo '<span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span>';
     } else if ($dateNinty) {
         echo '<span style="font-size:16px;" class="badge bg-warning"><i style="color:white;" class="fas fa-exclamation"></i></span>';
@@ -37,7 +31,12 @@
     }
     if ($planned) { // Planned events
 
-        echo '<a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$planned->service_type." ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a>';
+        echo '<a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$planned->service_type."] ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a>';
 
     }
+    if ($critical) { // Critical in progress events
+        if ($critical->critical == '1') {
+            echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" data-toggle="tooltip" title="['.$critical->service_type.'] '.$critical->service_desc.'" class="badge bg"><i style="color:red;" class="fas fa-exclamation"></i></span></a>';
+        }
+    } 
 ?>
