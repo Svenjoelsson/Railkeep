@@ -70,6 +70,7 @@ class ActivitiesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'id',
             'activity_type',
             'activity_id',
             'activity_message',

@@ -138,9 +138,7 @@ class Kernel extends ConsoleKernel
                         $next = $services->nextServiceCounter;
                         $math = $next - $current;
                         $perc = $math/$make->counter*100;
-
                         $cal = 100-intval(env('THRESHOLD_SOON_OVERDUE'));
-
 
                         if ($services->nextServiceCounter < $counter->activity_message) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
@@ -156,7 +154,6 @@ class Kernel extends ConsoleKernel
                             }
                             
                         }
-
                         else if (round($perc, 1) <= $cal) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                             if ($duplicate) { 

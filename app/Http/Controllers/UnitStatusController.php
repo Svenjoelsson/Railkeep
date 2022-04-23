@@ -25,26 +25,31 @@ class UnitStatusController extends Controller
                         $next = $services->nextServiceCounter;
                         $math = $next - $current;
                         $perc = $math/$make->counter*100;
+                        $cal = 100-intval(env('THRESHOLD_SOON_OVERDUE'));
 
                         if ($services->nextServiceCounter < $counter->activity_message) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'Overdue-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
-                            if (!$duplicate) { 
+                            if ($duplicate) { 
+                                \App\Models\Activities::where('id', $duplicate->id)->delete();
+                            } else {
                                 DB::table('activities')->insert([
                                     'activity_type' => 'Overdue-counter-'.$make->serviceName,
                                     'activity_id' => $unit->id,
-                                    'activity_message' => '1',
+                                    'activity_message' => $math,
                                     'created_at' => now()
                                 ]);
                             }
                             
                         }
-                        else if (round($perc, 1) <= 10) {
+                        else if (round($perc, 1) <= $cal) {
                             $duplicate = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
-                            if (!$duplicate) { 
+                            if ($duplicate) { 
+                                \App\Models\Activities::where('id', $duplicate->id)->delete();
+                            } else {
                                 DB::table('activities')->insert([
                                     'activity_type' => env('THRESHOLD_SOON_OVERDUE').'-counter-'.$make->serviceName,
                                     'activity_id' => $unit->id,
-                                    'activity_message' => '1',
+                                    'activity_message' => $math,
                                     'created_at' => now()
                                 ]);
                             }
@@ -54,7 +59,6 @@ class UnitStatusController extends Controller
                 }
             }
         }
-        echo "Run ".now();
     }
 
     public function dates(Request $request)
