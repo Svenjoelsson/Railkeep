@@ -13,7 +13,7 @@
 </section>
 <section class="content-header">
     <div class="container-fluid shadow-lg card card-body">
-      <h4>Unit status</h4>
+        <h4>Unit status</h4>
         <div class="row well">
 
 
@@ -31,23 +31,24 @@
                 <div class="info-box shadow-lg bg-gradient-warning">
                     <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text" style="color:white !important;">Over {{ env('THRESHOLD_SOON_OVERDUE') }}% reached</span>
+                        <span class="info-box-text" style="color:white !important;">Over
+                            {{ env('THRESHOLD_SOON_OVERDUE') }}% reached</span>
                         <span class="info-box-number" style="color:white !important;">{{ $ninty }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2 col-sm-6 col-12" >
-              <div class="info-box shadow-lg bg-gradient-blue">
-                  <span class="info-box-icon"><i class="far fa-clock"></i></span>
-                  <div class="info-box-content">
-                      <span class="info-box-text">Planned</span>
-                      <span class="info-box-number">{{ $planned }}</span>
-                  </div>
+            <div class="col-md-2 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-blue">
+                    <span class="info-box-icon"><i class="far fa-clock"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Planned</span>
+                        <span class="info-box-number">{{ $planned }}</span>
+                    </div>
 
-              </div>
+                </div>
 
-          </div>
+            </div>
 
             <div class="col-md-2 col-sm-6 col-12">
                 <div class="info-box shadow-lg bg-gradient-danger">
@@ -60,46 +61,33 @@
             </div>
 
             <div class="col-md-2 col-sm-6 col-12">
-              <div class="info-box shadow-lg bg-gradient-danger">
-                <span class="info-box-icon"><i class="fas fa-ban"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Critical</span>
-                    <span class="info-box-number">{{ $critical }}</span>
+                <div class="info-box shadow-lg bg-gradient-danger">
+                    <span class="info-box-icon"><i class="fas fa-ban"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Critical</span>
+                        <span class="info-box-number">{{ $critical }}</span>
+                    </div>
                 </div>
             </div>
-          </div>
-          <h4>Agreements</h4>
-          <div class="row">
-            <div class="col-12 col-sm-6 col-md-6">
-            <div class="info-box shadow-lg">
-            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-file-contract"></i></span>
-            <div class="info-box-content">
-            <span class="info-box-text">Agreements</span>
-            <span class="info-box-number">
-            {{ $agreements }}
-            </span>
-            </div>
-            
-            </div>
-            
-            </div>
-            
-            <div class="col-12 col-sm-6 col-md-6">
-            <div class="info-box shadow-lg mb-3">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
-            <div class="info-box-content">
-            <span class="info-box-text">Total revenue</span>
-            <span class="info-box-number">{{ $monthlyInvoice }}</span>
-            </div>
-            
-            </div>
-            
-            </div>
-            
-            
-            
-
-            
+           
+            <h4>Statistics</h4>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box shadow-lg bg-gradient-white">
+                        <div class="info-box-content">
+                            <span class="info-box-text">Kilometers driven last 24h:</span>
+                            <span class="info-box-number">{{ $totalKm }} km</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box shadow-lg bg-gradient-white">
+                        <div class="info-box-content">
+                            <span class="info-box-text">Hours driven last 24h:</span>
+                            <span class="info-box-number">{{ $totalH }} h</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

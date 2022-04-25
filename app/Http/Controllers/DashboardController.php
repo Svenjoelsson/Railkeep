@@ -54,6 +54,32 @@ class DashboardController extends Controller
     
         $units = \App\Models\Units::whereNull('deleted_at')->count();
 
+        $allUnits = \App\Models\Units::whereNull('deleted_at')->where('trackerId', '!=', '')->get();
+
+        $totalArr = [];
+        $totalKm = 0;
+        $totalH = 0;
+        foreach ($allUnits as $unit) {
+
+            $yesterdate = date('Y-m-d',strtotime("-1 days"))." 00:%";
+            
+            $yesterday = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
+            $today = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
+
+            if ($unit->maintenanceType == 'Km') {
+                $calc = $today->activity_message - $yesterday->activity_message;
+                $totalKm += $calc;
+            }
+            if ($unit->maintenanceType == 'h') {
+                $calc = $today->activity_message - $yesterday->activity_message;
+                $totalH += $calc;
+            }
+            
+            $totalArr[$unit->unit] = $calc; // TOTAL KM LAST 24H PER UNIT
+        
+        }  
+
+
 
         $sumOverdue = intval($dateOverdue) + intval($counterOverdue);
         $sumNinty = intval($dateNinty) + intval($counterNinty);
@@ -65,7 +91,19 @@ class DashboardController extends Controller
 
         $sum = asSEK($monthlyInvoice);
         
-        return view('dashboard')->with(['monthlyInvoice' => $sum, 'agreements' => $agreements, 'critical' => $critical, 'planned' => $planned, 'overdue' => $sumOverdue, 'ninty' => $sumNinty, 'operatingUnits' => $operatingUnits, 'units' => $units, 'perc' => $perc]);
+        return view('dashboard')->with(
+            ['monthlyInvoice' => $sum, 
+            'agreements' => $agreements, 
+            'critical' => $critical, 
+            'planned' => $planned, 
+            'overdue' => $sumOverdue, 
+            'ninty' => $sumNinty, 
+            'operatingUnits' => $operatingUnits, 
+            'units' => $units, 
+            'perc' => $perc,
+            'totalKm' => $totalKm,
+            'totalH' => $totalH,
+        ]);
     }
 
     public function map()
