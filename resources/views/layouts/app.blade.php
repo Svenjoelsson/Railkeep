@@ -211,7 +211,7 @@
                             <img src="/{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
                                 alt="User Image">
                         @else
-                            <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
+                            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
                                 class="user-image img-circle elevation-2" alt="User Image">
                         @endif
 
@@ -224,7 +224,7 @@
                                 <img src="/{{ Auth::user()->photo }}" class="user-image img-circle elevation-2"
                                     alt="User Image">
                             @else
-                                <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
+                                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
                                     class="user-image img-circle elevation-2" alt="User Image">
                             @endif
                             <p>
