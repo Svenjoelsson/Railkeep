@@ -2,7 +2,11 @@
 <div class="form-group col-sm-6">
     {!! Form::label('customer', 'Customer: *') !!} <span style="float:right"><small><a href="/customers/create">Create new</a></small></span>
     <?php 
-    $customers = \App\Models\Customers::all();
+    if (Auth::user()->role == 'customer') {
+        $customers = \App\Models\Customers::where('name', Auth::user()->name)->get();
+    } else {
+        $customers = \App\Models\Customers::all();
+    }
     foreach ($customers as $key => $value) {
         $arr[$value['name']] = $value['name'];
     }

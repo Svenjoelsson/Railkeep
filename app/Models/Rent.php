@@ -62,7 +62,6 @@ class Rent extends Model
     public static $rules = [
         
     ];
-
     
     public function units() {
         return $this->belongsTo(\App\Models\Units::class);
