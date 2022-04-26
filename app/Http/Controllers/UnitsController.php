@@ -284,4 +284,25 @@ class UnitsController extends AppBaseController
         return $pdf;
 
     }
+
+    public function inService($id, $value)
+    {
+
+        \App\Models\Units::where('id', $id)->update(['inService' => $value]);
+        if ($value == '1') {
+            $message = 'Unit has been set to [In Service] manually';
+        } else {
+            $message = 'Unit has been set to [Out of Service] manually';
+
+        }
+        DB::table('activities')->insert([
+            'activity_type' => 'Unit',
+            'activity_id' => $id,
+            'activity_message' => $message,
+            'created_at' => now()
+        ]);
+
+        return back();
+
+    }
 }

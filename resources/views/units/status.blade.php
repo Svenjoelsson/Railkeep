@@ -2,6 +2,7 @@
     $critical = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
     //$services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->whereNotNull('nextServiceDate')->orderBy('nextServiceDate', 'asc')->first();
     //$services = \App\Models\Services::where('unit', $unit)->whereNull('deleted_at')->where('nextServiceDate', '>', now())->orderBy('nextServiceDate', 'asc')->first();
+    $manual = \App\Models\Units::where('unit', $unit)->where('inService', '0')->whereNull('deleted_at')->first();
 
     $planned = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->first();
     $activities = \App\Models\Activities::where('activity_type', 'UnitCounter')->whereNull('deleted_at')->where('activity_id', $id)->orderBy('created_at', 'desc')->first();
@@ -12,7 +13,10 @@
     $counterOverdue = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
     $counterNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
 
-
+if ($manual) {
+    echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Manually set out of service"><i class="fas fa-ban"></i></span>';
+} 
+else {
 
     if ($dateOverdue) {
         echo '<span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span>';
@@ -39,4 +43,5 @@
             echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" data-toggle="tooltip" title="['.$critical->service_type.'] '.$critical->service_desc.'" class="badge bg"><i style="color:red;" class="fas fa-exclamation"></i></span></a>';
         }
     } 
+}
 ?>

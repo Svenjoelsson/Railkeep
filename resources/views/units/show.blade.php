@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{ $units->unit }}</h1>
+                    <h1 style="float:left;">{{ $units->unit }} </h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
@@ -47,6 +47,12 @@
         <li class="nav-item">
           <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Parts</a>
         </li>
+        <li class="nav-item">
+          @if ($units->inService == '0') 
+          <a href="/units/inservice/{{ $units->id }}/1" class="nav-link bg-red">Out of service</a>
+          @else 
+          <a href="/units/inservice/{{ $units->id }}/0" class="nav-link bg-success">In service</a>
+          @endif         </li>
         @endif
       </ul>
         <div class="card">

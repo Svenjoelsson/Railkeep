@@ -154,3 +154,4 @@ Route::get('unitStatus/counter', [App\Http\Controllers\UnitStatusController::cla
 Route::get('unitStatus/dates', [App\Http\Controllers\UnitStatusController::class, 'dates']);
 
 Route::get('units/servicePlan/{id}/{type}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);
+Route::get('units/inservice/{id}/{value}', [App\Http\Controllers\UnitsController::class, 'inService']);
