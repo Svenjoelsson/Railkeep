@@ -65,18 +65,19 @@ class DashboardController extends Controller
             
             $yesterday = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
             $today = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
-
-            if ($unit->maintenanceType == 'Km') {
-                $calc = $today->activity_message - $yesterday->activity_message;
-                $totalKm += $calc;
-            }
-            if ($unit->maintenanceType == 'h') {
-                $calc = $today->activity_message - $yesterday->activity_message;
-                $totalH += $calc;
-            }
+            if ($yesterday) {
+    
+                if ($unit->maintenanceType == 'Km') {
+                    $calc = $today->activity_message - $yesterday->activity_message;
+                    $totalKm += $calc;
+                }
+                if ($unit->maintenanceType == 'h') {
+                    $calc = $today->activity_message - $yesterday->activity_message;
+                    $totalH += $calc;
+                }
             
-            $totalArr[$unit->unit] = $calc; // TOTAL KM LAST 24H PER UNIT
-        
+                $totalArr[$unit->unit] = $calc; // TOTAL KM LAST 24H PER UNIT
+            }
         }  
 
 
