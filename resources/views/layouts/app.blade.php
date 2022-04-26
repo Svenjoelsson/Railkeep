@@ -37,8 +37,8 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" />
 
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
-    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
+    <!--<script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>-->
 
     <style>
         .select2-selection__rendered {
