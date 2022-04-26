@@ -175,6 +175,9 @@
     left: 150px;
     background-color: white !important;
     }
+    input::placeholder {
+        color: #a4b1b8 !important;
+    }
     </style>
     
 
@@ -199,7 +202,7 @@
             @if (auth()->user()->hasPermissionTo('use search')) 
             <form action="{{ route('globalSearch') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="text" class="form-control mac-style" list="searchresult" name="search" id='globalSearch' placeholder="Search">
+            <input type="text" class="form-control mac-style" autocomplete="off" list="searchresult" name="search" id='globalSearch' placeholder="Search...">
 
             </form>
             @endif
