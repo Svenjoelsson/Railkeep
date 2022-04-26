@@ -8,6 +8,7 @@
                     <h1>Agreements</h1>
                 </div>
                 <div class="col-sm-6">
+                    @if(auth()->user()->hasPermissionTo('view reports'))
                     <div class="dropdown">
                         <button style="float:right;" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Reports
@@ -21,7 +22,7 @@
                        
                         </div>
                       </div>
-                      
+                    @endif
                 </div>
             </div>
             

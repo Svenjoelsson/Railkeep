@@ -53,6 +53,11 @@ class ServicesDataTable extends DataTable
             ->where('id', $services->serviceId)
             ->orderby('id', 'desc');
 
+        } else if (Auth::user()->role == 'customer') {
+            $data = Services::query()
+        
+            ->where('customer', Auth::user()->name)
+            ->orderby('id', 'desc');
         } else {
             $data = Services::query()
             ->orderby('id', 'desc');

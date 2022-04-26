@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DataTables;
-
+use Auth;
 use App\Models\Rent;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
@@ -50,7 +50,14 @@ class RentDataTable extends DataTable
     {
         //return $model->newQuery();
 
-        $data = Rent::query();
+        if (Auth::user()->role == 'customer') { 
+            $data = Rent::query()
+            ->where('customer', Auth::user()->name)
+            ->orderby('id', 'asc');
+        } else {
+            $data = Rent::query()
+            ->orderby('id', 'asc');
+        }
         return $this->applyScopes($data);
     }
 

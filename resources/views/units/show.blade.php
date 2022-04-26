@@ -32,19 +32,22 @@
         <li class="nav-item">
           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home" aria-selected="true">Service plan</a>
         </li>
+        @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile" aria-selected="false">Activity log</a>
         </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link" id="counter-tab" data-toggle="tab" href="#counter" role="tab" aria-controls="counter" aria-selected="false">Counters</a>
         </li>
+        @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="contact" aria-selected="false">File upload</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Parts</a>
         </li>
-
+        @endif
       </ul>
         <div class="card">
           
@@ -53,8 +56,9 @@
                       <div class="col-12">
                         <div class="tab-content" id="v-pills-tabContent">
                           <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
+                            @if(auth()->user()->hasPermissionTo('view reports'))
                             <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage</a> 
+                            @endif
                             <a class="btn btn-default" style="float:right; margin-right:5px;" href="/units/servicePlan/<?php echo $units->id ?>/download">Export</a> 
                             <h5><span style="float:left;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
                              <br /><br /><br />

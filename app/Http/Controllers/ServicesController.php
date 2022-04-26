@@ -317,7 +317,7 @@ class ServicesController extends AppBaseController
 
             $request["doneCounter"] = $input["doneCounter"];
 
-                $message = "Service #".$id." has been set to Done";
+            $message = "Service #".$id." has been set to Done";
 
             } else {
                 $message = "Service #".$id." has been updated";

@@ -1,5 +1,6 @@
 <?php 
 if (isset($_GET["unit"])) {
+        
     $unit = \App\Models\Units::where('unit', $_GET["unit"])->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
     $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-'.$_GET["service_type"])->whereNull('deleted_at')->orderBy('id','desc')->get();
     $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-date-'.$_GET["service_type"])->whereNull('deleted_at')->orderBy('id','desc')->get();    
@@ -19,7 +20,11 @@ if (isset($_GET["unit"])) {
     {!! Form::label('unit', 'Unit: *') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
     <?php 
     $arr1 = [];
-    $units = \App\Models\Units::whereNull('deleted_at')->get();
+    if (Auth::user()->role == 'customer') {
+        $units = \App\Models\Units::where('customer', Auth::user()->name)->whereNull('deleted_at')->get();
+    } else {
+        $units = \App\Models\Units::whereNull('deleted_at')->get();
+    }
     foreach ($units as $key => $value1) {
         $arr1[$value1['unit']] = $value1['unit'];
     }

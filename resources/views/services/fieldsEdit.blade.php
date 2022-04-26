@@ -92,9 +92,8 @@
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('service_desc', 'Description: *') !!} <span style="float:right"><small><!--<a style="cursor: pointer;" class="clearField">Clear</a>-->
     </small></span>
-    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'disabled', 'required', 'rows' => '10']) !!}
+    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'required', 'rows' => '10']) !!}
 </div>
-<textarea hidden name="service_desc">{{ nl2br($services->service_desc) }}</textarea>
 
 
 
@@ -111,10 +110,11 @@
 </div>
 
 <!-- Service status Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-6 serviceStatus">
     {!! Form::label('service_status', 'Status: *') !!}
     {!! Form::select('service_status', array('In progress' => 'In progress', 'Done' => 'Done'), null, ['class' => 'form-control disableAll serviceStatus']) !!}
 </div>
+
 <?php 
     if ($make !== null && isset($make->calendarDays)) {
         $labelDate = 'Next'
@@ -188,7 +188,7 @@ if ($make !== null && isset($make->counter)) {
 <?php if ($make) { ?>
 
     <script type="text/javascript">
-        
+
        $('#newService').append('+'+'<?php echo $make->counter ?>');
        $('#newServiceDay').append('+'+'<?php echo $make->calendarDays ?>'+' days');
 
@@ -214,6 +214,13 @@ if ($make !== null && isset($make->counter)) {
             
         }
         </script>
+<?php } ?>
+
+<?php
+if (Auth::user()->role != 'user') { ?>
+    <script>
+    $('.serviceStatus').hide();
+    </script>
 <?php } ?>
 
         <script type="text/javascript">

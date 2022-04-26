@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Units;
 use App\Models\Services;
+use Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 use Illuminate\Support\Facades\Http;
@@ -51,7 +52,15 @@ class UnitsDataTable extends DataTable
      */
     public function query(Units $model)
     {
-        return $model->newQuery();
+        if (Auth::user()->role == 'customer') { 
+            $data = Units::query()
+            ->where('customer', Auth::user()->name)
+            ->orderby('unit', 'asc');
+        } else {
+            $data = Units::query()
+            ->orderby('unit', 'asc');
+        }
+        return $this->applyScopes($data);
     }
 
     /**

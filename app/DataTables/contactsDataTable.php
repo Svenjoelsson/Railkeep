@@ -1,8 +1,8 @@
 <?php
 
 namespace App\DataTables;
-
 use App\Models\contacts;
+use Auth;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
@@ -39,7 +39,17 @@ class contactsDataTable extends DataTable
      */
     public function query(contacts $model)
     {
-        return $model->newQuery();
+        if (Auth::user()->role == 'customer') { 
+            $data = Contacts::query()
+                ->where('customer', Auth::user()->name)
+                ->orderby('id', 'desc');
+        } else {
+            $data = Contacts::query()
+            ->orderby('id', 'desc');
+        }
+
+        return $this->applyScopes($data);
+        
     }
 
     /**
