@@ -22,6 +22,8 @@ class CreateUnitsTable extends Migration
             $table->string('year_model')->nullable();
             $table->string('traction_force')->nullable();
             $table->string('customer')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('long')->nullable();
             $table->string('maintenanceType');
             $table->tinyInteger('inService')->default(1);
             $table->string('trackerId')->nullable();

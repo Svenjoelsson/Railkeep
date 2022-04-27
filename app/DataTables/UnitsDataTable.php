@@ -38,10 +38,8 @@ class UnitsDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         return $dataTable->addColumn('action', 'units.datatables_actions')
         ->addColumn('ServiceCounter', 'units.service_counter')->escapeColumns('active')
-        ->addColumn('Stoplight', 'units.stoplight')->escapeColumns('active')
         ->addColumn('ServiceDate', 'units.service_date')->escapeColumns('active')
         ->addColumn('status', 'units.status')->escapeColumns('active');
-
     }
 
     /**
@@ -54,11 +52,9 @@ class UnitsDataTable extends DataTable
     {
         if (Auth::user()->role == 'customer') { 
             $data = Units::query()
-            ->where('customer', Auth::user()->name)
-            ->orderby('unit', 'asc');
+            ->where('customer', Auth::user()->name);
         } else {
-            $data = Units::query()
-            ->orderby('unit', 'asc');
+            $data = Units::query();
         }
         return $this->applyScopes($data);
     }

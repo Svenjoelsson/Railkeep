@@ -21,7 +21,7 @@ class DashboardController extends Controller
         
         // Spatie permissions
         $this->middleware('permission:view dashboard')->only('index');
-        $this->middleware('permission:view customers')->only('map');
+        $this->middleware('permission:view map')->only('map');
 
     }
 
@@ -66,17 +66,20 @@ class DashboardController extends Controller
             $yesterday = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
             $today = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
             if ($yesterday) {
-    
-                if ($unit->maintenanceType == 'Km') {
-                    $calc = $today->activity_message - $yesterday->activity_message;
-                    $totalKm += $calc;
+                if ($today) {
+                    
+                
+                    if ($unit->maintenanceType == 'Km') {
+                        $calc = $today->activity_message - $yesterday->activity_message;
+                        $totalKm += $calc;
+                    }
+                    if ($unit->maintenanceType == 'h') {
+                        $calc = $today->activity_message - $yesterday->activity_message;
+                        $totalH += $calc;
+                    }
+                
+                    $totalArr[$unit->unit] = $calc; // TOTAL KM LAST 24H PER UNIT
                 }
-                if ($unit->maintenanceType == 'h') {
-                    $calc = $today->activity_message - $yesterday->activity_message;
-                    $totalH += $calc;
-                }
-            
-                $totalArr[$unit->unit] = $calc; // TOTAL KM LAST 24H PER UNIT
             }
         }  
 
@@ -110,7 +113,23 @@ class DashboardController extends Controller
     public function map()
     {
         // https://github.com/LarsWiegers/laravel-maps
+        if (Auth::user()->role == 'customer') { 
+            $allUnits = \App\Models\Units::whereNull('deleted_at')->where('customer', Auth::user()->name)->where('trackerId', '!=', '')->where('lat', '!=', '')->where('long', '!=', '')->get();
+        } else {
+            $allUnits = \App\Models\Units::whereNull('deleted_at')->where('trackerId', '!=', '')->where('lat', '!=', '')->where('long', '!=', '')->get();
+        }
         
-        return view('map');
+            $arr = [];
+        $test = [];
+        foreach ($allUnits as $unit) {
+            $arr['lat'] = $unit["lat"];
+            $arr['long'] = $unit["long"];
+            $arr['info'] = $unit["unit"];
+            
+            
+            $test[] = $arr; 
+        }
+        //dd(array_values($test));
+        return view('map')->with(['units' => $test]);
     }
 }

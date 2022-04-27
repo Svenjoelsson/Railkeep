@@ -49,6 +49,9 @@ class Kernel extends ConsoleKernel
                     if ($unit->maintenanceType == 'h') {
                         $counter = $val['running_hours'];
                     }
+                    // update location in database
+                    \App\Models\Units::where('id', $unit->id)->update(['lat' => $val['lat'], 'long' => $val['lng']]);
+                    
                     DB::table('activities')->insert([
                         'activity_type' => 'UnitCounter',
                         'activity_id' => $unit->id,
@@ -60,6 +63,7 @@ class Kernel extends ConsoleKernel
     
             }
         })->everySixHours()->timezone('Europe/Stockholm');
+        //})->everyMinute()->timezone('Europe/Stockholm');
 
 
         $schedule->call(function () {

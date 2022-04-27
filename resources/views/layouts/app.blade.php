@@ -178,6 +178,15 @@
     input::placeholder {
         color: #a4b1b8 !important;
     }
+    .train_icon {
+        width: 200px !important;
+        height: 200px !important;
+        margin-left:-15px !important;
+        margin-top:-30px !important;
+        background-image:url('/images/train_icon.png');
+        background-repeat: no-repeat;
+    }
+
     </style>
     
 

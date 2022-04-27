@@ -36,7 +36,7 @@ class Leaflet extends Component
     public function render() : View
     {
         $markerArray = [];
-
+        //dd($this->markers);
         foreach($this->markers as $marker) {
             $markerArray[] = [implode(",", $marker)];
         }

@@ -22,16 +22,18 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
 <script>
+    var myIcon = L.divIcon({className: 'train_icon'});
 
     var mymap = L.map('{{$mapId}}').setView([{{$centerPoint['lat'] ?? $centerPoint[0]}}, {{$centerPoint['long'] ?? $centerPoint[1]}}], {{$zoomLevel}});
     @foreach($markers as $marker)
+    console.log({{$marker['lat']}})
      @if(isset($marker['icon']))
        var icon = L.icon({
         iconUrl: '{{ $marker['icon'] }}',
         iconSize: [{{$marker['iconSizeX'] ?? 32}} , {{ $marker['iconSizeY'] ?? 32 }}],
        });
      @endif
-    var marker = L.marker([{{$marker['lat'] ?? $marker[0]}}, {{$marker['long'] ?? $marker[1]}}]);
+    var marker = L.marker([{{$marker['lat'] ?? $marker[0]}}, {{$marker['long'] ?? $marker[1]}}], {icon: myIcon});
     marker.addTo(mymap);
     @if(isset($marker['info']))
     marker.bindPopup(@json($marker['info']));
