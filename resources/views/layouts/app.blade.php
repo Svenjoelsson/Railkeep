@@ -186,6 +186,15 @@
         background-image:url('/images/train_icon.png');
         background-repeat: no-repeat;
     }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+        background-color: #355262 !important;
+        margin-top:-58px !important; 
+        border: none !important;
+        color: white !important;
+    }
+    .leaflet-popup-close-button {
+        margin-top:-58px !important; 
+    }
 
     </style>
     
