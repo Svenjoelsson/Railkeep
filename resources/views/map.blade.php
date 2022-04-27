@@ -5,8 +5,8 @@
 
 @section('content')
 <x-maps-leaflet 
-zoomLevel="6" 
+zoomLevel="5" 
 :markers="$units" 
-:centerPoint="['lat' => 57.58753126651317, 'long' => 13.922573161065014]"
+:centerPoint="['lat' => 61.68051903629829, 'long' => 13.747171927808145]"
 ></x-maps-leaflet>
-@endsection
+@endsection 
