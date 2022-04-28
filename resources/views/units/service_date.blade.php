@@ -4,14 +4,14 @@
     //echo $id;
     foreach ($date as $key) {
         $overdue = str_replace("Overdue-date-","", $key->activity_type);
-        echo '<a href="/units/'.$id.'"><span style="font-size:12px; margin-right:2px;" data-toggle="tooltip" title="'.$key->activity_message.'" class="badge bg-danger">'.$overdue.'</span></a>';
+        echo '<a href="/units/'.$id.'"><span style="font-size:12px; margin-right:2px;" data-toggle="tooltip" title="'.$overdue.'" class="badge bg-danger">'.$key->activity_message.'</span></a>';
     }
 
     $ninty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
     //echo $id;
     foreach ($ninty as $val) {
         $overdue1 = str_replace(env('THRESHOLD_SOON_OVERDUE')."-date-","", $val->activity_type);
-        echo '<a href="/units/'.$id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" data-toggle="tooltip" title="'.$val->activity_message.'" class="badge bg-warning">'.$overdue1.'</span></a>';
+        echo '<a href="/units/'.$id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" data-toggle="tooltip" title="'.$overdue1.'" class="badge bg-warning">'.$val->activity_message.'</span></a>';
     }
 
 

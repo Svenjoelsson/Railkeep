@@ -4,12 +4,7 @@
     $make = \App\Models\makeList::where('make', $unit->make)->whereNull('deleted_at')->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
     $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
     $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();    
-    
-    if (count($counter) != '0' || count($date)!= '0') {
-        echo '<div class="alert alert-info" role="alert">';
-        echo "This event will update an overdue service.";
-        echo '</div>';
-    }
+
 ?>
 
 <div class="form-group col-sm-6">
@@ -110,7 +105,7 @@
 </div>
 
 <!-- Service status Field -->
-<div class="form-group col-sm-6 serviceStatus">
+<div class="form-group col-sm-6">
     {!! Form::label('service_status', 'Status: *') !!}
     {!! Form::select('service_status', array('In progress' => 'In progress', 'Done' => 'Done'), null, ['class' => 'form-control disableAll serviceStatus']) !!}
 </div>

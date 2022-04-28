@@ -94,7 +94,6 @@ class DashboardController extends Controller
 
 
         $sum = asSEK($monthlyInvoice);
-        
         return view('dashboard')->with(
             ['monthlyInvoice' => $sum, 
             'agreements' => $agreements, 
@@ -107,6 +106,7 @@ class DashboardController extends Controller
             'perc' => $perc,
             'totalKm' => $totalKm,
             'totalH' => $totalH,
+            'soondue' => env('THRESHOLD_SOON_OVERDUE'),
         ]);
     }
 
