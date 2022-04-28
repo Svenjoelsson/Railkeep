@@ -298,7 +298,7 @@ class ServicesController extends AppBaseController
             $message->attachData($this->generate($unit->id, 'attachment'), 'service plan.pdf', [
                 'mime' => 'application/pdf',
             ]);
-            $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
+            $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             });
 
             DB::table('activities')->insert([
@@ -455,7 +455,7 @@ class ServicesController extends AppBaseController
                 }
             }
 
-            $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
+            $message->from('hello@railkeep.app', 'hello');
         });
 
 
