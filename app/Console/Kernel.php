@@ -106,7 +106,7 @@ class Kernel extends ConsoleKernel
                     $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
                     ->subject('Unit out of service - #'.$data["serviceId"]);
                     $message->attach($filePath.$fileName);
-                    $message->from('joel@gjerdeinvest.se', env('APP_NAME'));
+                    $message->from('hello@railkeep.app', 'Railkeep');
                     });
 
                     DB::table('activities')->insert([
