@@ -237,8 +237,8 @@
                               $part = \App\Models\InventoryLog::where('part', $value["id"])->first();
 
                               echo "<td>".$part->dateMounted."</td>";
-                              echo "<td>".$part->counter."</td>";
-                              echo "<td>".$value['maintenance']."</td>";
+                              echo "<td>".$part->counter." ".$units->maintenanceType."</td>";
+                              echo "<td>".$value['maintenance']." ".$units->maintenanceType."</td>";
                               echo "<td>".$value['maintenanceDate']."</td>";
                               echo "<td>".$value['eol']."</td>";
                               echo "<td>".$value['eolDate']."</td>";
@@ -310,7 +310,7 @@
             <?php 
             $unitData = \App\Models\inventory::whereNull('unit')->orderBy('partName', 'asc')->get();
             foreach ($unitData as $value) {
-              echo "<option value='".$value['id']."'>".$value['partName']." (".$value['partNumber'].")</option>";
+              echo "<option value='".$value['id']."'>".$value['partName']." (Part: ".$value['partNumber']." Batch: ".$value['batch'].")</option>";
             }
             ?>
             </select>
