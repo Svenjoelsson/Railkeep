@@ -168,6 +168,7 @@
                                 <tr>
                                     <td>Unit</td>
                                     <td>Counter / Date</td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -286,7 +287,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                    $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->get();
+                    $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_date', '!=', '')->where('service_type', '!=', 'Report')->where('service_type', '!=', 'Repair')->whereNull('deleted_at')->orderBy('service_date', 'asc')->get();
 
                     if ($planned) {
                         foreach ($planned as $x) {
