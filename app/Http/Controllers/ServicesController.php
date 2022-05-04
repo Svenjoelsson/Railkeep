@@ -304,14 +304,14 @@ class ServicesController extends AppBaseController
             DB::table('activities')->insert([
                 'activity_type' => 'Service',
                 'activity_id' => $id,
-                'activity_message' => 'Unit has returned to service.',
+                'activity_message' => 'Unit has been set to [In Service]',
                 'created_at' => now()
             ]);
 
             DB::table('activities')->insert([
                 'activity_type' => 'Unit',
                 'activity_id' => $unit->id,
-                'activity_message' => 'Unit has returned to service.',
+                'activity_message' => 'Unit has been set to [In Service]',
                 'created_at' => now()
             ]);
 

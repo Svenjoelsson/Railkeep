@@ -29,5 +29,15 @@
             </div>
     </div>
     <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned service</span>
+
+
+    <script>
+
+        $('.custom-select').change(function(){
+            var data= $(this).val();
+            alert(data);            
+        });
+    </script>
+
 @endsection
 

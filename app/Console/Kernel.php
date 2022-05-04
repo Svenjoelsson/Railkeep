@@ -109,9 +109,16 @@ class Kernel extends ConsoleKernel
                     });
 
                     DB::table('activities')->insert([
+                        'activity_type' => 'Service',
+                        'activity_id' => $unit->id,
+                        'activity_message' => 'Unit has been set to [Out of Service]',
+                        'created_at' => now()
+                    ]);
+
+                    DB::table('activities')->insert([
                         'activity_type' => 'Unit',
                         'activity_id' => $unit->id,
-                        'activity_message' => 'Unit is now out of service.',
+                        'activity_message' => 'Unit has been set to [Out of Service]',
                         'created_at' => now()
                     ]);
 

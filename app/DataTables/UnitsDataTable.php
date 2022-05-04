@@ -40,6 +40,7 @@ class UnitsDataTable extends DataTable
         ->addColumn('ServiceCounter', 'units.service_counter')->escapeColumns('active')
         ->addColumn('ServiceDate', 'units.service_date')->escapeColumns('active')
         ->addColumn('status', 'units.status')->escapeColumns('active');
+        
     }
 
     /**
@@ -69,6 +70,7 @@ class UnitsDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
+            
             ->addAction(['width' => '120px', 'printable' => false])
             ->parameters([
                 'dom'       => 'Bfrtlip',
