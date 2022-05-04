@@ -68,6 +68,7 @@ class searchController extends Controller
         if ($search == "Cron" || $search == "cron" || $search == "CRON") {
             $result[] = ["title" => "Run unit counter status update", "type" => "Cron job", "link" => "unitStatus/counter"];
             $result[] = ["title" => "Run unit dates status update", "type" => "Cron job", "link" => "unitStatus/dates"];
+            $result[] = ["title" => "Run parts counter update", "type" => "Cron job", "link" => "unitStatus/parts"];
 
         }
 

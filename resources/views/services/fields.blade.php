@@ -51,10 +51,12 @@ if (isset($_GET["unit"])) {
     {!! Form::label('service_type', 'Service type: *') !!} <span style="float:right"><small><a href="{{ route('makeLists.create') }}">Create new</a></small></span>
     <?php 
     $arr1 = [];
-    $service_type = \App\Models\serviceType::all();
+    $service_type = \App\Models\makeList::all();
     foreach ($service_type as $key => $value1) {
-        $arr1[$value1['service_type']] = $value1['service_type'];
+        $arr1[$value1['serviceName']] = $value1['serviceName'];
     }
+    $arr1['Repair'] = 'Repair';
+    $arr1['Report'] = 'Report';
     ?>
     {!! Form::select('service_type', $arr1, null, ['class' => 'form-control serviceSelect js-example-basic-single', 'required']) !!}
 

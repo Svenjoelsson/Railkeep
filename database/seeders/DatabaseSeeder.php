@@ -296,8 +296,8 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()
         ]);
         DB::table('serviceType')->insert([
-            'service_type' => 'Reparation',
-            'service_desc' => 'Reparation enligt lista',
+            'service_type' => 'Repair',
+            'service_desc' => 'Repair enligt lista',
             'created_at' => now()
         ]);
 

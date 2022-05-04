@@ -226,7 +226,47 @@ class Kernel extends ConsoleKernel
 
     })->everyThirtyMinutes()->timezone('Europe/Stockholm');
     //})->everyMinute()->timezone('Europe/Stockholm');
-        
+    
+
+    // MOUNTED PARTS UPDATER DAILY
+    $schedule->call(function () {
+        $mountedParts = \App\Models\InventoryLog::whereNull('dateUnmounted')->whereNull('deleted_at')->get();
+        foreach ($mountedParts as $part) {
+            $mountedParts = \App\Models\InventoryLog::whereNull('dateUnmounted')->whereNull('deleted_at')->get();
+
+            $yesterdate = date('Y-m-d',strtotime("-1 days"))." 00:%";
+            $yesterday = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
+            $today = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
+            $calc = $today->activity_message - $yesterday->activity_message;
+            
+            $addCalc = intval($part->counter) + intval($calc);
+            // Update DB
+            \App\Models\InventoryLog::where('id', $part->id)->update(['counter' => $addCalc]);
+
+            $x = \App\Models\Inventory::where('id', $part->part)->first();
+            // if part counter is more than part->next maintenance
+            if ($x->maintenance != NULL) {
+                if ($addCalc > $x->maintenance) {
+                    if ($x->critical == "1") {
+                        \App\Models\Activities::insert(['activity_type' => 'PartOverdueMaintCritical', 'activity_id' => $part->unit, 'activity_message' => $part->part, 'created_at' => now()]);
+                    } else {
+                        \App\Models\Activities::insert(['activity_type' => 'PartOverdueMaint', 'activity_id' => $part->unit, 'activity_message' => $part->part, 'created_at' => now()]);
+                    }
+                }
+            }
+            // if part counter is more than part->EOL
+            if ($x->eol != NULL) {
+                if ($addCalc > $x->eol) {
+                    if ($x->critical == "1") {
+                        \App\Models\Activities::insert(['activity_type' => 'PartOverdueEOLCritical', 'activity_id' => $part->unit, 'activity_message' => $part->part, 'created_at' => now()]);
+                    } else {
+                        \App\Models\Activities::insert(['activity_type' => 'PartOverdueEOL', 'activity_id' => $part->unit, 'activity_message' => $part->part, 'created_at' => now()]);
+                    }
+                }
+            }
+
+        }
+    })->dailyAt('03:00')->timezone('Europe/Stockholm');
 
     }
 

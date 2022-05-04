@@ -100,7 +100,7 @@ Route::get('/sendattachmentemail', [App\Http\Controllers\MailController::class, 
 Route::resource('services', App\Http\Controllers\ServicesController::class);
 
 Route::post('someurl', [App\Http\Controllers\ServicesController::class, 'someMethod']);
-
+Route::post('inventories/mount', [App\Http\Controllers\inventoryController::class, 'mount']);
 
 
 Route::resource('units', App\Http\Controllers\UnitsController::class);
@@ -152,6 +152,7 @@ Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generate
 
 Route::get('unitStatus/counter', [App\Http\Controllers\UnitStatusController::class, 'counter']);
 Route::get('unitStatus/dates', [App\Http\Controllers\UnitStatusController::class, 'dates']);
+Route::get('unitStatus/parts', [App\Http\Controllers\UnitStatusController::class, 'parts']);
 
 Route::get('units/servicePlan/{id}/{type}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);
 Route::get('units/inservice/{id}/{value}', [App\Http\Controllers\UnitsController::class, 'inService']);

@@ -77,7 +77,7 @@ class inventoryDataTable extends DataTable
     {
         if (isMobileDev()) {
             return [
-                'unit',
+                'partNumber',
                 'partName',
             ];
         } else {
@@ -85,8 +85,7 @@ class inventoryDataTable extends DataTable
                 'unit',
                 'partNumber',
                 'partName',
-                'CounterStatus',
-                'status'
+                'status',
             ];
         }
     }

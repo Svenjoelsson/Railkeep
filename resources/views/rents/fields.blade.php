@@ -51,7 +51,7 @@
             format: 'YYYY-MM-DD',
             useCurrent: true,
             sideBySide: true
-        })
+        });        
     </script>
 @endpush
 <hr>

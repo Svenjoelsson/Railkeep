@@ -33,13 +33,13 @@ class inventory extends Model
         'unit',
         'partNumber',
         'partName',
-        'usageCounter',
-        'status',
-        'batch',
-        'maintenance',
-        'eol',
         'dateMounted',
-        'dateUnmounted'
+        'status',
+        'maintenance',
+        'critical',
+        'batch',
+        'eol',
+        'eolDate',
     ];
 
     /**
@@ -52,14 +52,11 @@ class inventory extends Model
         'unit' => 'string',
         'partNumber' => 'string',
         'partName' => 'string',
-        'usageCounter' => 'string',
         'status' => 'string',
+        'critical' => 'string',
         'batch' => 'string',
-        'maintenance' => 'string',
         'eol' => 'string',
-        'dateMounted' => 'string',
-        'dateUnmounted' => 'string',
-
+        'eolDate' => 'string',
     ];
 
     /**

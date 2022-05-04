@@ -195,7 +195,9 @@
     .leaflet-popup-close-button {
         margin-top:-58px !important; 
     }
-
+    .datepicker {
+      z-index: 9999 !important; /* has to be larger than 1050 */
+    }
     </style>
     
 
@@ -343,6 +345,8 @@
             $(this).closest('form').submit();
         });
 
+
+
 document.onreadystatechange = function() {
     if (document.readyState !== "complete") {
         document.querySelector("body").style.visibility = "hidden";
@@ -363,7 +367,6 @@ document.onreadystatechange = function() {
         });
 
 
-
         $('.serviceSelect').val(null).trigger('change');
 
             $('.js-example-basic-single').select2({
@@ -374,6 +377,12 @@ document.onreadystatechange = function() {
 
             $('.js-example-basic-single-modal').select2({
                 dropdownParent: $('#newinventory'),
+                placeholder: 'Select an option',
+                width: '100%',
+            });
+
+            $('.js-example-basic-single-modal-workshop').select2({
+                dropdownParent: $('#workshop'),
                 placeholder: 'Select an option',
                 width: '100%',
             });
@@ -433,9 +442,9 @@ document.onreadystatechange = function() {
                                     }
                                     
                                 });
-                                var newOption1 = new Option('Reparation', 'Reparation', false, false);
+                                var newOption1 = new Option('Repair', 'Repair', false, false);
                                 $('.serviceSelect').append(newOption1).trigger('change');   
-                                var newOption2 = new Option('Rapport', 'Rapport', false, false);
+                                var newOption2 = new Option('Report', 'Report', false, false);
                                 $('.serviceSelect').append(newOption2).trigger('change');   
                                 
                             });
@@ -510,7 +519,7 @@ document.onreadystatechange = function() {
 
         $('.serviceSelect').on('select2:select', function (e) {
             var data = e.params.data.id;
-            if (data === 'Reparation' || data === 'Rapport') {
+            if (data === 'Repair' || data === 'Report') {
                 $('.hideDates').hide();
             }
         });

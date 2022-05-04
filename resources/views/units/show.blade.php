@@ -1,85 +1,104 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 style="float:left;">{{ $units->unit }} </h1>
-                </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-default float-right"
-                       href="{{ route('units.index') }}">
-                        Back
-                    </a>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 style="float:left;">{{ $units->unit }} </h1>
             </div>
-            @if ($noCounterUpdate == '1') 
-              <div class="alert alert-danger" role="alert">
-                Counter has not been updated for the last 24h, please check the connection to tracking system.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            @endif
-            
+            <div class="col-sm-6">
+                <a class="btn btn-default float-right" href="{{ route('units.index') }}">
+                    Back
+                </a>
+            </div>
         </div>
-        
-    </section>
+        @if ($noCounterUpdate == '1')
+        <div class="alert alert-danger" role="alert">
+            Counter has not been updated for the last 24h, please check the connection to tracking system.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
 
-    <div class="content px-3">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+    </div>
+
+</section>
+
+<div class="content px-3">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home" aria-selected="true">Service plan</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home"
+                aria-selected="true">Service plan</a>
         </li>
         @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile" aria-selected="false">Activity log</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile"
+                aria-selected="false">Activity log</a>
         </li>
         @endif
         <li class="nav-item">
-          <a class="nav-link" id="counter-tab" data-toggle="tab" href="#counter" role="tab" aria-controls="counter" aria-selected="false">Counters</a>
+            <a class="nav-link" id="counter-tab" data-toggle="tab" href="#counter" role="tab" aria-controls="counter"
+                aria-selected="false">Counters</a>
         </li>
         @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="contact" aria-selected="false">File upload</a>
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="contact"
+                aria-selected="false">File upload</a>
+        </li>
+        <?php
+        $count = \App\Models\inventory::where('unit', $units->unit)->count();
+        $x = \App\Models\Activities::where('activity_type', 'LIKE', 'Part%')->where('activity_id', $units->id)->first();
+        ?>
+        <li class="nav-item">
+                @if ($x) 
+                <a class="nav-link bg-red" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab"
+                aria-controls="inventory" aria-selected="false">Parts <i style="color:white;" class="fas fa-exclamation"></i></a>
+                @else
+                <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab"
+                aria-controls="inventory" aria-selected="false">Parts ({{ $count }})</a>
+                
+                @endif
+            </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="inventory-tab" data-toggle="tab" href="#inventory" role="tab" aria-controls="inventory" aria-selected="false">Parts</a>
-        </li>
-        <li class="nav-item">
-          @if ($units->inService == '0') 
-          <a href="/units/inservice/{{ $units->id }}/1" class="nav-link bg-red">Out of service</a>
-          @else 
-          <a href="/units/inservice/{{ $units->id }}/0" class="nav-link bg-success">In service</a>
-          @endif         </li>
+            @if ($units->inService == '0')
+            <a href="/units/inservice/{{ $units->id }}/1" class="nav-link bg-red">Out of service</a>
+            @else
+            <a href="/units/inservice/{{ $units->id }}/0" class="nav-link bg-success">In service</a>
+            @endif </li>
         @endif
-      </ul>
-        <div class="card">
-          
-            <div class="card-body">
-                <div class="row">
-                      <div class="col-12">
-                        <div class="tab-content" id="v-pills-tabContent">
-                          <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="v-pills-home-tab">
+    </ul>
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="services" role="tabpanel"
+                            aria-labelledby="v-pills-home-tab">
                             @if(auth()->user()->hasPermissionTo('view reports'))
-                            <a class="btn btn-primary" style="float:right; margin-right:5px;" href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage</a> 
+                            <a class="btn btn-primary" style="float:right; margin-right:5px;"
+                                href="{{ route('makeLists.create', ['make' => $units->make]); }}">Manage</a>
                             @endif
-                            <a class="btn btn-default" style="float:right; margin-right:5px;" href="/units/servicePlan/<?php echo $units->id ?>/download">Export</a> 
-                            <h5><span style="float:left;" class="badge badge-dark">Current counter: {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
-                             <br /><br /><br />
+                            <a class="btn btn-default" style="float:right; margin-right:5px;"
+                                href="/units/servicePlan/<?php echo $units->id ?>/download">Export</a>
+                            <h5><span style="float:left;" class="badge badge-dark">Current counter:
+                                    {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
+                            <br /><br /><br />
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                      <th scope="col">Service type</th>
-                                      <th scope="col">Operational days</th>
-                                      <th scope="col">Calendar days</th>
-                                      <th scope="col">Counter</th>
-                                      <th scope="col">Planned</th>
-                                      <th scope="col"></th>
+                                        <th scope="col">Service type</th>
+                                        <th scope="col">Operational days</th>
+                                        <th scope="col">Calendar days</th>
+                                        <th scope="col">Counter</th>
+                                        <th scope="col">Planned</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                  </thead>
-                            <?php 
+                                </thead>
+                                <?php 
 
                             foreach ($make['make'] as $value1) {
                               $counterNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
@@ -151,20 +170,22 @@
                                 
                             };
                             ?>
-                            </table>  
-                            <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned service</span>
-                          </div>
-                          <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            </table>
+                            <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned
+                                service</span>
+                        </div>
+                        <div class="tab-pane fade" id="activities" role="tabpanel"
+                            aria-labelledby="v-pills-profile-tab">
 
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                      <th scope="col">Type</th>
-                                      <th scope="col">Message</th>
-                                      <th scope="col">Timestamp</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Message</th>
+                                        <th scope="col">Timestamp</th>
                                     </tr>
-                                  </thead>
-                            <?php 
+                                </thead>
+                                <?php 
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
@@ -181,23 +202,29 @@
                             };
                             ?>
                             </table>
-                          </div>
-                          <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="v-pills-upload-tab">
-                            @include('fileUpload') 
-                          </div>
-                          <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="v-pills-upload-tab">
-                            <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#newinventory">
-                              Create part
-                          </button><br /><br />
+                        </div>
+                        <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="v-pills-upload-tab">
+                            @include('fileUpload')
+                        </div>
+                        <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="v-pills-upload-tab">
+                            <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal"
+                                data-target="#newinventory">
+                                Mount part
+                            </button><br /><br />
                             <table class="table table-hover">
-                              <thead>
-                                  <tr>
-                                    <th scope="col">Number</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Mounted date</th>
-                                  </tr>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Part number</th>
+                                        <th scope="col">Part name</th>
+                                        <th scope="col">Mounted date</th>
+                                        <th scope="col">Counter</th>
+                                        <th scope="col">Next maintenance</th>
+                                        <th scope="col">EOL Counter</th>
+                                        <th scope="col">EOL Date</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
                                 </thead>
-                          <?php 
+                                <?php 
                           //return Datatables::collection(User::all())->make(true);
                           // should be changed..
                           $unit = $units->unit;
@@ -206,22 +233,40 @@
                               echo "<tr>";
                               echo "<td>".$value['partNumber']."</td>";
                               echo "<td>".$value['partName']."</td>";
-                              echo "<td>".$value['dateMounted']."</td>";
+                              $part = \App\Models\InventoryLog::where('part', $value["id"])->first();
+
+                              echo "<td>".$part->dateMounted."</td>";
+                              echo "<td>".$part->counter."</td>";
+                              echo "<td>".$value['maintenance']."</td>";
+                              echo "<td>".$value['eol']."</td>";
+                              echo "<td>".$value['eolDate']."</td>";
+                              $x = \App\Models\Activities::where('activity_type', 'LIKE', 'Part%')->where('activity_id', $units->id)->where('activity_message', $part->part)->first();
+                              if ($x) {
+                                if (str_contains($x->activity_type, 'Critical')) {
+                                    echo '<td><span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span></a></td>';
+                                } else {
+                                    echo '<td><span style="font-size:16px;" class="badge bg-warning"><i style="color:white;" class="fas fa-exclamation"></i></span></a></td>';
+                                }
+                              } else {
+                                echo '<td><span style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a></td>';
+
+                              }
+
                               echo "</tr>";
                           };
                           ?>
-                          </table>
-                          </div>
+                            </table>
+                        </div>
 
-                          <div class="tab-pane fade" id="counter" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="tab-pane fade" id="counter" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                      <th scope="col">Counter</th>
-                                      <th scope="col">Timestamp</th>
+                                        <th scope="col">Counter</th>
+                                        <th scope="col">Timestamp</th>
                                     </tr>
-                                  </thead>
-                            <?php 
+                                </thead>
+                                <?php 
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
@@ -234,51 +279,65 @@
                             };
                             ?>
                             </table>
-                          </div>
-
                         </div>
-                      </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="newinventory" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen" role="document">
+<div class="modal fade" id="newinventory" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Create part</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" style="padding: 0;">
-            <div class="row">
-                          {!! Form::open(['route' => 'inventories.store']) !!}
-
-            <div class="card-body">
-
-                <div class="row">
-                    @include('inventories.fields')
-                </div>
-
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mount part</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-            <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-            </div>
-
-            {!! Form::close() !!}
-          </div>
+            <div class="modal-body">
+              <form method="post" action="{{url('inventories/mount')}}" accept-charset="UTF-8">
+                <input type="hidden" name="unit" value="{{ $unit }}">
+                @csrf <!-- {{ csrf_field() }} -->
+              <label for="part">Select part</label>
+              <select name="part" class="form-control js-example-basic-single-modal" id="part">
+                <option></option>
               
-          </div>
-        </div>
-      </div>
-    </div>
+            <?php 
+            $unitData = \App\Models\inventory::whereNull('unit')->orderBy('partName', 'asc')->get();
+            foreach ($unitData as $value) {
+              echo "<option value='".$value['id']."'>".$value['partName']." (".$value['partNumber'].")</option>";
+            }
+            ?>
+            </select>
 
+            <label for="date">Mount date</label>
+            <input type="text" name="mountDate" class="form-control datepicker">
+
+            <label for="date">Comment</label>
+            <textarea name="comment" class="form-control"></textarea>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('page_scripts')
+    <script type="text/javascript">
+        $('.datepicker').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: true,
+            sideBySide: true
+        });       
+        
+    </script>
+@endpush
 
 @endsection
-
-
-
-

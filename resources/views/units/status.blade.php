@@ -12,6 +12,10 @@
 
     $counterOverdue = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
     $counterNinty = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->first();
+    
+    $partsCritical = \App\Models\Activities::where('activity_type', 'LIKE', 'Part%Critical')->where('activity_id', $id)->first();
+    $partsMaint = \App\Models\Activities::where('activity_type', 'PartOverdueMaint')->where('activity_id', $id)->first();
+    $partsEOL = \App\Models\Activities::where('activity_type', 'PartOverdueEOL')->where('activity_id', $id)->first();
 
 if ($manual) {
     echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Manually set out of service"><i class="fas fa-ban"></i></span>';
@@ -19,15 +23,22 @@ if ($manual) {
 else {
 
     if ($dateOverdue) {
-        echo '<span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span>';
+        echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
+    }
+    else if ($partsCritical) {
+        echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Critical part overdue"><i class="fas fa-ban"></i></span>';
+
+    } else if ($partsMaint || $partsEOL) {
+        echo '<span style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical part overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
+
     } else if ($dateNinty) {
-        echo '<span style="font-size:16px;" class="badge bg-warning"><i style="color:white;" class="fas fa-exclamation"></i></span>';
+        echo '<span style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service date soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
 
     } else if ($counterOverdue) {
-        echo '<span style="font-size:16px;" class="badge bg-danger"><i class="fas fa-ban"></i></span>';
+        echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service counter overdue"><i class="fas fa-ban"></i></span>';
 
     } else if ($counterNinty) {
-        echo '<span style="font-size:16px;" class="badge bg-warning"><i style="color:white;" class="fas fa-exclamation"></i></span>';
+        echo '<span style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service counter soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
 
     } 
     else {

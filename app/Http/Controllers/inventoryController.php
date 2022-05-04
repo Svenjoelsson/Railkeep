@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\inventoryDataTable;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Requests\CreateinventoryRequest;
 use App\Http\Requests\UpdateinventoryRequest;
 use App\Repositories\inventoryRepository;
@@ -158,5 +159,18 @@ class inventoryController extends AppBaseController
         Flash::success('Inventory deleted successfully.');
 
         return redirect(route('inventories.index'));
+    }
+
+    public function mount(Request $request)
+    {
+        //dd($request);
+        \App\Models\Inventory::where('id', $request->part)->update(['unit' => $request->unit]);
+        $unit = \App\Models\Units::where('unit', $request->unit)->first();
+
+        \App\Models\InventoryLog::insert(['unit' => $unit->id, 'part' => $request->part, 'comment' => $request->comment, 'dateMounted' => $request->mountDate, 'counter' => '0']);
+        \App\Models\Activities::insert(['activity_type' => 'Unit', 'activity_id' => $unit->id, 'activity_message' => 'Part #'.$request->part." has been mounted", 'created_at' => now()]);
+
+
+        return back();
     }
 }

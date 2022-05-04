@@ -21,9 +21,11 @@ class CreateInventoryTable extends Migration
             $table->string('partName');
             $table->string('usageCounter')->nullable();
             $table->string('status');
+            $table->string('critical')->default(0);
             $table->string('batch')->nullable();
             $table->string('maintenance')->nullable();
             $table->string('eol')->nullable();
+            $table->string('eolDate')->nullable();
             $table->string('dateMounted')->nullable();
             $table->string('dateUnmounted')->nullable();
             $table->timestamps();

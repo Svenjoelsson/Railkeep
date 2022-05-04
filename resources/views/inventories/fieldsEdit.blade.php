@@ -1,21 +1,4 @@
-<!-- Unit Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('unit', 'Unit:') !!} <span style="float:right"><small><a href="/units/create">Create new</a></small></span>
-    <?php 
-    $arr1 = [];
-    $units = \App\Models\Units::all();
-    foreach ($units as $key => $value1) {
-        $arr1[$value1['unit']] = $value1['unit'];
-    }
-    ?>
-    {!! Form::select('unit', $arr1, null, ['class' => 'form-control js-example-basic-single inventoryUnit', 'disabled', 'placeholder' => 'Select unit']) !!}
-</div>
 
-<!-- Usagecounter Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('usageCounter', 'Unit counter at mounting:') !!}
-    {!! Form::number('usageCounter', null, ['class' => 'form-control usagecounter', 'disabled'] ) !!}
-</div>
 
 <!-- Partnumber Field -->
 <div class="form-group col-sm-6">
@@ -40,24 +23,26 @@
     {!! Form::text('batch', null, ['class' => 'form-control'] ) !!}
 </div>
 
-<div class="form-group col-sm-6">
-    {!! Form::label('maintenance', 'Maintenance date:') !!}
-    {!! Form::text('maintenance', null, ['class' => 'form-control service_date'] ) !!}
-</div>
+
 
 <div class="form-group col-sm-6">
     {!! Form::label('eol', 'End of life (hours/kilometers):') !!}
     {!! Form::number('eol', null, ['class' => 'form-control'] ) !!}
 </div>
-<hr>
+
 <div class="form-group col-sm-6">
-    {!! Form::label('dateMounted', 'Date mounted:') !!}
-    {!! Form::text('dateMounted', null, ['class' => 'form-control service_date'] ) !!}
+    {!! Form::label('eolDate', 'End of life (date):') !!}
+    {!! Form::text('eolDate', null, ['class' => 'form-control service_date'] ) !!}
 </div>
 
 <div class="form-group col-sm-6">
-    {!! Form::label('dateUnmounted', 'Date unmounted:') !!}
-    {!! Form::text('dateUnmounted', null, ['class' => 'form-control service_date'] ) !!}
+    {!! Form::label('maintenance', 'Next maintenance (counter):') !!}
+    {!! Form::number('maintenance', null, ['class' => 'form-control'] ) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('critical', 'Critical:') !!}
+    {!! Form::select('critical', array('0' => 'No', '1' => 'Yes'), null, ['class' => 'form-control'] ) !!}
 </div>
 
 @push('page_scripts')

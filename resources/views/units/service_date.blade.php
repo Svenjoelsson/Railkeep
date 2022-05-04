@@ -19,7 +19,7 @@
 
    /* $units = \App\Models\Units::where('id', $id)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
     $services = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('nextServiceDate', '>', now())->orderBy('nextServiceDate', 'asc')->first();
-    $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->where('service_type', '!=', 'Reparation')->orderBy('service_date', 'asc')->first();
+    $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->where('service_type', '!=', 'Repair')->orderBy('service_date', 'asc')->first();
     //$current = $activities->activity_message;
     //$next = $services->nextServiceCounter;
     //$perc = $current/$next*100;
