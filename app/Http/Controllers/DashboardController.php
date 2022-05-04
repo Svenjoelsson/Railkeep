@@ -84,7 +84,6 @@ class DashboardController extends Controller
         }  
 
 
-        dd($totalArr);
         $sumOverdue = intval($dateOverdue) + intval($counterOverdue);
         $sumNinty = intval($dateNinty) + intval($counterNinty);
 
