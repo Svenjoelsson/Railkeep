@@ -1,7 +1,8 @@
 <!-- Unit Field -->
 <?php 
-    $unit = \App\Models\Units::where('unit', $services->unit)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
-    $make = \App\Models\makeList::where('make', $unit->make)->whereNull('deleted_at')->where('serviceName', $services->service_type)->orderBy('created_at', 'desc')->first();
+    $unit = \App\Models\Units::where('unit', $services->unit)->orderBy('created_at', 'desc')->first();
+    $unitMake = substr($services->unit, 0, strpos($services->unit, "-"));
+    $make = \App\Models\makeList::where('make', $unit->make)->whereNull('deleted_at')->where('serviceName', $unitMake)->orderBy('created_at', 'desc')->first();
     $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', '%-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
     $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();    
 

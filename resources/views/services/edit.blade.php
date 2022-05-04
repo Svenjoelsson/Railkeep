@@ -35,7 +35,7 @@
                 {!! Form::submit('Save', ['class' => 'btn btn-primary disableAll']) !!}
                 <a href="{{ route('services.index') }}" class="btn btn-default">Cancel</a>
                 <span style="float:right">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#workshop">
+                    <button type="button" class="btn disableAll btn-primary" data-toggle="modal" data-target="#workshop">
                         Workshop
                     </button>
                 </span>

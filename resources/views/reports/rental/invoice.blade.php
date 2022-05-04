@@ -54,14 +54,15 @@ function asSEK($value) {
                                 $units = \App\Models\Units::where('unit', $rent->unit)->first();
                                 $latest = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', now()->format('Y'))->whereMonth('created_at', '=', now()->format('m'))->orderBy('created_at', 'desc')->first();
                                 $first = \App\Models\Activities::where('activity_id', $units["id"])->where('activity_type', 'UnitCounter')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('created_at', 'asc')->first();
-
+                                
                                 $calc = intval($latest->activity_message) - intval($first->activity_message);
                                 echo $calc;
-
+                                
                                 // removes , from the cost price
                                 if (str_contains($rent->counterCost, ',')) {
                                   $rent->counterCost = str_replace(",", ".", $rent->counterCost);
                                 }
+                              
                             ?>
 
                         </td>

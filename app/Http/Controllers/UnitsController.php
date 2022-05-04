@@ -184,7 +184,7 @@ class UnitsController extends AppBaseController
         if (str_contains($units["unit"], $units["make"])) { 
             $units["unit"] = str_replace($units["make"]."-", "", $units["unit"]);
         }
-
+        
         $maka = makeList::distinct('make')->pluck('make');
     
         $array = []; 
@@ -262,6 +262,23 @@ class UnitsController extends AppBaseController
     {
         $units = $this->unitsRepository->find($id);
 
+        $activeAgreement = \App\Models\Rent::where('status', 'Active')->where('unit', $units->unit)->first();
+        $InProgrssService = \App\Models\Services::where('service_status', 'In progress')->whereNull('deleted_at')->where('unit', $units->unit)->first();
+        $mountedParts = \App\Models\InventoryLog::whereNull('deleted_at')->where('unit', $id)->first();
+
+        if ($activeAgreement) {
+            Flash::error('Unit deletion failed, there is an active agreement on this unit.');
+            return redirect(route('units.index'));
+        }
+        if ($InProgrssService) {
+            Flash::error('Unit deletion failed, a service with status In progress exists.');
+            return redirect(route('units.index'));
+        }
+        if ($mountedParts) {
+            Flash::error('Unit deletion failed, mounted parts exists on this unit.');
+            return redirect(route('units.index'));
+        }
+
         if (empty($units)) {
             Flash::error('Units not found');
 
@@ -270,7 +287,7 @@ class UnitsController extends AppBaseController
 
         $this->unitsRepository->delete($id);
 
-        Flash::success('Units deleted successfully.');
+        Flash::success('Unit deleted successfully.');
 
         return redirect(route('units.index'));
     }
