@@ -218,8 +218,8 @@
                                         <th scope="col">Part name</th>
                                         <th scope="col">Mounted date</th>
                                         <th scope="col">Counter</th>
-                                        <th scope="col">Maintenance counter</th>
-                                        <th scope="col">Maintenance date</th>
+                                        <th scope="col">Next maintenance counter</th>
+                                        <th scope="col">Next maintenance date</th>
                                         <th scope="col">EOL Counter</th>
                                         <th scope="col">EOL Date</th>
                                         <th scope="col">Status</th>
