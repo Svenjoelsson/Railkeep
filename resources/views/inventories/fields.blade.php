@@ -24,7 +24,7 @@
 
 
 <div class="form-group col-sm-6">
-    {!! Form::label('eol', 'End of life (hours/kilometers):') !!}
+    {!! Form::label('eol', 'End of life (counter):') !!}
     {!! Form::number('eol', null, ['class' => 'form-control'] ) !!}
 </div>
 
@@ -39,10 +39,21 @@
 </div>
 
 <div class="form-group col-sm-6">
+    {!! Form::label('maintenanceDate', 'Next maintenance (date):') !!}
+    {!! Form::text('maintenanceDate', null, ['class' => 'form-control service_date'] ) !!}
+</div>
+
+<div class="form-group col-sm-6">
     {!! Form::label('critical', 'Critical:') !!}
     {!! Form::select('critical', array('0' => 'No', '1' => 'Yes'), null, ['class' => 'form-control'] ) !!}
 </div>
 
 @push('page_scripts')
-
+    <script type="text/javascript">
+        $('.service_date').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: true,
+            sideBySide: true
+        });
+    </script>
 @endpush

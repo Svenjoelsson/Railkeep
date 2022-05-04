@@ -218,7 +218,8 @@
                                         <th scope="col">Part name</th>
                                         <th scope="col">Mounted date</th>
                                         <th scope="col">Counter</th>
-                                        <th scope="col">Next maintenance</th>
+                                        <th scope="col">Maintenance counter</th>
+                                        <th scope="col">Maintenance date</th>
                                         <th scope="col">EOL Counter</th>
                                         <th scope="col">EOL Date</th>
                                         <th scope="col">Status</th>
@@ -238,6 +239,7 @@
                               echo "<td>".$part->dateMounted."</td>";
                               echo "<td>".$part->counter."</td>";
                               echo "<td>".$value['maintenance']."</td>";
+                              echo "<td>".$value['maintenanceDate']."</td>";
                               echo "<td>".$value['eol']."</td>";
                               echo "<td>".$value['eolDate']."</td>";
                               $x = \App\Models\Activities::where('activity_type', 'LIKE', 'Part%')->where('activity_id', $units->id)->where('activity_message', $part->part)->first();
