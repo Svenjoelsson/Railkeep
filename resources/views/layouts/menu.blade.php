@@ -7,6 +7,16 @@
 </li>
 <hr>
 @endif
+
+@if(auth()->user()->hasPermissionTo('view units'))
+<li class="nav-item">
+    <a href="{{ route('units.index') }}"
+       class="nav-link {{ Request::is('units*') ? 'activeNav' : '' }}">
+       <i class="fas fa-train right"></i><p>Units</p>
+    </a>
+</li>
+@endif
+
 @if(auth()->user()->hasPermissionTo('view customers'))
 <li class="nav-item">
     <a href="{{ route('customers.index') }}"
@@ -30,16 +40,9 @@
        <i class="fas fa-warehouse right"></i> <p>Workshops</p>
     </a>
 </li>
-@endif
-@if(auth()->user()->hasPermissionTo('view units'))
-<li class="nav-item">
-    <a href="{{ route('units.index') }}"
-       class="nav-link {{ Request::is('units*') ? 'activeNav' : '' }}">
-       <i class="fas fa-train right"></i><p>Units</p>
-    </a>
-</li>
-@endif
 <hr>
+@endif
+
 @if(auth()->user()->hasPermissionTo('view agreements'))
 <li class="nav-item">
     <a href="{{ route('rents.index') }}"

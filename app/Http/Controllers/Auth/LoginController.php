@@ -30,10 +30,15 @@ class LoginController extends Controller
     protected $redirectTo = '/dashboard';
     protected function redirectTo()
     {
-        if (auth()->user()->role != 'user') {
+        if (auth()->user()->role == 'user') {
+            
+            return '/dashboard';
+        } else if (auth()->user()->role == 'customer') {
+            return '/units';
+        } else {
             return '/services';
-        } 
-        return '/dashboard';
+        }
+        
     }
     /**
      * Create a new controller instance.

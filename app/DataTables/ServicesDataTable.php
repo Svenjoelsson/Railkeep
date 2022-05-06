@@ -43,7 +43,7 @@ class ServicesDataTable extends DataTable
      */
     public function query(Services $model)
     {
-        if (Auth::user()->role == 'vendor') {
+        if (Auth::user()->role == 'workshop') {
 
         $vendorId = \App\Models\Vendors::where('name', Auth::user()->name)->first();
 
