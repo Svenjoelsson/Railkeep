@@ -46,12 +46,13 @@ class ServicesDataTable extends DataTable
         if (Auth::user()->role == 'workshop') {
 
         $vendorId = \App\Models\Vendors::where('name', Auth::user()->name)->first();
-
-        $services = \App\Models\serviceVendor::where('vendorId', $vendorId->id)->first();
-        $data = Services::query()
-        
-            ->where('id', $services->serviceId)
-            ->orderby('id', 'desc');
+        $services = \App\Models\serviceVendor::where('vendorId', $vendorId->id)->get();
+            
+        $data = \App\Models\serviceVendor::query()
+            ->select('Services.id as id', 'Services.unit as unit', 'services.service_type', 'services.service_date', 'services.service_status', 'services.critical')
+            ->where('serviceVendor.vendorId', $vendorId->id)
+            ->join('Services', 'Services.id', '=', 'serviceVendor.serviceId')
+            ->orderby('Services.id', 'desc');
 
         } else if (Auth::user()->role == 'customer') {
             $data = Services::query()
@@ -113,6 +114,14 @@ class ServicesDataTable extends DataTable
         if (isMobileDev()) { 
             return [
                 'unit',
+                'service_status',
+            ];
+        } else if (Auth::user()->role == 'workshop') {
+            return [
+                'id',
+                'unit',
+                'service_type',
+                'service_date',
                 'service_status',
             ];
         } else {

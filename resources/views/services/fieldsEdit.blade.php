@@ -106,10 +106,12 @@
 </div>
 
 <!-- Service status Field -->
+@if(auth()->user()->hasPermissionTo('edit services') && Auth::user()->role != 'customer')
 <div class="form-group col-sm-6">
     {!! Form::label('service_status', 'Status: *') !!}
     {!! Form::select('service_status', array('In progress' => 'In progress', 'Done' => 'Done'), null, ['class' => 'form-control disableAll serviceStatus']) !!}
 </div>
+@endif
 
 <?php 
     if ($make !== null && isset($make->calendarDays)) {
@@ -150,6 +152,7 @@ if ($make !== null && isset($make->counter)) {
         
         echo "Current: ".$unitData->activity_message." ".$id->maintenanceType;
         ?>
+        <input type="hidden" id="currentCounter1" value="<?php echo $unitData->activity_message; ?>">
     </small>
 </div>
 
@@ -189,10 +192,11 @@ if ($make !== null && isset($make->counter)) {
        $('#newServiceDay').append('+'+'<?php echo $make->calendarDays ?>'+' days');
 
        function calcCounter () {
+        $('.currentCounter').val($('#currentCounter1').val());
             var current = $('.currentCounter').val();
             var interval = '<?php echo $make->counter ?>';
-            $('.nextCounter').val(parseInt(interval) + parseInt(current));
             
+            $('.nextCounter').val(parseInt(interval) + parseInt(current));
         }
 
         function calcDays () {
@@ -212,12 +216,6 @@ if ($make !== null && isset($make->counter)) {
         </script>
 <?php } ?>
 
-<?php
-if (Auth::user()->role != 'user') { ?>
-    <script>
-    $('.serviceStatus').hide();
-    </script>
-<?php } ?>
 
         <script type="text/javascript">
         $('.service_date').datetimepicker({

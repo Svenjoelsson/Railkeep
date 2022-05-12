@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+<?php 
+
+?>
+
 @section('content')
 <x-maps-leaflet
 zoomLevel="5" 

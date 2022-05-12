@@ -11,6 +11,7 @@ use App\Http\Requests\CreateServicesRequest;
 use App\Http\Requests\UpdateServicesRequest;
 use App\Repositories\ServicesRepository;
 use Flash;
+use Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Traits\ServiceplanTrait;
 use Response;
@@ -155,7 +156,10 @@ class ServicesController extends AppBaseController
     public function edit($id)
     {
         $services = $this->servicesRepository->find($id);
-
+        if ($services->service_status == 'Pending review' && Auth::user()->role == 'workshop') {
+            Flash::error('This service cannot be accessed right now due to pending review status.');
+            return redirect(route('services.index'));
+        }
         if (empty($services)) {
             Flash::error('Services not found');
 
@@ -183,15 +187,28 @@ class ServicesController extends AppBaseController
             //dd('asd');
             \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->update(['activity_message' => $input['service_date']]);
         }
-
         if ($input["service_status"] == "Done") {
+            if (Auth::user()->role == 'workshop') {
+                if (!empty($input["remarks"]) || !empty($input["notPerformedActions"])) {
+                    
+                    $request["service_status"] = 'Pending review';
+                    $services = $this->servicesRepository->update($request->all(), $id);
+
+                    Mail::raw('Service #'.$id.' needs to be reviewed and approved.', function ($message) {
+                        $message->to('joel@gjerdeinvest.se')
+                          ->subject('Pending review | Railkeep')
+                          ->from('hello@railkeep.app', 'Railkeep');
+
+                    });
+
+                    Flash::success('Services updated successfully.');
+                    return redirect(route('services.index'));
+                    dd('success');
+                }
+            }
             $request["doneDate"] = now();
 
-
             
-
-
-
 
             // Update all services where level is below this level.
             $unit = \App\Models\Units::where('unit', $input["unit"])->first();

@@ -272,7 +272,7 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            $unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::where('activity_type', 'UnitCounter')->where('activity_id', $id)->orderBy('created_at', 'desc')->get()->unique('activity_message');
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
                                 echo "<td>".$value['activity_message']." ".$units->maintenanceType."</td>";
