@@ -35,10 +35,12 @@ trait ServicePlanTrait {
     public function generate($id, $type)
     {
         $units = \App\Models\Units::where('id', $id)->whereNull('deleted_at')->first();
-        $makelist = DB::table('makeList')->where('make', $units->make)->whereNull('deleted_at')->orderBy('level')->get();
+        $makelist = DB::table('makeList')->where('make', $units->make)->whereNull('deleted_at')->where('level', '!=', '')->orderBy('level', 'asc')->get();
         $services = DB::table('services')->where('unit', $units->unit)->where('service_status', 'Done')->whereNull('deleted_at')->get();
         $activities = DB::table('activities')->where('activity_id', $id)->where('activity_type', 'UnitCounter')->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
         $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->orderBy('service_date', 'desc')->get();
+        $emptyLevel = DB::table('makeList')->where('make', $units->make)->whereNull('deleted_at')->whereNull('level')->orderBy('level', 'asc')->get();
+
         //serviceName
         $i = 0;
         $array = []; 
@@ -49,7 +51,11 @@ trait ServicePlanTrait {
         foreach ($makelist as $make) {
             $makeArray[$make->serviceName] = $make; 
         }
-
+        if ($emptyLevel) {
+            foreach ($emptyLevel as $make1) {
+                $makeArray[$make1->serviceName] = $make1; 
+            }
+        }
         foreach ($services as $service) { 
             $serviceArray[$service->service_type] = $service;
         }

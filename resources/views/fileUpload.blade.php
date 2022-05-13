@@ -52,7 +52,6 @@
                     else if (str_contains($val, '.docx')) {
                         echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271015.png' height='50'/></td>";  
                     }
-
                     else {
                         echo "<td><img style='border: 2px solid #000;' src='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' height='50'/></td>";  
                     }
