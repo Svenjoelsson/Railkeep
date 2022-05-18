@@ -73,6 +73,7 @@ class ServicesController extends AppBaseController
     public function store(CreateServicesRequest $request)
     {
         $input = $request->all();
+
         $input["service_type"] = collect($input["service_type"])->implode(', ');
         $input["service_status"] = "In progress";
         if (!isset($input["oos"])) {

@@ -430,9 +430,13 @@ document.onreadystatechange = function() {
                 function(data2) {
                     $.each(data2.data, function(index, element2) {
                         if ($('.unitSelect').val() === element2.unit) {
-                            $('.customerSelect').val(element2.customer);
-                            $('.customerSelect').trigger('change.select2');
-                            $('.customerSelectDisable').prop("disabled", true);
+                            if (element2.customer) {
+                                $('.customerSelect').val(element2.customer);
+                                $('.customerSelect').val(element2.customer);
+                                $('.customerSelect').trigger('change.select2');
+                                $('.customerSelectDisable').prop("disabled", true);
+                            }
+
 
                             // Load service types based on unit
                             $.get("{{ url('api/make_lists/') }}", function(data3) {
@@ -473,6 +477,35 @@ document.onreadystatechange = function() {
                     });
                 });
         });
+
+
+        $('.customerSelect').change(function() {
+            $('.customerSelect').val($('.customerSelect').val());
+            $.get("{{ url('api/contacts/') }}",
+                function(data2) {
+                    console.log(data2);
+                    $.each(data2.data, function(index, element2) {
+                        if ($('.customerSelect').val() === element2.customer) {
+                            // Load contacts connected to this customer.
+                            $.get("{{ url('api/contacts/') }}", function(data1) {
+                                $('.contactpersons').empty();
+                                $.each(data1.data, function(index1, element1) {
+                                    if (element1.customer == element2.customer) {
+                                    
+                                        $('.contactpersons').append($('<option>', {
+                                            value: element1.name,
+                                            text: element1.name
+                                        }));
+                                    }
+                                });
+                            });
+
+                        }
+                    });
+                });
+        });
+
+
 
         $('.inventoryUnit').change(function() {
             

@@ -37,7 +37,7 @@
     }
     ?>
     {!! Form::select('customer', $arr, null, ['class' => 'form-control js-example-basic-single customerSelect customerSelectDisable', 'disabled', 'placeholder' => 'Select customer']) !!}
-    <input type="hidden" class="customerSelect" value="{{ $services->customer }} name="customer">
+    <input type="hidden" class="customerSelect" value="{{ $services->customer }}" name="customer">
 </div>
 
 
