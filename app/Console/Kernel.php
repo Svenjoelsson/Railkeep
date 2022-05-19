@@ -335,8 +335,8 @@ class Kernel extends ConsoleKernel
             
         }
 
-    //})->everyThirtyMinutes()->timezone('Europe/Stockholm');
-    })->everyMinute()->timezone('Europe/Stockholm');
+    })->everyThirtyMinutes()->timezone('Europe/Stockholm');
+    //})->everyMinute()->timezone('Europe/Stockholm');
 
 
     // MOUNTED PARTS UPDATER DAILY
