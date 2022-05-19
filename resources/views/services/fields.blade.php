@@ -58,7 +58,7 @@ if (isset($_GET["unit"])) {
     $arr1['Repair'] = 'Repair';
     $arr1['Report'] = 'Report';
     ?>
-    {!! Form::select('service_type', $arr1, null, ['class' => 'form-control serviceSelect js-example-basic-single', 'required']) !!}
+    {!! Form::select('service_type', $arr1, null, ['class' => 'form-control serviceSelect js-example-basic-service-type', 'required']) !!}
 
 
 </div>

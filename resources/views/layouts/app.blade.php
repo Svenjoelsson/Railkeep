@@ -389,6 +389,24 @@ document.onreadystatechange = function() {
                 width: '100%',
             });
 
+            $('.js-example-basic-service-type').select2({
+                //dropdownParent: $('#newinventory'),
+                sorter: function(data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                },
+                placeholder: 'Select an option',
+                width: '100%',
+            });
+
+            
             $('.js-example-basic-single-modal').select2({
                 dropdownParent: $('#newinventory'),
                 placeholder: 'Select an option',
