@@ -104,7 +104,7 @@ class UnitsDataTable extends DataTable
                 'customer',
                 'ServiceCounter',
                 'ServiceDate',
-                'status'
+                'unitStatus'
             ];
         }
 

@@ -25,6 +25,7 @@ class CreateUnitsTable extends Migration
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
             $table->string('maintenanceType');
+            $table->string('unitStatus');
             $table->tinyInteger('inService')->default(1);
             $table->string('trackerId')->nullable();
             $table->timestamps();
