@@ -21,8 +21,12 @@ if ($manual) {
     echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Manually set out of service"><i class="fas fa-ban"></i></span>';
 } 
 else {
-
-    if ($dateOverdue) {
+    if ($critical) { // Critical in progress events
+        if ($critical->critical == '1') {
+            echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" data-toggle="tooltip" title="['.$critical->service_type.'] '.$critical->service_desc.'" class="badge bg"><i style="color:red;" class="fas fa-exclamation"></i></span></a>';
+        }
+    } 
+    else if ($dateOverdue) {
         echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
     }
     else if ($partsCritical) {
@@ -49,10 +53,6 @@ else {
         echo '<a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$planned->service_type."] ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a>';
 
     }
-    if ($critical) { // Critical in progress events
-        if ($critical->critical == '1') {
-            echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" data-toggle="tooltip" title="['.$critical->service_type.'] '.$critical->service_desc.'" class="badge bg"><i style="color:red;" class="fas fa-exclamation"></i></span></a>';
-        }
-    } 
+
 }
 ?>
