@@ -23,6 +23,7 @@ if ($manual) {
 else {
     if ($critical) { // Critical in progress events
         if ($critical->critical == '1') {
+            echo '<span style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Critical service in progress"><i class="fas fa-ban"></i></span>';
             echo '<a href="services/'.$critical->id.'/edit"><span style="font-size:16px;" data-toggle="tooltip" title="['.$critical->service_type.'] '.$critical->service_desc.'" class="badge bg"><i style="color:red;" class="fas fa-exclamation"></i></span></a>';
         }
     } 
