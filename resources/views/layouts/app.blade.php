@@ -374,6 +374,17 @@ document.onreadystatechange = function() {
 
             $('.js-example-basic-single').select2({
                 //dropdownParent: $('#newinventory'),
+                sorter: function(data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                },
                 placeholder: 'Select an option',
                 width: '100%',
             });
@@ -382,18 +393,50 @@ document.onreadystatechange = function() {
                 dropdownParent: $('#newinventory'),
                 placeholder: 'Select an option',
                 width: '100%',
+                sorter: function(data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }
             });
 
             $('.js-example-basic-single-modal-workshop').select2({
                 dropdownParent: $('#workshop'),
                 placeholder: 'Select an option',
                 width: '100%',
+                sorter: function(data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }
             });
 
             $('.serviceSelect').select2({
                 placeholder: 'Select an option',
                 allowClear: true,
-
+                sorter: function(data) {
+                    return data.sort(function (a, b) {
+                        if (a.text > b.text) {
+                            return 1;
+                        }
+                        if (a.text < b.text) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                }
             });
 
 
