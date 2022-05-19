@@ -1,6 +1,6 @@
 
 <?php 
-    $id;
+    /*$id;
     $unit = \App\Models\Units::where('id', $id)->first();
 
 
@@ -17,7 +17,7 @@
     foreach ($counter as $key) {
         $overdue = str_replace("Overdue-counter-","", $key->activity_type);
         echo '<a href="/units/'.$id.'"><span style="font-size:12px; margin-right:2px;" data-toggle="tooltip" title="'.$overdue.'" class="badge bg-danger">'.$key->activity_message.' '.$unit->maintenanceType.'</span></a>';
-    }
+    }*/
 
     
 

@@ -297,10 +297,46 @@ class Kernel extends ConsoleKernel
             }
             //$newStatus = '';
             \App\Models\Units::where('id', $unit->id)->update(['unitStatus' => $newStatus]);
+
+
+            $ninty = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','asc')->get();
+            //echo $id;
+            $nextCounter = '';
+            foreach ($ninty as $val) {
+                $overdue1 = str_replace(env('THRESHOLD_SOON_OVERDUE')."-counter-","", $val->activity_type);
+                $nextCounter .= '<span order="'.$val->activity_message.'"><a href="/units/'.$unit->id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" data-toggle="tooltip" title="'.$overdue1.'" class="badge bg-warning">'.$val->activity_message.' '.$unit->maintenanceType.'</span></a></span>';
+            }
+        
+            $counter = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','asc')->get();
+            foreach ($counter as $key) {
+                $overdue = str_replace("Overdue-counter-","", $key->activity_type);
+                $nextCounter .= '<span order="'.$key->activity_message.'"><a href="/units/'.$unit->id.'"><span style="font-size:12px; margin-right:2px;" data-toggle="tooltip" title="'.$overdue.'" class="badge bg-danger">'.$key->activity_message.' '.$unit->maintenanceType.'</span></a></span>';
+            }
+            \App\Models\Units::where('id', $unit->id)->update(['nextCounter' => $nextCounter]);
+
+            
+
+
+
+            $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();    
+            $nextDate = '';
+            foreach ($date as $key) {
+                $overdue = str_replace("Overdue-date-","", $key->activity_type);
+                $nextDate .= '<span order="'.$key->activity_message.'"><a href="/units/'.$unit->id.'"><span style="font-size:12px; margin-right:2px;" data-toggle="tooltip" title="'.$overdue.'" class="badge bg-danger">'.$key->activity_message.'</span></a></span>';
+            }
+        
+            $ninty = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+            //echo $id;
+            foreach ($ninty as $val) {
+                $overdue1 = str_replace(env('THRESHOLD_SOON_OVERDUE')."-date-","", $val->activity_type);
+                $nextDate .= '<span order="'.$val->activity_message.'"><a href="/units/'.$unit->id.'"><span style="font-size:12px; color:white !important; margin-right:2px;" data-toggle="tooltip" title="'.$overdue1.'" class="badge bg-warning">'.$val->activity_message.'</span></a></span>';
+            }
+            \App\Models\Units::where('id', $unit->id)->update(['nextDate' => $nextDate]);
+            
         }
 
-    })->everyThirtyMinutes()->timezone('Europe/Stockholm');
-    //})->everyMinute()->timezone('Europe/Stockholm');
+    //})->everyThirtyMinutes()->timezone('Europe/Stockholm');
+    })->everyMinute()->timezone('Europe/Stockholm');
 
 
     // MOUNTED PARTS UPDATER DAILY

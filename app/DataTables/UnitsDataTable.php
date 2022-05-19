@@ -102,8 +102,8 @@ class UnitsDataTable extends DataTable
             return [
                 'unit',
                 'customer',
-                'ServiceCounter',
-                'ServiceDate',
+                'nextCounter',
+                'nextDate',
                 'unitStatus'
             ];
         }
