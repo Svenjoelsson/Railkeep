@@ -14,6 +14,7 @@ use App\Models\makeList;
 use App\Http\Controllers\AppBaseController;
 use Response;
 use App\Traits\ServiceplanTrait;
+use App\Traits\UnitStatusTrait;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
@@ -21,6 +22,8 @@ use Spatie\Permission\PermissionRegistrar;
 class UnitsController extends AppBaseController
 {
     use ServicePlanTrait;
+    use UnitStatusTrait;
+
 
     /** @var  UnitsRepository */
     private $unitsRepository;
@@ -306,6 +309,21 @@ class UnitsController extends AppBaseController
         // Traits
         $pdf = $this->generate($id, $type);
         return $pdf;
+
+    }
+
+    public function updateUnitStatus()
+    {
+        // Traits
+        $this->updateAll();
+        return "Success";
+
+    }
+    public function updateOneUnitStatus($id)
+    {
+        // Traits
+        $this->updateOne($id);
+        return "Success";
 
     }
 

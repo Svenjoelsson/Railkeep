@@ -14,6 +14,7 @@ use Flash;
 use Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Traits\ServiceplanTrait;
+use App\Traits\UnitStatusTrait;
 use Response;
 use DomPDF;
 use Storage;
@@ -22,6 +23,7 @@ use Spatie\Permission\PermissionRegistrar;
 
 class ServicesController extends AppBaseController
 {
+    use UnitStatusTrait;
     use ServicePlanTrait;
 
     /** @var  ServicesRepository */
@@ -73,7 +75,7 @@ class ServicesController extends AppBaseController
     public function store(CreateServicesRequest $request)
     {
         $input = $request->all();
-
+        
         $input["service_type"] = collect($input["service_type"])->implode(', ');
         $input["service_status"] = "In progress";
         if (!isset($input["oos"])) {
@@ -121,7 +123,7 @@ class ServicesController extends AppBaseController
         ]);
 
         Flash::success('Services saved successfully.');
-
+        $this->updateOne($unit->id);
         return redirect(route('services.index'));
 
     }
@@ -166,7 +168,7 @@ class ServicesController extends AppBaseController
 
             return redirect(route('services.index'));
         }
-
+        $this->updateOne($id);
         return view('services.edit')->with('services', $services);
 
     }
@@ -368,6 +370,9 @@ class ServicesController extends AppBaseController
         }
         $services = $this->servicesRepository->update($request->all(), $id);
 
+        //Update UnitStatusTrait
+        $this->updateOne($units->id);
+
         Flash::success('Services updated successfully.');
 
         return redirect(route('services.index'));
@@ -387,6 +392,9 @@ class ServicesController extends AppBaseController
 
         \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->delete();
 
+        $services = \App\Models\Services::where('id', $id)->first();
+        $unit = \App\Models\Units::where('unit', $services->unit)->first();
+
         if (empty($services)) {
             Flash::error('Services not found');
 
@@ -396,7 +404,7 @@ class ServicesController extends AppBaseController
         $this->servicesRepository->delete($id);
 
         Flash::success('Services deleted successfully.');
-
+        $this->updateOne($unit->id);
         return redirect(route('services.index'));
     }
 

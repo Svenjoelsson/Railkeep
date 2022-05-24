@@ -101,6 +101,7 @@ Route::resource('services', App\Http\Controllers\ServicesController::class);
 
 Route::post('someurl', [App\Http\Controllers\ServicesController::class, 'someMethod']);
 Route::post('inventories/mount', [App\Http\Controllers\inventoryController::class, 'mount']);
+Route::post('comments/new', [App\Http\Controllers\CommentsController::class, 'newComment']);
 
 
 Route::resource('units', App\Http\Controllers\UnitsController::class);
@@ -156,3 +157,7 @@ Route::get('unitStatus/parts', [App\Http\Controllers\UnitStatusController::class
 
 Route::get('units/servicePlan/{id}/{type}', [App\Http\Controllers\UnitsController::class, 'generateServicePlan']);
 Route::get('units/inservice/{id}/{value}', [App\Http\Controllers\UnitsController::class, 'inService']);
+
+Route::get('unitstatusupdate', [App\Http\Controllers\UnitsController::class, 'updateUnitStatus']);
+Route::get('oneunitstatusupdate/{id}', [App\Http\Controllers\UnitsController::class, 'updateOneUnitStatus']);
+

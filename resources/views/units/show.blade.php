@@ -34,6 +34,10 @@
         </li>
         @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
+            <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment"
+                aria-selected="false">Comments</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activities" role="tab" aria-controls="profile"
                 aria-selected="false">Activity log</a>
         </li>
@@ -88,7 +92,7 @@
                                     {{ $activities->activity_message." ".$units->maintenanceType  }}</span></h5>
                             <br /><br /><br />
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="activeNav">
                                     <tr>
                                         <th scope="col">Service type</th>
                                         <th scope="col">Operational days</th>
@@ -178,7 +182,7 @@
                             aria-labelledby="v-pills-profile-tab">
 
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="activeNav">
                                     <tr>
                                         <th scope="col">Type</th>
                                         <th scope="col">Message</th>
@@ -190,7 +194,7 @@
                             // should be changed..
                             $id = $units->id;
                             //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
-                            $unitData = \App\Models\Activities::Where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->where('activity_id', $id)->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
@@ -206,13 +210,38 @@
                         <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="v-pills-upload-tab">
                             @include('fileUpload')
                         </div>
+
+                        <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="v-pills-comment-tab">
+                            <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal"
+                            data-target="#newComment">
+                                New comment
+                            </button><br /><br />
+                            <?php
+                                $comments = \App\Models\Comments::where('model_id', $id)->where('model_type', 'units')->orderBy('created_at', 'desc')->get();
+                                foreach ($comments as $comment) { ?>
+
+                                    <div class="card shadow">
+                                        <div class="card-header activeNav">
+                                            <span style="float:left;">{{ $comment->created_by }}</span>
+                                            <span style="float:right;">{{ $comment->created_at }}</span>
+                                        </div>
+                                        <div class="card-body">
+                                        <p class="card-text">{{ $comment->comment }}</p>
+                                        </div>
+                                    </div>
+
+                                <?php } ?>
+
+
+                        </div>
+
                         <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="v-pills-upload-tab">
                             <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal"
                                 data-target="#newinventory">
                                 Mount part
                             </button><br /><br />
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="activeNav">
                                     <tr>
                                         <th scope="col">Part number</th>
                                         <th scope="col">Part name</th>
@@ -262,7 +291,7 @@
 
                         <div class="tab-pane fade" id="counter" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                             <table class="table table-hover">
-                                <thead>
+                                <thead class="activeNav">
                                     <tr>
                                         <th scope="col">Counter</th>
                                         <th scope="col">Timestamp</th>
@@ -288,6 +317,47 @@
         </div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="newComment" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{{url('comments/new')}}" accept-charset="UTF-8">
+                <input type="hidden" name="model_type" value="{{ Request::segment(1) }}">
+                <input type="hidden" name="model_id" value="{{ Request::segment(2) }}">
+                
+                @csrf <!-- {{ csrf_field() }} -->
+
+                <label for="date">Comment</label>
+                <textarea name="comment" rows="5" class="form-control"></textarea>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 
 <div class="modal fade" id="newinventory" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
     aria-hidden="true">
