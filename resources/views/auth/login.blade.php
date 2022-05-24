@@ -95,7 +95,7 @@
 
 				</form>
 
-				<div class="login100-more" style="background-image: url('images/railkeep_background.png');">
+				<div class="login100-more" alt="railkeep" style="background-image: url('images/railkeep_background.png');">
 				</div>
 			</div>
 		</div>
