@@ -226,7 +226,7 @@
                                             <span style="float:right;">{{ $comment->created_at }}</span>
                                         </div>
                                         <div class="card-body">
-                                        <p class="card-text">{{ $comment->comment }}</p>
+                                        <p class="card-text"><?php echo nl2br($comment->comment) ?></p>
                                         </div>
                                     </div>
 
