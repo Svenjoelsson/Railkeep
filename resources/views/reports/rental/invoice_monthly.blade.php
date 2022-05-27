@@ -3,12 +3,12 @@
 @section('content')
 
 <?php 
-function asSEK($value) {
+function asSEK($value, $currency) {
   if (str_contains($value, ' ')) {
     $value = str_replace(" ", "", $value);
   }
   $fmt = numfmt_create( 'se-SE', NumberFormatter::CURRENCY );
-  return numfmt_format_currency($fmt, $value, "SEK");
+  return numfmt_format_currency($fmt, $value, $currency);
 }
 ?>
 
@@ -47,13 +47,13 @@ function asSEK($value) {
                     <tr>
                         <td>{{ $rent->unit }}</td>
                         <td>{{ $rent->customer }}</td>
-                        <td>{{ asSEK($rent->monthlyCost) }}</td>
+                        <td>{{ asSEK($rent->monthlyCost, $rent->currency) }}</td>
                     </tr>
                 @endforeach
                     <tr style="background-color:#ccc;">
                         <td><b>Total:</b></td>
                         <td></td>
-                        <td><b><?php echo asSEK($total); ?></b></td>
+                        <td><b><?php echo asSEK($total, $rent->currency); ?></b></td>
                     </tr>
                 </table>
             </div>

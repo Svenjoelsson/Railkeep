@@ -3,12 +3,12 @@
 @section('content')
 
 <?php 
-function asSEK($value) {
+function asSEK($value, $currency) {
   if (str_contains($value, ' ')) {
     $value = str_replace(" ", "", $value);
   }
   $fmt = numfmt_create( 'se-SE', NumberFormatter::CURRENCY );
-  return numfmt_format_currency($fmt, $value, "SEK");
+  return numfmt_format_currency($fmt, $value, $currency);
 }
 ?>
 
@@ -66,12 +66,12 @@ function asSEK($value) {
                             ?>
 
                         </td>
-                        <td><?php echo asSEK($rent->counterCost) ?></td>
+                        <td><?php echo asSEK($rent->counterCost, $rent->currency) ?></td>
                         <td>
                             <?php 
                             $subtotal = ($calc * $rent->counterCost) + intval($rent->monthlyCost);
                             $total += intval($subtotal);
-                                echo asSEK($subtotal);
+                                echo asSEK($subtotal, $rent->currency);
                             ?>
                         </td>
 
@@ -83,7 +83,7 @@ function asSEK($value) {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><b><?php echo asSEK($total); ?></b></td>
+                        <td><b><?php echo asSEK($total, $rent->currency); ?></b></td>
                     </tr>
                     <?php 
                     

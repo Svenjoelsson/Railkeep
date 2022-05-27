@@ -55,16 +55,22 @@
     </script>
 @endpush
 <hr>
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-4">
     {!! Form::label('monthlyCost', 'Monthly cost:') !!}
     {!! Form::text('monthlyCost', null, ['class' => 'form-control']) !!}
 </div>
 
 
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-4">
     {!! Form::label('counterCost', 'Counter cost:') !!}
     {!! Form::text('counterCost', null, ['class' => 'form-control']) !!}
 </div>
+
+<div class="form-group col-sm-4">
+    {!! Form::label('currency', 'Currency: *') !!}
+    {!! Form::select('currency', array('SEK' => 'SEK', 'DKK' => 'DKK', 'NOK' => 'NOK', 'EUR' => 'EUR'), null, ['class' => 'form-control', 'required']) !!}
+</div>
+
 <hr>
 <!-- Service status Field -->
 <div class="form-group col-sm-12">
