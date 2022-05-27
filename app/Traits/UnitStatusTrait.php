@@ -14,7 +14,9 @@ trait UnitStatusTrait {
 
         foreach ($units as $unit) { 
             $critical = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
-            $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->where('service_type', 'Report')->whereNull('deleted_at')->first();
+            
+            $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->whereNull('deleted_at')->first();
+            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->first();
         
             $manual = \App\Models\Units::where('unit', $unit->unit)->where('inService', '0')->whereNull('deleted_at')->first();
         
@@ -41,10 +43,10 @@ trait UnitStatusTrait {
                     }
                 } 
                 else if ($repair) {
-                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical repair/report in progress"><i style="color:white;" class="fas fa-exclamation"></i></span>';
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical repair in progress"><i style="color:white;" class="fas fa-exclamation"></i></span><a href="services/'.$repair->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$repair->service_type."] ".$repair->service_desc.'"><i style="color:blue;" class="fas fa-tools"></i></span></a>';
                 }
-                else if ($dateOverdue) {
-                    $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
+                else if ($report) {
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical report in progress"><i style="color:white;" class="fas fa-exclamation"></i></span><a href="services/'.$report->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$report->service_type."] ".$report->service_desc.'"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
                 }
                 else if ($partsCritical) {
                     $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Critical part overdue"><i class="fas fa-ban"></i></span>';
@@ -52,16 +54,18 @@ trait UnitStatusTrait {
                 } else if ($partsMaint || $partsEOL) {
                     $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical part overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
-                } else if ($dateNinty) {
-                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service date soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
-            
                 } else if ($counterOverdue) {
                     $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service counter overdue"><i class="fas fa-ban"></i></span>';
+            
+                } else if ($dateOverdue) {
+                    $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
+                } else if ($dateNinty) {
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service date soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
                 } else if ($counterNinty) {
                     $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service counter soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
-                } 
+                }
                 else {
                     $newStatus =  '<span order="3" style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
@@ -119,8 +123,9 @@ trait UnitStatusTrait {
 
         foreach ($units as $unit) { 
             $critical = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
-            $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->where('service_type', 'Report')->whereNull('deleted_at')->first();
-        
+            $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->whereNull('deleted_at')->first();
+            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->first();
+
             $manual = \App\Models\Units::where('unit', $unit->unit)->where('inService', '0')->whereNull('deleted_at')->first();
         
             $planned = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_date', '!=', '')->whereNull('deleted_at')->first();
@@ -146,10 +151,10 @@ trait UnitStatusTrait {
                     }
                 } 
                 else if ($repair) {
-                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical repair/report in progress"><i style="color:white;" class="fas fa-exclamation"></i></span>';
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical repair in progress"><i style="color:white;" class="fas fa-exclamation"></i></span><a href="services/'.$repair->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$repair->service_type."] ".$repair->service_desc.'"><i style="color:blue;" class="fas fa-tools"></i></span></a>';
                 }
-                else if ($dateOverdue) {
-                    $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
+                else if ($report) {
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical report in progress"><i style="color:white;" class="fas fa-exclamation"></i></span><a href="services/'.$report->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$report->service_type."] ".$report->service_desc.'"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
                 }
                 else if ($partsCritical) {
                     $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Critical part overdue"><i class="fas fa-ban"></i></span>';
@@ -157,16 +162,18 @@ trait UnitStatusTrait {
                 } else if ($partsMaint || $partsEOL) {
                     $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="None critical part overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
-                } else if ($dateNinty) {
-                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service date soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
-            
                 } else if ($counterOverdue) {
                     $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service counter overdue"><i class="fas fa-ban"></i></span>';
+            
+                } else if ($dateOverdue) {
+                    $newStatus =  '<span order="1" style="font-size:16px;" class="badge bg-danger" data-toggle="tooltip" title="Service date overdue"><i class="fas fa-ban"></i></span>';
+                } else if ($dateNinty) {
+                    $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service date soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
                 } else if ($counterNinty) {
                     $newStatus =  '<span order="2" style="font-size:16px;" class="badge bg-warning" data-toggle="tooltip" title="Service counter soon overdue"><i style="color:white;" class="fas fa-exclamation"></i></span>';
             
-                } 
+                }
                 else {
                     $newStatus =  '<span order="3" style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
