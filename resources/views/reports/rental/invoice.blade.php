@@ -47,7 +47,7 @@ function asSEK($value, $currency) {
                     <tr>
                         <td>{{ $rent->unit }}</td>
                         <td>{{ $rent->customer }}</td>
-                        <td>{{ asSEK($rent->monthlyCost) }}</td>
+                        <td>{{ asSEK($rent->monthlyCost, $rent->currency) }}</td>
 
                         <td>
                             <?php 

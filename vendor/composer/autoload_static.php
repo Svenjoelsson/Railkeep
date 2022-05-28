@@ -23,12 +23,12 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
+        '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
-        '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
@@ -258,6 +258,8 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         array (
             'Asm89\\Stack\\' => 12,
             'App\\' => 4,
+            'AmrShawky\\LaravelCurrency\\' => 26,
+            'AmrShawky\\' => 10,
             'Alexusmai\\LaravelFileManager\\' => 29,
         ),
     );
@@ -634,8 +636,8 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-            1 => __DIR__ . '/..' . '/php-http/message/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'Http\\Factory\\Guzzle\\' => 
         array (
@@ -813,6 +815,14 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'AmrShawky\\LaravelCurrency\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/amrshawky/laravel-currency/src',
+        ),
+        'AmrShawky\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/amrshawky/currency/src',
+        ),
         'Alexusmai\\LaravelFileManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/alexusmai/laravel-file-manager/src',
@@ -891,6 +901,21 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'Alexusmai\\LaravelFileManager\\Traits\\CheckTrait' => __DIR__ . '/..' . '/alexusmai/laravel-file-manager/src/Traits/CheckTrait.php',
         'Alexusmai\\LaravelFileManager\\Traits\\ContentTrait' => __DIR__ . '/..' . '/alexusmai/laravel-file-manager/src/Traits/ContentTrait.php',
         'Alexusmai\\LaravelFileManager\\Traits\\PathTrait' => __DIR__ . '/..' . '/alexusmai/laravel-file-manager/src/Traits/PathTrait.php',
+        'AmrShawky\\API' => __DIR__ . '/..' . '/amrshawky/currency/src/API.php',
+        'AmrShawky\\Currency' => __DIR__ . '/..' . '/amrshawky/currency/src/Currency.php',
+        'AmrShawky\\CurrencyConversion' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyConversion.php',
+        'AmrShawky\\CurrencyFactory' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyFactory.php',
+        'AmrShawky\\CurrencyFluctuations' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyFluctuations.php',
+        'AmrShawky\\CurrencyHistoricalRates' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyHistoricalRates.php',
+        'AmrShawky\\CurrencyLatestRates' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyLatestRates.php',
+        'AmrShawky\\CurrencyRates' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyRates.php',
+        'AmrShawky\\CurrencyRatesProxy' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyRatesProxy.php',
+        'AmrShawky\\CurrencyTimeSeriesRates' => __DIR__ . '/..' . '/amrshawky/currency/src/CurrencyTimeSeriesRates.php',
+        'AmrShawky\\Exceptions\\RequestException' => __DIR__ . '/..' . '/amrshawky/currency/src/Exceptions/RequestException.php',
+        'AmrShawky\\LaravelCurrency\\CurrencyServiceProvider' => __DIR__ . '/..' . '/amrshawky/laravel-currency/src/CurrencyServiceProvider.php',
+        'AmrShawky\\LaravelCurrency\\Facade\\Currency' => __DIR__ . '/..' . '/amrshawky/laravel-currency/src/Facade/Currency.php',
+        'AmrShawky\\Traits\\HttpRequest' => __DIR__ . '/..' . '/amrshawky/currency/src/Traits/HttpRequest.php',
+        'AmrShawky\\Traits\\ParamsOverload' => __DIR__ . '/..' . '/amrshawky/currency/src/Traits/ParamsOverload.php',
         'App\\Charts\\SampleChart' => __DIR__ . '/../..' . '/app/Charts/SampleChart.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\DataTables\\ActivitiesDataTable' => __DIR__ . '/../..' . '/app/DataTables/ActivitiesDataTable.php',
@@ -924,6 +949,7 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\CommentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentsController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CustomersController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomersController.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
@@ -1007,6 +1033,7 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'App\\Http\\Requests\\UpdateserviceVendorRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateserviceVendorRequest.php',
         'App\\Listeners\\storeUserLoginHistory' => __DIR__ . '/../..' . '/app/Listeners/storeUserLoginHistory.php',
         'App\\Models\\Activities' => __DIR__ . '/../..' . '/app/Models/Activities.php',
+        'App\\Models\\Comments' => __DIR__ . '/../..' . '/app/Models/Comments.php',
         'App\\Models\\InventoryLog' => __DIR__ . '/../..' . '/app/Models/InventoryLog.php',
         'App\\Models\\Rent' => __DIR__ . '/../..' . '/app/Models/Rent.php',
         'App\\Models\\Services' => __DIR__ . '/../..' . '/app/Models/Services.php',
@@ -1037,6 +1064,7 @@ class ComposerStaticInit5e2ccb7b1af2419827b9bbea823869c5
         'App\\Repositories\\serviceTypeRepository' => __DIR__ . '/../..' . '/app/Repositories/serviceTypeRepository.php',
         'App\\Repositories\\serviceVendorRepository' => __DIR__ . '/../..' . '/app/Repositories/serviceVendorRepository.php',
         'App\\Traits\\ServicePlanTrait' => __DIR__ . '/../..' . '/app/Traits/ServicePlanTrait.php',
+        'App\\Traits\\UnitStatusTrait' => __DIR__ . '/../..' . '/app/Traits/UnitStatusTrait.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

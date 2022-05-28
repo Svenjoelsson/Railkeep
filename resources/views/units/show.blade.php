@@ -27,10 +27,21 @@
 </section>
 
 <div class="content px-3">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <nav class="navbar navbar-expand-lg">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" style="margin-left:5px;" id="navbarSupportedContent">
+    <ul class="nav nav-tabs navbar-nav mr-auto" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home"
                 aria-selected="true">Service plan</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="repairs-tab" data-toggle="tab" href="#repairs" role="tab" aria-controls="repairs"
+                aria-selected="true">Repairs & Reports</a>
         </li>
         @if(auth()->user()->hasPermissionTo('view reports'))
         <li class="nav-item">
@@ -74,7 +85,9 @@
             @endif </li>
         @endif
     </ul>
-    <div class="card">
+        </div>
+    </nav>
+    <div class="card rounded-0">
 
         <div class="card-body">
             <div class="row">
@@ -193,8 +206,8 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            //$unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
-                            $unitData = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+                            $unitData = \App\Models\Activities::where('activity_type', 'Unit')->where('activity_id', $id)->orderBy('created_at', 'desc')->get();
+                            //$unitData = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'like', '%-counter-%')->orWhere('activity_type', 'like', '%-date-%')->orWhere('activity_type', 'Unit')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
@@ -212,27 +225,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="v-pills-comment-tab">
-                            <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal"
-                            data-target="#newComment">
-                                New comment
-                            </button><br /><br />
-                            <?php
-                                $comments = \App\Models\Comments::where('model_id', $id)->where('model_type', 'units')->orderBy('created_at', 'desc')->get();
-                                foreach ($comments as $comment) { ?>
-
-                                    <div class="card shadow">
-                                        <div class="card-header activeNav">
-                                            <span style="float:left;">{{ $comment->created_by }}</span>
-                                            <span style="float:right;">{{ $comment->created_at }}</span>
-                                        </div>
-                                        <div class="card-body">
-                                        <p class="card-text"><?php echo nl2br($comment->comment) ?></p>
-                                        </div>
-                                    </div>
-
-                                <?php } ?>
-
-
+                            @include('comments')
                         </div>
 
                         <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="v-pills-upload-tab">
@@ -312,44 +305,43 @@
                             </table>
                         </div>
 
+                        <div class="tab-pane fade" id="repairs" role="tabpanel" aria-labelledby="v-pills-repairs-tab">
+                            <table class="table table-hover">
+                                <thead class="activeNav">
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Created</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <?php 
+                            //return Datatables::collection(User::all())->make(true);
+                            // should be changed..
+                            $id = $units->id;
+                            $unitData = \App\Models\Services::where('service_type', 'LIKE', 'Rep%')->where('unit', $unit)->orderBy('created_at', 'desc', 'status', 'desc')->get();
+                            
+                            foreach ($unitData as $key => $value) {
+                                echo "<tr>";
+                                echo "<td>".$value['service_type']."</td>";
+                                $out = strlen($value['service_desc']) > 50 ? substr($value['service_desc'],0,50)."..." : $value['service_desc'];
+                                echo "<td>".$out."</td>";
+                                echo "<td>".$value['created_at']."</td>";
+                                echo "<td>".$value['service_status']."</td>";
+                                echo "<td><a class='btn btn-default btn-xs' href='/services/".$value['id']."/edit'><i class='fa fa-edit'></i></a></td>";
+                                echo "</tr>";
+                            };
+                            ?>
+                            </table>
+                        </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-<div class="modal fade" id="newComment" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-              <form method="post" action="{{url('comments/new')}}" accept-charset="UTF-8">
-                <input type="hidden" name="model_type" value="{{ Request::segment(1) }}">
-                <input type="hidden" name="model_id" value="{{ Request::segment(2) }}">
-                
-                @csrf <!-- {{ csrf_field() }} -->
-
-                <label for="date">Comment</label>
-                <textarea name="comment" rows="5" class="form-control"></textarea>
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

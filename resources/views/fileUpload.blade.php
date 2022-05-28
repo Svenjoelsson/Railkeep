@@ -40,7 +40,21 @@
         
         if (is_dir($path)) {
             $files = scandir($path);
-            foreach ($files as $val) {
+            function scan_dir($dir) {
+                $ignored = array('.', '..', '.svn', '.htaccess');
+
+                $files = array();    
+                foreach (scandir($dir) as $file) {
+                    if (in_array($file, $ignored)) continue;
+                    $files[$file] = filemtime($dir . '/' . $file);
+                }
+
+                arsort($files);
+                $files = array_keys($files);
+
+                return ($files) ? $files : false;
+            }
+            foreach (scan_dir($path) as $val) {
                 echo "<tr>";
                 if ($val !== '.' && $val !== '..') {
                     if (str_contains($val, '.pdf')) {

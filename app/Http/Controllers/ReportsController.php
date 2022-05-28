@@ -9,6 +9,8 @@ use App\Http\Requests;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use AmrShawky\LaravelCurrency\Facade\Currency;
+
 
 class ReportsController extends Controller
 {
@@ -71,6 +73,21 @@ class ReportsController extends Controller
 
     }
 
+    public function orderValue($api)
+    {
+        $results = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->get();
+        
+        if ($api == 'api') {
+            //return $counters;
+        }
+        else if ($api == 'view') {
+            
+            return view('reports.rental.orderValue')->with(['results' => $results]);
+        } 
+        else {
+            return 'No api type was provided, give either view or api as value';
+        }
+    }
 
     public function counter($api, $type, $year, $month)
     {

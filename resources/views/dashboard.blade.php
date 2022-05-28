@@ -28,17 +28,6 @@
             </div>
 
             <div class="col-md-2 col-sm-6 col-12">
-                <div class="info-box shadow-lg bg-gradient-warning" data-toggle="modal" data-target="#soon">
-                    <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text" style="color:white !important;">Over
-                            {{ $soondue }}% reached</span>
-                        <span class="info-box-number" style="color:white !important;">{{ $ninty }}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2 col-sm-6 col-12">
                 <div class="info-box shadow-lg bg-gradient-blue" data-toggle="modal" data-target="#planned">
                     <span class="info-box-icon"><i class="far fa-clock"></i></span>
                     <div class="info-box-content">
@@ -49,6 +38,19 @@
                 </div>
 
             </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box shadow-lg bg-gradient-warning" data-toggle="modal" data-target="#soon">
+                    <span class="info-box-icon"><i style="color:white !important;" class="fa fa-exclamation"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="color:white !important;">Over
+                            {{ $soondue }}% reached</span>
+                        <span class="info-box-number" style="color:white !important;">{{ $ninty }}</span>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="col-md-2 col-sm-6 col-12">
                 <div class="info-box shadow-lg bg-gradient-danger" data-toggle="modal" data-target="#overdue">
@@ -85,6 +87,14 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Hours driven last 24h:</span>
                             <span class="info-box-number">{{ $totalH }} h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box shadow-lg bg-gradient-white">
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total amount of units:</span>
+                            <span class="info-box-number">{{ $units }}</span>
                         </div>
                     </div>
                 </div>

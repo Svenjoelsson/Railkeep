@@ -6,6 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1 style="float:left;">Edit service</h1>
+                    <a style="float:right;" href="/services/{{ $services->id }}" class="btn btn-primary">Manage</a>
                 </div>
             </div>
         </div>

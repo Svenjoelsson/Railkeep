@@ -147,6 +147,11 @@ Route::get('reports/{api}/rental/gantt/{type}/', [App\Http\Controllers\ReportsCo
 
 Route::get('reports/{api}/counter/{type}/{year}/{month}', [App\Http\Controllers\ReportsController::class, 'counter']);
 
+Route::get('reports/{api}/orderValue/', [App\Http\Controllers\ReportsController::class, 'orderValue']);
+
+
+
+
 Route::post('/search', [App\Http\Controllers\searchController::class, 'search'])->name('globalSearch');
 
 Route::get('generate-pdf', [App\Http\Controllers\PDFController::class, 'generatePDF']);

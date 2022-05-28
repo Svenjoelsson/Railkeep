@@ -329,7 +329,7 @@ class UnitsController extends AppBaseController
 
     public function inService($id, $value)
     {
-
+        
         \App\Models\Units::where('id', $id)->update(['inService' => $value]);
         if ($value == '1') {
             $message = 'Unit has been set to [In Service] manually';
@@ -343,7 +343,7 @@ class UnitsController extends AppBaseController
             'activity_message' => $message,
             'created_at' => now()
         ]);
-
+        $this->updateOne($id);
         return back();
 
     }

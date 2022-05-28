@@ -96,7 +96,7 @@ class UnitsDataTable extends DataTable
         if (isMobileDev()) { 
             return [
                 'unit',
-                'status'
+                'unitStatus'
             ];
         } else {
             return [

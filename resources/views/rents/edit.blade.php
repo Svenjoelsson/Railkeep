@@ -33,11 +33,17 @@
             {!! Form::close() !!}
             
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h3 style="float:left;">File upload</h3>
-                @include('fileUpload') 
+        <div class="card card-body">
+        <div class="row">
+            <div class=" col-6">
+                    <h3 style=";">Comments</h3>
+                    @include('comments')
             </div>
+            <div class="col-6">
+                    <h3 style=";">File upload</h3>
+                    @include('fileUpload') 
+            </div>
+        </div>
         </div>
     </div>
 @endsection

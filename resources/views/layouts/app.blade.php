@@ -198,6 +198,12 @@
     .datepicker {
       z-index: 9999 !important; /* has to be larger than 1050 */
     }
+    .card {
+        overflow: auto !important;
+    }
+    .content {
+        overflow: auto !important;
+    }
     </style>
     
 
@@ -343,6 +349,9 @@
     <script>
         $('#globalSearch').on('change', function() {
             $(this).closest('form').submit();
+        });
+        $('.nav-link').on('click',function() {
+            $('.navbar-collapse').collapse('hide');
         });
 
 
