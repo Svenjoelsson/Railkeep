@@ -54,26 +54,28 @@
 
                 return ($files) ? $files : false;
             }
-            foreach (scan_dir($path) as $val) {
-                echo "<tr>";
-                if ($val !== '.' && $val !== '..') {
-                    if (str_contains($val, '.pdf')) {
-                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271042.png' height='50'/></td>";  
-                    }
-                    else if (str_contains($val, '.xlsx')) {
-                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271067.png' height='50'/></td>";  
-                    }
-                    else if (str_contains($val, '.docx')) {
-                        echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271015.png' height='50'/></td>";  
-                    }
-                    else {
-                        echo "<td><img style='border: 2px solid #000;' src='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' height='50'/></td>";  
-                    }
-                    echo "<td style='vertical-align: middle;'><a href='#' class='fileprev' data-file='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' data-toggle='modal' data-target='#preview' >".$val."</a></td>";
-                    echo "<td><div class='btn-group'><a class='btn btn-default btn-xs' href='/file-upload/download/".Request::segment(1)."/".Request::segment(2)."/".$val."'><i class='fa fa-download'></i></a><a class='btn btn-danger btn-xs' href='/file-upload/delete/".Request::segment(1)."/".Request::segment(2)."/".$val."'><i class='fa fa-trash'></i></a></div></td>";
-                    echo "</tr>";
-                }
-            }
+            if ($files) {
+              foreach (scan_dir($path) as $val) {
+                  echo "<tr>";
+                  if ($val !== '.' && $val !== '..') {
+                      if (str_contains($val, '.pdf')) {
+                          echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271042.png' height='50'/></td>";  
+                      }
+                      else if (str_contains($val, '.xlsx')) {
+                          echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271067.png' height='50'/></td>";  
+                      }
+                      else if (str_contains($val, '.docx')) {
+                          echo "<td><img src='https://cdn-icons-png.flaticon.com/512/7271/7271015.png' height='50'/></td>";  
+                      }
+                      else {
+                          echo "<td><img style='border: 2px solid #000;' src='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' height='50'/></td>";  
+                      }
+                      echo "<td style='vertical-align: middle;'><a href='#' class='fileprev' data-file='/uploads/".Request::segment(1)."/".Request::segment(2)."/".$val."' data-toggle='modal' data-target='#preview' >".$val."</a></td>";
+                      echo "<td><div class='btn-group'><a class='btn btn-default btn-xs' href='/file-upload/download/".Request::segment(1)."/".Request::segment(2)."/".$val."'><i class='fa fa-download'></i></a><a class='btn btn-danger btn-xs' href='/file-upload/delete/".Request::segment(1)."/".Request::segment(2)."/".$val."'><i class='fa fa-trash'></i></a></div></td>";
+                      echo "</tr>";
+                  }
+              }
+            } 
         }
 
       ?>
