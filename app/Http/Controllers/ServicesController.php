@@ -236,7 +236,7 @@ class ServicesController extends AppBaseController
                 if ($level) { // IF SERVICE TYPE EXISTS IN MAKELIST
                     foreach ($make as $value) {
 
-                        if ($value["level"] <= $level->level) {
+                        if ($value["level"] < $level->level) {
 
                         $counter = null;
                             if (!empty($value["counter"])) {
