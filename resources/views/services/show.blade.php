@@ -30,7 +30,7 @@
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#vendor" role="tab" aria-controls="home" aria-selected="true">Vendor</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#unit" role="tab" aria-controls="profile" aria-selected="false">Unit</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#unit" role="tab" aria-controls="profile" aria-selected="false">Comments</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="contact-tab" data-toggle="tab" href="#documentation" role="tab" aria-controls="contact" aria-selected="false">File upload</a>
@@ -106,6 +106,7 @@
 
                         </div>
                         <div class="tab-pane fade" id="unit" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                            @include('comments')
                         </div>
                         <div class="tab-pane fade" id="documentation" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                             @include('fileUpload') 
