@@ -41,16 +41,16 @@ class DashboardController extends Controller
             return numfmt_format_currency($fmt, $value, "SEK");
         }
         $critical = \App\Models\Services::where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->count();
-        $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_type', '!=', 'Report')->where('service_type', '!=', 'Repair')->where('service_date', '!=', '')->whereNull('deleted_at')->count();
+        $planned = \App\Models\Services::where('service_status', 'In progress')->where('service_type', '!=', 'Report')->where('service_type', '!=', 'Repair')->where('service_date', '!=', '')->whereNull('deleted_at')->distinct('unit')->count();
 
         $monthlyInvoice = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->sum('monthlyCost');
         $agreements = \App\Models\Rent::where('status', 'Active')->whereNull('deleted_at')->orderBy('customer', 'asc')->count();
 
-        $dateOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();    
-        $counterOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
+        $dateOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->distinct('activity_id')->count();    
+        $counterOverdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->distinct('activity_id')->count();
 
-        $dateNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
-        $counterNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->count();
+        $dateNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-%')->whereNull('deleted_at')->orderBy('id','desc')->distinct('activity_id')->count();
+        $counterNinty = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-%')->whereNull('deleted_at')->orderBy('id','desc')->distinct('activity_id')->count();
     
         $units = \App\Models\Units::whereNull('deleted_at')->count();
 

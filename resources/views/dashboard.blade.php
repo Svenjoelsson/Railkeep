@@ -183,7 +183,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                    $overdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-%')->whereNull('deleted_at')->get();
+                    $overdue = \App\Models\Activities::where('activity_type', 'like', 'Overdue-%')->whereNull('deleted_at')->get()->unique('activity_id');
 
                     if ($overdue) {
                         foreach ($overdue as $y) {
@@ -239,7 +239,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                    $soon = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-%')->whereNull('deleted_at')->orderBy('id','desc')->get();
+                    $soon = \App\Models\Activities::where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-%')->whereNull('deleted_at')->orderBy('id','desc')->get()->unique('activity_id');
 
                     if ($soon) {
                         foreach ($soon as $y) {

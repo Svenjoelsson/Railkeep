@@ -85,21 +85,19 @@ class ServicesController extends AppBaseController
         $services = DB::table('services')->where('unit', $input["unit"])->where('service_type', $input["service_type"])->where('service_status', 'In progress')->whereNull('deleted_at')->first();
         $unit = DB::table('units')->where('unit', $input["unit"])->whereNull('deleted_at')->first();
 
-
-
-
-        DB::table('activities')->insert([
-            'activity_type' => 'Unit',
-            'activity_id' => $unit->id,
-            'activity_message' => 'A '.$input["service_type"]." for unit ".$unit->unit." has been created",
-            'created_at' => now()
-        ]);
-
-        if ($services) {
+            
+        if ($services && $services->service_type != 'Report') {
             Flash::error('A service with this unit and type already exists with status In progress.');
             return redirect(route('services.index'));
+        } else {
+            DB::table('activities')->insert([
+                'activity_type' => 'Unit',
+                'activity_id' => $unit->id,
+                'activity_message' => 'A '.$input["service_type"]." for unit ".$unit->unit." has been created",
+                'created_at' => now()
+            ]);
         }
-
+        
 
         $services = $this->servicesRepository->create($input);
 
