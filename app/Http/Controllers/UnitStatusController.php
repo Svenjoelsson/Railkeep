@@ -120,7 +120,7 @@ class UnitStatusController extends Controller
                     // Update DB
                     \App\Models\InventoryLog::where('id', $part->id)->update(['counter' => $addCalc]);
         
-                    $x = \App\Models\Inventory::where('id', $part->part)->first();
+                    $x = \App\Models\inventory::where('id', $part->part)->first();
                     // if part counter is more than part->next maintenance
                     if ($x->maintenance != NULL) {
                         if ($addCalc > $x->maintenance) {
