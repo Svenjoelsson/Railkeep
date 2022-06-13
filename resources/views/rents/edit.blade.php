@@ -41,6 +41,7 @@
             </div>
             <div class="col-6">
                     <h3 style=";">File upload</h3>
+                    @include('fileUpload') 
             </div>
         </div>
         </div>
