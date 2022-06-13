@@ -45,3 +45,7 @@
     {!! Form::select('maintenanceType', array('Km' => 'Kilometers', 'h' => 'Hours'), null, ['class' => 'form-control js-example-basic-single maintenanceType', 'placeholder' => 'Select type', 'required']) !!}
 </div>
 
+<div class="form-group col-sm-12">
+    {!! Form::label('ecm', 'ECM Responsible: *') !!}
+    {!! Form::select('ecm', array('1' => 'Nordic Re-Finance is fully responsible', '2' => 'Nordic Re-Finance is responsible with delegation of return to service', '3' => 'Nordic Re-Finance is responsible with delegation of booking of service', '4' => 'Nordic Re-Finance is responsible with delegation of return to service and booking of service', '5' => 'Other entity is fully responsible'), null, ['class' => 'form-control', 'placeholder' => 'Select one', 'required']) !!}
+</div>

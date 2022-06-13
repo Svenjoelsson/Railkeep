@@ -35,6 +35,7 @@ class Units extends Model
 
     public $fillable = [
         'unit',
+        'ecm',
         'make',
         'model',
         'year_model',
@@ -60,6 +61,7 @@ class Units extends Model
     protected $casts = [
         'id' => 'integer',
         'unit' => 'string',
+        'ecm' => 'string',
         'make' => 'string',
         'model' => 'string',
         'year_model' => 'string',
