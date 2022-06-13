@@ -7064,7 +7064,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.0"
             },
             "suggest": {
                 "symfony/http-client-implementation": ""
@@ -8883,7 +8883,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.0"
             },
             "suggest": {
                 "symfony/translation-implementation": ""
