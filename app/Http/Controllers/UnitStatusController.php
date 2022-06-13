@@ -113,6 +113,8 @@ class UnitStatusController extends Controller
         
                     $yesterdate = date('Y-m-d',strtotime("-1 days"))." 00:%";
                     $yesterday = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
+                    
+
                     $today = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
                     $calc = $today->activity_message - $yesterday->activity_message;
                     

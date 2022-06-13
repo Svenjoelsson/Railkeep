@@ -253,6 +253,8 @@ class Kernel extends ConsoleKernel
 
             $yesterdate = date('Y-m-d',strtotime("-1 days"))." 00:%";
             $yesterday = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
+            
+
             $today = \App\Models\Activities::where('activity_id', $part->unit)->where('activity_type', 'UnitCounter')->where('created_at', 'like', date('Y-m-d')." 00:%")->whereNull('deleted_at')->orderBy('id','asc')->first();    
             $calc = $today->activity_message - $yesterday->activity_message;
             
@@ -260,7 +262,7 @@ class Kernel extends ConsoleKernel
             // Update DB
             \App\Models\InventoryLog::where('id', $part->id)->update(['counter' => $addCalc]);
 
-            $x = \App\Models\Inventory::where('id', $part->part)->first();
+            $x = \App\Models\inventory::where('id', $part->part)->first();
             // if part counter is more than part->next maintenance
             if ($x->maintenance != NULL) {
                 if ($addCalc > $x->maintenance) {
