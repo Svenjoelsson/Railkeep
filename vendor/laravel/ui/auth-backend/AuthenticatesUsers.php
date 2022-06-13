@@ -84,7 +84,7 @@ trait AuthenticatesUsers
     protected function attemptLogin(Request $request)
     {
         return $this->guard()->attempt(
-            $this->credentials($request), $request->filled('remember')
+            $this->credentials($request), $request->boolean('remember')
         );
     }
 
@@ -115,8 +115,6 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        auth()->logoutOtherDevices($request->password);
-
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
                     : redirect()->intended($this->redirectPath());
@@ -131,7 +129,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        
+        //
     }
 
     /**
@@ -190,7 +188,7 @@ trait AuthenticatesUsers
      */
     protected function loggedOut(Request $request)
     {
-        return redirect('/');
+        //
     }
 
     /**

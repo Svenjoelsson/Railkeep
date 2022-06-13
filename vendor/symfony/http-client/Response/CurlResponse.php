@@ -33,7 +33,7 @@ final class CurlResponse implements ResponseInterface, StreamableInterface
     use TransportResponseTrait;
 
     private static bool $performing = false;
-    private $multi;
+    private CurlClientState $multi;
 
     /**
      * @var resource
@@ -67,6 +67,7 @@ final class CurlResponse implements ResponseInterface, StreamableInterface
         $this->timeout = $options['timeout'] ?? null;
         $this->info['http_method'] = $method;
         $this->info['user_data'] = $options['user_data'] ?? null;
+        $this->info['max_duration'] = $options['max_duration'] ?? null;
         $this->info['start_time'] = $this->info['start_time'] ?? microtime(true);
         $info = &$this->info;
         $headers = &$this->headers;

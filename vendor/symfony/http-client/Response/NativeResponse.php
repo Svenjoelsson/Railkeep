@@ -43,7 +43,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
      */
     private $buffer;
 
-    private $multi;
+    private NativeClientState $multi;
     private float $pauseExpiry = 0.0;
 
     /**
@@ -67,6 +67,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
         $this->buffer = fopen('php://temp', 'w+');
 
         $info['user_data'] = $options['user_data'];
+        $info['max_duration'] = $options['max_duration'];
         ++$multi->responseCount;
 
         $this->initializer = static function (self $response) {
@@ -126,7 +127,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                 throw new TransportException($msg);
             }
 
-            $this->logger && $this->logger->info(sprintf('%s for "%s".', $msg, $url ?? $this->url));
+            $this->logger?->info(sprintf('%s for "%s".', $msg, $url ?? $this->url));
         });
 
         try {
@@ -162,7 +163,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                     break;
                 }
 
-                $this->logger && $this->logger->info(sprintf('Redirecting: "%s %s"', $this->info['http_code'], $url ?? $this->url));
+                $this->logger?->info(sprintf('Redirecting: "%s %s"', $this->info['http_code'], $url ?? $this->url));
             }
         } catch (\Throwable $e) {
             $this->close();
@@ -364,7 +365,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                 continue;
             }
 
-            if ($pauseExpiry && ($now ?? $now = microtime(true)) < $pauseExpiry) {
+            if ($pauseExpiry && ($now ??= microtime(true)) < $pauseExpiry) {
                 $timeout = min($timeout, $pauseExpiry - $now);
                 continue;
             }
