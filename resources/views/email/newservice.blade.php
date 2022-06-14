@@ -306,6 +306,171 @@
             widows: 2;
             text-align: left
         }
+
+        .table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  font-size: 10pt;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #eceeef;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #eceeef;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #eceeef;
+}
+
+.table .table {
+  background-color: #fff;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.3rem;
+}
+
+.table-bordered {
+  border: 1px solid #eceeef;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #eceeef;
+}
+
+.table-bordered thead th,
+.table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-active,
+.table-active > th,
+.table-active > td {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-hover .table-active:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-hover .table-active:hover > td,
+.table-hover .table-active:hover > th {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-success,
+.table-success > th,
+.table-success > td {
+  background-color: #dff0d8;
+}
+
+.table-hover .table-success:hover {
+  background-color: #d0e9c6;
+}
+
+.table-hover .table-success:hover > td,
+.table-hover .table-success:hover > th {
+  background-color: #d0e9c6;
+}
+
+.table-info,
+.table-info > th,
+.table-info > td {
+  background-color: #d9edf7;
+}
+
+.table-hover .table-info:hover {
+  background-color: #c4e3f3;
+}
+
+.table-hover .table-info:hover > td,
+.table-hover .table-info:hover > th {
+  background-color: #c4e3f3;
+}
+
+.table-warning,
+.table-warning > th,
+.table-warning > td {
+  background-color: #fcf8e3;
+}
+
+.table-hover .table-warning:hover {
+  background-color: #faf2cc;
+}
+
+.table-hover .table-warning:hover > td,
+.table-hover .table-warning:hover > th {
+  background-color: #faf2cc;
+}
+
+.table-danger,
+.table-danger > th,
+.table-danger > td {
+  background-color: #f2dede;
+}
+
+.table-hover .table-danger:hover {
+  background-color: #ebcccc;
+}
+
+.table-hover .table-danger:hover > td,
+.table-hover .table-danger:hover > th {
+  background-color: #ebcccc;
+}
+
+.thead-inverse th {
+  color: #fff;
+  background-color: #292b2c;
+}
+
+.thead-default th {
+  color: #464a4c;
+  background-color: #eceeef;
+}
+
+.table-inverse {
+  color: #fff;
+  background-color: #292b2c;
+}
+
+.table-inverse th,
+.table-inverse td,
+.table-inverse thead th {
+  border-color: #fff;
+}
+
+.table-inverse.table-bordered {
+  border: 0;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.table-responsive.table-bordered {
+  border: 0;
+}
     </style>
 </head>
 
@@ -375,7 +540,49 @@
                 <p class="c9"><span class="c4">Description:</span></p>
                 <td class="c10" colspan="1" rowspan="1">
                     <p class="c1"><span class="c0">{!! nl2br($serviceDesc) !!}</span></p>
-                    <p class="c1"><span class="c4"></span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p>
+ 
+@if (count($reports) != 0)
+    <table class="c8">
+        <tbody>
+            <tr class="c3">
+                <p class="c9"><span class="c4">Open reports:</span></p>
+                <td class="c10" colspan="1" rowspan="1">
+                    <table class="table openreports">
+                        <thead>
+                            <tr>
+                                <td><b>#</b></td>
+                                <td><b>Critical</b></td>
+                                <td><b>Description</b></td>
+                                <td><b>Created at</b></td>
+                            </tr>
+                        </thead>
+                        <tbody id="openreportsBody">
+                            <?php 
+                                
+                                foreach ($reports as $x) {
+                                    echo "<tr>";
+                                        echo "<td>".$x["id"]."</td>";
+                                        if ($x["critical"] == '1') {
+                                            echo "<td>Yes</td>"; 
+                                        } else {
+                                            echo "<td>No</td>";
+                                        }
+                                        echo "<td>".$x["service_desc"]."</td>";
+                                        echo "<td>".$x["created_at"]."</td>";
+                                        echo "<td><a href='/services/".$x['id']."/edit' class='btn btn-default btn-xs'><i class='fa fa-edit'></i></a></td>";
+                                    echo "</tr>";
+                                    
+                                }
+                            ?>
+                
+                        </tbody>
+                    </table>
                     <p class="c1"><span class="c4"></span></p>
                 </td>
             </tr>
@@ -383,6 +590,8 @@
     </table>
     <p class="c5"><span class="c0"></span></p>
     <p class="c5"><span class="c0"></span></p><a id="t.295372d8604cf957132312eff2ed1d18df91d3a8"></a><a id="t.3"></a>
+
+    @endif
     <table class="c8">
         <tbody>
             <tr class="c12">
@@ -409,7 +618,6 @@
             </tr>
         </tbody>
     </table>
-    <p class="c5"><span class="c0"></span></p>
 </body>
 
 </html>

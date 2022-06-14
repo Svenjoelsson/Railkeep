@@ -59,6 +59,12 @@ class ServicesDataTable extends DataTable
         
             ->where('customer', Auth::user()->name)
             ->orderby('id', 'desc');
+        }  else if (Auth::user()->role == 'inspector') {
+            $data = Services::query()
+        
+            ->where('customer', Auth::user()->name)
+            ->where('service_type', 'Report')
+            ->orderby('id', 'desc');
         } else {
             $data = Services::query()
             ->orderby('id', 'desc');
@@ -122,6 +128,14 @@ class ServicesDataTable extends DataTable
                 'unit',
                 'service_type',
                 'service_date',
+                'service_status',
+            ];
+        } else if (Auth::user()->role == 'inspector') {
+            return [
+                'id',
+                'unit',
+                'service_type',
+                'service_desc',
                 'service_status',
             ];
         } else {

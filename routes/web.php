@@ -99,6 +99,11 @@ Route::get('/sendhtmlemail', [App\Http\Controllers\MailController::class, 'html_
 Route::get('/sendattachmentemail', [App\Http\Controllers\MailController::class, 'attachment_email']);
 Route::resource('services', App\Http\Controllers\ServicesController::class);
 
+Route::post('serviceLookup/{unit}', [App\Http\Controllers\ServicesController::class, 'unitData']);
+
+
+
+
 Route::post('someurl', [App\Http\Controllers\ServicesController::class, 'someMethod']);
 Route::post('inventories/mount', [App\Http\Controllers\inventoryController::class, 'mount']);
 Route::post('comments/new', [App\Http\Controllers\CommentsController::class, 'newComment']);

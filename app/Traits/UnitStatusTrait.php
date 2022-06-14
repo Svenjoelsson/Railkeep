@@ -16,7 +16,7 @@ trait UnitStatusTrait {
             $critical = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
             
             $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->whereNull('deleted_at')->first();
-            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->first();
+            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->get()->count();
         
             $manual = \App\Models\Units::where('unit', $unit->unit)->where('inService', '0')->whereNull('deleted_at')->first();
         
@@ -62,7 +62,7 @@ trait UnitStatusTrait {
                     $newStatus =  '<span order="3" style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
                 if ($report) {
-                    $newStatus .=  '<a href="services/'.$report->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$report->service_type."] ".$report->service_desc.'"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
+                    $newStatus .=  '<a href="units/'.$id.'"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$report.' open reports"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
                 }
                 if ($planned) { // Planned events
                     $newStatus .=  '<span order="0"><a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$planned->service_type."] ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a></span>';
@@ -120,7 +120,7 @@ trait UnitStatusTrait {
             $critical = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('critical', '1')->whereNull('deleted_at')->first();
             $repair = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Repair')->whereNull('deleted_at')->first();
             
-            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->first();
+            $report = \App\Models\Services::where('unit', $unit->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->whereNull('deleted_at')->get()->count();
 
             $manual = \App\Models\Units::where('unit', $unit->unit)->where('inService', '0')->whereNull('deleted_at')->first();
         
@@ -166,7 +166,7 @@ trait UnitStatusTrait {
                     $newStatus =  '<span order="3" style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
                 if ($report) {
-                    $newStatus .=  '<a href="services/'.$report->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$report->service_type."] ".$report->service_desc.'"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
+                    $newStatus .=  '<a href="units/'.$id.'"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$report.' open reports"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
                 }
                 if ($planned) { // Planned events
                     $newStatus .=  '<span order="0"><a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$planned->service_type."] ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a></span>';

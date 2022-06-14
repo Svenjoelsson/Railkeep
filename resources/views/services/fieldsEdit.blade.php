@@ -88,11 +88,49 @@
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('service_desc', 'Description: *') !!} <span style="float:right"><small><!--<a style="cursor: pointer;" class="clearField">Clear</a>-->
     </small></span>
-    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'required', 'rows' => '10']) !!}
+    {!! Form::textarea('service_desc', null, ['class' => 'form-control disableAll descSelect', 'required', 'rows' => '3']) !!}
 </div>
 
+<?php 
+if ($services->service_type != 'Report') {
+?>
 
+<div class="form-group col-sm-12 col-lg-12 hide">
+    <label>Open reports</label>
+    <table class="table openreports">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Critical</td>
+                <td>Description</td>
+                <td>Created at</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody id="openreportsBody">
+            <?php 
+                $reports = \App\Models\Services::where('unit', $services->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->orderBy('created_at', 'desc')->get();
+                
+                foreach ($reports as $x) {
+                    echo "<tr>";
+                        echo "<td>".$x["id"]."</td>";
+                        if ($x["critical"] == '1') {
+                            echo "<td>Yes</td>"; 
+                        } else {
+                            echo "<td>No</td>";
+                        }
+                        echo "<td>".$x["service_desc"]."</td>";
+                        echo "<td>".$x["created_at"]."</td>";
+                        echo "<td><a href='/services/".$x['id']."/edit' class='btn btn-default btn-xs'><i class='fa fa-edit'></i></a></td>";
+                    echo "</tr>";
+                    
+                }
+            ?>
 
+        </tbody>
+    </table>
+</div>
+<?php } ?>
 <!-- Service Date Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('service_date', 'Service Date: *') !!}

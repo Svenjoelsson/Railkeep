@@ -498,6 +498,7 @@ document.onreadystatechange = function() {
             };
             $.get("{{ url('api/units/') }}",
                 function(data2) {
+
                     $.each(data2.data, function(index, element2) {
                         if ($('.unitSelect').val() === element2.unit) {
                             if (element2.customer) {
@@ -543,10 +544,29 @@ document.onreadystatechange = function() {
                                 });
                             });
 
+                            var data = {
+                                "_token": "{{ csrf_token() }}",
+                            };
+                            $.post('/serviceLookup/'+unitId, data, function(data, textStatus, xhr) {
+                                $('#openreportsBody').empty();
+                                /*optional stuff to do after success */
+                                $.each(data, function(index1, element1) {
+                                    console.log(element1.id);
+                                    if (element1.critical === '1') {
+                                        var critical = 'Yes';
+                                    } else {
+                                        var critical = 'No';
+                                    }
+                                    $('.openreports').append('<tr><td>'+element1.id+'</td><td>'+critical+'</td><td>'+element1.service_desc+'</td><td>'+moment(element1.created_at).format('YYYY-MM-DD HH:MM')+'</td></tr>');
+
+                                });
+                            });
                         }
                     });
                 });
         });
+
+
 
 
         $('.customerSelect').change(function() {
@@ -626,7 +646,7 @@ document.onreadystatechange = function() {
         $('.serviceSelect').on('select2:select', function (e) {
             var data = e.params.data.id;
             if (data === 'Repair' || data === 'Report') {
-                $('.hideDates').hide();
+                $('.hide').hide();
             }
         });
 

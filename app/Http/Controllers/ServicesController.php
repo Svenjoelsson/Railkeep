@@ -75,7 +75,7 @@ class ServicesController extends AppBaseController
     public function store(CreateServicesRequest $request)
     {
         $input = $request->all();
-        
+
         $input["service_type"] = collect($input["service_type"])->implode(', ');
         $input["service_status"] = "In progress";
         if (!isset($input["oos"])) {
@@ -100,9 +100,8 @@ class ServicesController extends AppBaseController
         
 
         $services = $this->servicesRepository->create($input);
-
         // if Out of Service is set
-        if ($input["oos"] == 'on') {
+        if ($input["oos"] == 'on' && !empty($services->service_date)) {
 
             DB::table('activities')->insert([
                 'activity_type' => 'Schedule-oos-email',
@@ -373,7 +372,8 @@ class ServicesController extends AppBaseController
 
         Flash::success('Services updated successfully.');
 
-        return redirect(route('services.index'));
+        //return redirect(route('services.index'));
+        return back();
 
     }
 
@@ -429,6 +429,10 @@ class ServicesController extends AppBaseController
             ->where('unit', '=', $serviceData->unit)
             ->first();
 
+
+
+        $reports = \App\Models\Services::where('unit', $serviceData->unit)->where('service_status', 'In progress')->where('service_type', 'Report')->orderBy('created_at', 'desc')->get();
+
         // Create activity
         DB::table('activities')->insert([
             'activity_type' => 'Service',
@@ -437,20 +441,23 @@ class ServicesController extends AppBaseController
             'created_at' => now()
         ]);
         // Send email
-        $path = public_path('uploads/makeLists/'.$serviceType->id);
         $attach = []; 
         $fileNames = []; 
-        if (is_dir($path)) {
-            $files = scandir($path);
+        if ($serviceType) {
+            $path = public_path('uploads/makeLists/'.$serviceType->id);
             
-            foreach ($files as $val) {
-                if ($val !== '.' && $val !== '..') { // removes strange data...
-                    array_push($attach, $path."/".$val);
-                    array_push($fileNames, $val);
-                }    
+            
+            if (is_dir($path)) {
+                $files = scandir($path);
+                
+                foreach ($files as $val) {
+                    if ($val !== '.' && $val !== '..') { // removes strange data...
+                        array_push($attach, $path."/".$val);
+                        array_push($fileNames, $val);
+                    }    
+                }
             }
         }
-
         $data = array(
             'serviceId' => $serviceData->id,
             'unit' => $serviceData->unit, 
@@ -464,11 +471,10 @@ class ServicesController extends AppBaseController
             'serviceType' => $serviceData->service_type, 
             'name' => $vendorData->contact_name, 
             'attach' => $attach,
+            'reports' => $reports,
             'fileNames' => $fileNames,
             'messege' => 'Please assist us with below service event and let us know when you are finished.'
         );
-        //dd($data["files"]);
-        
 
         Mail::send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach, $unitData) {
            $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
@@ -478,7 +484,6 @@ class ServicesController extends AppBaseController
                     $message->attach($file);
                 }
             }
-
             $message->from('hello@railkeep.app', 'Railkeep');
         });
 
@@ -495,7 +500,11 @@ class ServicesController extends AppBaseController
     
 
 
+    public function unitData ($unit) {
+        $services = \App\Models\Services::where('unit', $unit)->where('service_status', 'In progress')->where('service_type', 'Report')->orderBy('created_at', 'desc')->get();
 
+        return $services;
+    }
 
 
 

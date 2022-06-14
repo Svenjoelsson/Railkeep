@@ -320,7 +320,7 @@
                             //return Datatables::collection(User::all())->make(true);
                             // should be changed..
                             $id = $units->id;
-                            $unitData = \App\Models\Services::where('service_type', 'LIKE', 'Rep%')->where('unit', $unit)->orderBy('created_at', 'desc', 'status', 'desc')->get();
+                            $unitData = \App\Models\Services::where('service_type', 'LIKE', 'Rep%')->where('unit', $unit)->orderby('service_status', 'desc')->orderBy('created_at', 'desc')->get();
                             
                             foreach ($unitData as $key => $value) {
                                 echo "<tr>";
