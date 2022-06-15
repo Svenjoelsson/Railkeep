@@ -62,7 +62,7 @@ trait UnitStatusTrait {
                     $newStatus =  '<span order="3" style="font-size:16px;" class="badge bg-success"><i class="fas fa-check"></i></span></a>';
                 }
                 if ($report) {
-                    $newStatus .=  '<a href="units/'.$id.'"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$report.' open reports"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
+                    $newStatus .=  '<a href="units/"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="'.$report.' open reports"><i style="color:blue;" class="fas fa-receipt"></i></span></a>';
                 }
                 if ($planned) { // Planned events
                     $newStatus .=  '<span order="0"><a href="services/'.$planned->id.'/edit"><span style="font-size:16px; margin-left:5px;" class="badge bg" data-toggle="tooltip" title="['.$planned->service_type."] ".$planned->service_date.'"><i style="color:blue;" class="fas fa-clock"></i></span></a></span>';
