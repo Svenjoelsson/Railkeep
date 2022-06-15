@@ -11,6 +11,10 @@
                 <a class="btn btn-default float-right" href="{{ route('units.index') }}">
                     Back
                 </a>
+                <a class="btn btn-primary float-right" style="margin-right:5px;"
+                href="/units/{{ $units->id }}/edit">
+                Edit {{ $units->unit }}
+            </a> 
             </div>
         </div>
         @if ($noCounterUpdate == '1')
@@ -112,11 +116,12 @@
                                         <th scope="col">Calendar days</th>
                                         <th scope="col">Counter</th>
                                         <th scope="col">Planned</th>
+                                        <th scope="col">Prediction</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <?php 
-
+                            $arr = [];
                             foreach ($make['make'] as $value1) {
                               $counterNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-counter-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
                               $dateNinty = \App\Models\Activities::where('activity_id', $units->id)->where('activity_type', 'like', env('THRESHOLD_SOON_OVERDUE').'-date-'.$value1->serviceName)->whereNull('deleted_at')->orderBy('id','desc')->first();
@@ -129,6 +134,7 @@
                                 if ($value1->counter) {
                                   $counterType = $value1->counterType;
                                 }
+                                if (array_key_exists($value1->serviceName, $make['services']) && $make['services'][$value1->serviceName]->nextServiceDate || array_key_exists($value1->serviceName, $make['services']) && $value1->counter) {
                                 echo "<tr>";
                                   echo "";
                                 echo "<td><a href='".route('makeLists.edit', $value1->id)."'>".$value1->serviceName."</a>";
@@ -175,6 +181,12 @@
                                       echo "<span style='font-size:12px; margin-right:5px;' class='badge badge-primary'><a href='".route('services.edit', $make['planned'][$value1->serviceName]->id)."'>".$make['planned'][$value1->serviceName]->service_date."</a>*</span>";
                                   }
                                 echo "</td>";
+                                echo "<td><br />";
+                                    if ($value1->counter && $prediction != 0) { 
+                                        $pred = ($make['services'][$value1->serviceName]->nextServiceCounter - $activities->activity_message) / $prediction;
+                                        echo "Due in: <a href='#' data-toggle='tooltip' title='Unit is used ".round($prediction, 2)." ".$counterType." per day based on last 7 days.'>".round($pred)." days</a>";
+                                    }
+                                echo "</td>";
                                 echo "<td><div class='btn-group'>";
                                 echo "<a href='".route('services.create', ['unit' => $units->unit, 'service_type' => $value1->serviceName])."' class='btn btn-default btn-xs'><i class='fa fa-plus'></i></a>";
                                 echo "</div>";
@@ -182,14 +194,27 @@
 
                                 echo "</td>";
                                 echo "</tr>";
+                                } else {
+                                    array_push($arr, $value1->serviceName);
+                                }
 
 
                                 
                             };
+                            
                             ?>
                             </table>
-                            <span style='font-size:12px; margin-left:1%;' class='badge bg-primary'>* = Planned
+                            @if (count($arr) > 0)
+                            <center>Following service(s) is not showing due to no data: 
+                            @foreach ($arr as $i)
+                            <b>{{ $i }}</b>
+                            @endforeach
+                            </center>
+                            <br />
+                            @endif
+                            <span style='font-size:12px; margin-left:1%;' class='badge badge-primary'>* = Planned
                                 service</span>
+                                
                         </div>
                         <div class="tab-pane fade" id="activities" role="tabpanel"
                             aria-labelledby="v-pills-profile-tab">

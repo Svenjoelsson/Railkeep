@@ -136,6 +136,17 @@ class UnitsController extends AppBaseController
         $activities = DB::table('activities')->where('activity_id', $id)->where('activity_type', 'UnitCounter')->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
         $plannedService = \App\Models\Services::where('unit', $units->unit)->whereNull('deleted_at')->where('service_status', 'In progress')->orderBy('service_date', 'desc')->get();
 
+        $yesterdate = date('Y-m-d',strtotime("-7 days"))." 00:%";
+        $yesterday = \App\Models\Activities::where('activity_id', $id)->where('activity_type', 'UnitCounter')->where('created_at', 'like', $yesterdate)->whereNull('deleted_at')->orderBy('id','asc')->first();    
+
+        if ($yesterday) {
+            $counterLast30days = $activities->activity_message - $yesterday->activity_message;
+            $prediction = $counterLast30days / 7;
+        } else {
+            $prediction = 0;
+        }
+            
+
         //serviceName
         $i = 0;
         $array = []; 
@@ -177,7 +188,7 @@ class UnitsController extends AppBaseController
         $array['services'] = $serviceArray;
         $array['planned'] = $plannedArray;
 
-        return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService, 'noCounterUpdate' => $noCounterUpdate]);
+        return view('units.show')->with(['units' => $units, 'make' => $array, 'activities' => $activities, 'plannedService' => $plannedService, 'noCounterUpdate' => $noCounterUpdate, 'prediction' => $prediction]);
     }
 
     /**

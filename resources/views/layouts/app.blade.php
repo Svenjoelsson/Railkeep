@@ -619,24 +619,6 @@ document.onreadystatechange = function() {
         });
 
 
-        /*$('.serviceSelect').change(function() {
-            $('.descSelect').empty();
-            var select = $('.serviceSelect').val();
-            var unit = $('.unitSelect').val();
-            $.each(select, function(index, x) {
-                $.get("{{ url('api/service_types/') }}",
-                    function(data) {
-
-                        $.each(data.data, function(index, element) {
-
-                            if (x === element.service_type) {
-                                $('.descSelect').append(element.service_desc + '\n');
-                            }
-                        });
-                    });
-            });
-        });*/
-
         $('.clearField').click(function() {
             $('.descSelect').empty();
             $('.serviceSelect').val(null).trigger('change');
