@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Response;
-use Illuminate\Support\Facades\File; 
+//use Illuminate\Support\Facades\File; 
 use DomPDF;
 use Storage;
+use File;
 
 class FileUploadController extends Controller
 {
@@ -94,8 +95,8 @@ class FileUploadController extends Controller
             'activity_message' => 'File '.$pathBuild.' has been deleted',
             'created_at' => now()
         ]);
-
-        unlink($filePath); // deletes the file
+        File::delete($filePath); // deletes the file
+        //unlink($filePath); // deletes the file
         return redirect()->to($type."/".$id)->send(); // sendsback to view
 
     }

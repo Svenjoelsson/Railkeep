@@ -54,7 +54,8 @@
 
                 return ($files) ? $files : false;
             }
-            if ($files) {
+            if (scan_dir($path)) {
+              
               foreach (scan_dir($path) as $val) {
                   echo "<tr>";
                   if ($val !== '.' && $val !== '..') {
