@@ -238,10 +238,10 @@ class Kernel extends ConsoleKernel
     
     // UNITSTATUS Update via Trait
     $schedule->call(function () {
+        
+        $this->updateAll();
 
-        $this->updateAll($id, $type);
-
-    })->everyThirtyMinutes()->timezone('Europe/Stockholm');
+    })->hourly()->timezone('Europe/Stockholm');
     //})->everyMinute()->timezone('Europe/Stockholm');
 
 
