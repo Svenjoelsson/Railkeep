@@ -32,7 +32,7 @@ class FileUploadController extends Controller
         //dd($request);
         $pathBuild = "uploads/".$request->firstUrl."/".$request->secondUrl;
         $request->validate([
-            'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg|max:10240',
+            'file' => 'required|mimes:pdf,docx,doc,xlx,xlsx,csv,png,jpg,jpeg,eml|max:10240',
         ]);
 
         if (!file_exists($pathBuild)) {

@@ -204,6 +204,34 @@
     .content {
         overflow: auto !important;
     }
+
+    .upload-container {
+        position: relative;
+      }
+      .upload-container input {
+        border: 1px solid #92b0b3;
+        background: #f1f1f1;
+        outline: 2px dashed #92b0b3;
+        outline-offset: -10px;
+        padding: 10% 0px 10% 35%;
+        text-align: center !important;
+        width: 100%;
+      }
+      .upload-container input:hover {
+        background: #ddd;
+      }
+      .upload-container:before {
+        position: absolute;
+        bottom: 50px;
+        left: 5%;
+        content: "";
+        color: #3f8188;
+        font-weight: 900;
+      }
+      .upload-btn {
+        margin-left: 5%;
+        padding: 7px 20px;
+      }
     </style>
     
 
@@ -354,7 +382,18 @@
             $('.navbar-collapse').collapse('hide');
         });
 
-
+        function uploadFiles() {
+        var files = document.getElementById('file_upload').files;
+        if(files.length==0){
+          alert("Please first choose or drop any file(s)...");
+          return;
+        }
+        var filenames="";
+        for(var i=0;i<files.length;i++){
+          filenames+=files[i].name+"\n";
+        }
+        alert("Selected file(s) :\n____________________\n"+filenames);
+      }
 
 document.onreadystatechange = function() {
     if (document.readyState !== "complete") {

@@ -30,7 +30,7 @@
                     @if ($row["type"] != 'Search')
 
                     <tr style="cursor: pointer;" onclick="window.location='{{ $row["link"] }}';">
-                        <td><?php if (str_contains($row["title"], $searchValue[0]["title"])) { echo "<label>".$row["title"]."</label>"; } else { echo $row["title"]; } ?></td>
+                        <td><?php if (str_contains($row["title"], $searchValue[0]["title"])) { echo "".$row["title"].""; } else { echo $row["title"]; } ?></td>
                         <td>{{ $row["type"] }}</td>
                     </tr>
                     @endif 

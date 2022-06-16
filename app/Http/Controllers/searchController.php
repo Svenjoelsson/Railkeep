@@ -58,7 +58,7 @@ class searchController extends Controller
 
         if ($serviceSearch) {
             foreach ($serviceSearch as $val) {
-                $result[] = ["title" => $val["unit"].", ".$val["customer"].", ".$val["service_type"].", ".$val["service_desc"], "type" => "Service", "link" => "services/".$val["id"]."/edit"];
+                $result[] = ["title" => "[".$val["unit"]."], [".$val["customer"]."], [".$val["service_type"]."], [".$val["service_desc"]."]", "type" => "Service", "link" => "services/".$val["id"]."/edit"];
             }
         } 
 

@@ -96,7 +96,8 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('file.upload.post') }}" method="POST" enctype="multipart/form-data">
+            
+          <form action="{{ route('file.upload.post') }}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="firstUrl" value="{!! Request::segment(1) !!}">
                 <input type="hidden" name="secondUrl" value="{!! Request::segment(2) !!}">
                 @csrf
@@ -104,8 +105,13 @@
       
                     <div class="col-md-12">
                         <div class="custom-file">
-                            <input type="file" name="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                          <center><b>Drag & Drop</b>
+                          <div class="upload-container">
+                            <input type="file" name="file" id="file_upload" />
+                          </div>
+                            <!--<input type="file" name="file" class="custom-file-input" id="customFile file_upload">
+                            <label class="custom-file-label" for="customFile">Choose file</label>-->
+                            <br />
                         </div>
                         
                     </div>
