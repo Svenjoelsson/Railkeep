@@ -64,7 +64,7 @@
 
             <div class="col-md-2 col-sm-6 col-12">
                 <div class="info-box shadow-lg bg-gradient-danger" data-toggle="modal" data-target="#critical">
-                    <span class="info-box-icon"><i class="fas fa-ban"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-exclamation"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Critical</span>
                         <span class="info-box-number">{{ $critical }}</span>
