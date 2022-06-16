@@ -34,6 +34,7 @@ class searchController extends Controller
             where('unit', 'LIKE','%'.$search.'%')
             ->orWhere('customer', 'LIKE','%'.$search.'%')
             ->orWhere('service_type', 'LIKE','%'.$search.'%')
+            ->orWhere('service_desc', 'LIKE','%'.$search.'%')
             ->get();
 
 
@@ -57,7 +58,7 @@ class searchController extends Controller
 
         if ($serviceSearch) {
             foreach ($serviceSearch as $val) {
-                $result[] = ["title" => $val["unit"].", ".$val["customer"].", ".$val["service_type"], "type" => "Service", "link" => "services/".$val["id"]];
+                $result[] = ["title" => $val["unit"].", ".$val["customer"].", ".$val["service_type"].", ".$val["service_desc"], "type" => "Service", "link" => "services/".$val["id"]."/edit"];
             }
         } 
 
