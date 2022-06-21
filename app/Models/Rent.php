@@ -32,6 +32,8 @@ class Rent extends Model
     public $fillable = [
         'unit',
         'customer',
+        'periodofnotice',
+        'autoextension',
         'rentStart',
         'rentEnd',
         'monthlyCost',
@@ -48,6 +50,8 @@ class Rent extends Model
     protected $casts = [
         'id' => 'integer',
         'unit' => 'string',
+        'periodofnotice' => 'string',
+        'autoextension' => 'string',
         'customer' => 'string',
         'rentStart' => 'string',
         'rentEnd' => 'string',

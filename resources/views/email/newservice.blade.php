@@ -481,8 +481,7 @@
                 style="width: 283.00px; height: 52.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
                 title=""></span></p>
                 <br /><br />
-    <p class="c7"><span class="c14"><a class="c16"
-                href="mailto:ecm@nordicrefinance.se">ecm@nordicrefinance.se</a></span></p>
+    <p class="c7">Login to <u><b><a class="c16" href="http://railkeep.app">Railkeep</a></b></u> to administrate your services!</p>
     <p class="c5"><span class="c0"></span></p><br />
     <p class="c7"><span class="c4">New service order</span></p><a id="t.3e386578592c6a20851df59b3c9fe44e569643e8"></a><a
         id="t.0"></a>
