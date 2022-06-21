@@ -102,11 +102,11 @@ class UnitsDataTable extends DataTable
         } else {
             return [
                 'unit',
-                'ecm',
+                ['name'=>'ecm','title'=>'ECM','data'=>"ecm"],
                 'customer',
                 'nextCounter',
                 'nextDate',
-                'unitStatus'
+                ['name'=>'unitStatus','title'=>'Status','data'=>"unitStatus"]
             ];
         }
 

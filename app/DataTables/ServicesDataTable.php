@@ -126,25 +126,26 @@ class ServicesDataTable extends DataTable
             return [
                 'id',
                 'unit',
-                'service_type',
-                'service_date',
-                'service_status',
+                ['name'=>'service_type','title'=>'Type','data'=>"service_type"],
+                ['name'=>'service_date','title'=>'Date','data'=>"service_date"],
+                ['name'=>'service_status','title'=>'Status','data'=>"service_status"],
             ];
         } else if (Auth::user()->role == 'inspector') {
             return [
                 'id',
                 'unit',
-                'service_type',
+                ['name'=>'service_type','title'=>'Type','data'=>"service_type"],
+                ['name'=>'service_desc','title'=>'Description','data'=>"service_desc"],
                 'service_desc',
-                'service_status',
+                ['name'=>'service_status','title'=>'Status','data'=>"service_status"]
             ];
         } else {
             return [
                 'id',
                 'unit',
-                'service_type',
-                'service_date',
-                'service_status',
+                ['name'=>'service_type','title'=>'Type','data'=>"service_type"],
+                ['name'=>'service_date','title'=>'Date','data'=>"service_date"],
+                ['name'=>'service_status','title'=>'Status','data'=>"service_status"],
                 'workshop',
             ];
         }
