@@ -52,11 +52,9 @@ class RentDataTable extends DataTable
 
         if (Auth::user()->role == 'customer') { 
             $data = Rent::query()
-            ->where('customer', Auth::user()->name)
-            ->orderby('id', 'asc');
+            ->where('customer', Auth::user()->name);
         } else {
-            $data = Rent::query()
-            ->orderby('id', 'asc');
+            $data = Rent::query();
         }
         return $this->applyScopes($data);
     }
@@ -104,6 +102,8 @@ class RentDataTable extends DataTable
                 'customer',
                 'rentStart',
                 'rentEnd',
+                'periodofnotice',
+                'autoextension',
                 'monthlyCost',
                 'counterCost',
                 'status',

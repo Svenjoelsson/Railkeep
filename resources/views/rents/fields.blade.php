@@ -45,6 +45,18 @@
     {!! Form::text('rentEnd', null, ['class' => 'form-control','id'=>'rentEnd']) !!}
 </div>
 
+<hr>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('periodofnotice', 'Period of Notice: *') !!}
+    {!! Form::select('periodofnotice', array('1 week' => '1 week', '1 months' => '1 months', '2 months' => '2 months', '3 months' => '3 months', '4 months' => '4 months', '5 months' => '5 months', '6 months' => '6 months', 'Terminated' => 'Terminated', 'Disabled' => 'Disabled', 'Auto' => 'Auto'), null, ['class' => 'form-control', 'placeholder' => 'Select one', 'required']) !!}
+</div>
+
+<div class="form-group col-sm-6">
+    {!! Form::label('autoextension', 'Auto renewal period: *') !!}
+    {!! Form::select('autoextension', array('1 week' => '1 week', '1 months' => '1 months', '6 months' => '6 months', '12 months' => '12 months', '24 months' => '24 months', '36 months' => '36 months', '48 months' => '48 months', '60 months' => '60 months', 'Disabled' => 'Disabled'), null, ['class' => 'form-control', 'placeholder' => 'Select one', 'required']) !!}
+</div>
+
 @push('page_scripts')
     <script type="text/javascript">
         $('#rentEnd').datetimepicker({
