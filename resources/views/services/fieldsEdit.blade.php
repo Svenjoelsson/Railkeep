@@ -7,7 +7,12 @@
     $date = \App\Models\Activities::where('activity_id', $unit->id)->where('activity_type', 'like', 'Overdue-date-%')->whereNull('deleted_at')->orderBy('id','desc')->get();    
 
 ?>
-
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ $message }}
+</div>
+@endif
 <div class="form-group col-sm-6">
     {!! Form::label('unit', 'Unit: *') !!} 
     @if (Auth::user()->role == 'user')

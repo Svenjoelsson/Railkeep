@@ -34,6 +34,8 @@ class searchController extends Controller
             where('unit', 'LIKE','%'.$search.'%')
             ->orWhere('customer', 'LIKE','%'.$search.'%')
             ->orWhere('service_type', 'LIKE','%'.$search.'%')
+            ->orWhere('remarks', 'LIKE','%'.$search.'%')
+            ->orWhere('notPerformedActions', 'LIKE','%'.$search.'%')
             ->orWhere('service_desc', 'LIKE','%'.$search.'%')
             ->get();
 

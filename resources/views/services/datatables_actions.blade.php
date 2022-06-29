@@ -14,15 +14,10 @@ if ($activities) { ?>
     </a>
 <?php } ?>
 
-    
-    @if (auth()->user()->hasPermissionTo('action services')) 
-    <a href="{{ route('services.show', $id) }}" class='btn btn-default btn-xs'>
-        <i class="fa fa-eye"></i>
-    </a>
-    @endif
+
     @if (auth()->user()->hasPermissionTo('edit services')) 
     <a href="{{ route('services.edit', $id) }}" class='btn btn-default btn-xs'>
-        <i class="fa fa-edit"></i>
+        <i class="fa fa-eye"></i>
     </a>
     @endif
     @if (auth()->user()->hasPermissionTo('delete services')) 

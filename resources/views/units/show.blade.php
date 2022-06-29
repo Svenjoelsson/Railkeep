@@ -331,6 +331,16 @@
                         </div>
 
                         <div class="tab-pane fade" id="repairs" role="tabpanel" aria-labelledby="v-pills-repairs-tab">
+                            <div class="dropdown">
+                                <button style="float:right;" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Create
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="{{ route('services.create', ['unit' => $units->unit, 'service_type' => 'Report']) }}">Report</a>
+                                  <a class="dropdown-item" href="{{ route('services.create', ['unit' => $units->unit, 'service_type' => 'Repair']) }}">Repair</a>
+                                </div>
+                                <br /><br />
+                              </div>
                             <table class="table table-hover">
                                 <thead class="activeNav">
                                     <tr>

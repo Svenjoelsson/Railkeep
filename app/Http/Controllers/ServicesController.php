@@ -121,7 +121,8 @@ class ServicesController extends AppBaseController
 
         Flash::success('Services saved successfully.');
         $this->updateOne($unit->id);
-        return redirect(route('services.index'));
+        return redirect('services/'.$services->id.'/edit')->with('success','Service successfully created.');
+        //return redirect(route('services.index'));
 
     }
 
@@ -373,7 +374,7 @@ class ServicesController extends AppBaseController
         Flash::success('Services updated successfully.');
 
         //return redirect(route('services.index'));
-        return back();
+        return back()->with('success','Service successfully saved.');
 
     }
 
