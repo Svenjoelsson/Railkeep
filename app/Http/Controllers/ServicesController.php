@@ -183,6 +183,12 @@ class ServicesController extends AppBaseController
     {
         $services = $this->servicesRepository->find($id);
         $input = $request->all();
+        
+        if ($input["updateRentStop"] == 'yes') {
+            $services = $this->servicesRepository->update($request->all(), $id);
+            Flash::success('Rent stop successfully saved.');
+            return back()->with('success','Rent stop successfully saved.');
+        }
 
         if ($services->service_date != $input['service_date']) {
             //dd('asd');
@@ -190,13 +196,14 @@ class ServicesController extends AppBaseController
         }
         if ($input["service_status"] == "Done") {
             if (Auth::user()->role == 'workshop') {
-                if (!empty($input["remarks"]) || !empty($input["notPerformedActions"])) {
+                if (!empty($input["remarks"]) || !empty($input["notPerformedActions"]) || !empty($input["restrictions"])) {
                     
                     $request["service_status"] = 'Pending review';
                     $services = $this->servicesRepository->update($request->all(), $id);
 
                     Mail::raw('Service #'.$id.' needs to be reviewed and approved.', function ($message) {
                         $message->to('joel@gjerdeinvest.se')
+                        ->to('arvid@nordicrefinance.se', 'arvid@nordicrefinance.se')
                           ->subject('Pending review | Railkeep')
                           ->from('hello@railkeep.app', 'Railkeep');
 
@@ -281,6 +288,7 @@ class ServicesController extends AppBaseController
                 'serviceType' => $services->service_type,
                 'remarks' => $input["remarks"],
                 'notPerformedActions' => $input["notPerformedActions"],
+                'restrictions' => $input["restrictions"],
                 'doneDate' => now(),
                 'critical' => $services->critical,
             );
@@ -310,6 +318,7 @@ class ServicesController extends AppBaseController
             // Send the email
             Mail::send('email/return-to-service', $data, function($message) use ($data, $filePath, $fileName, $unit) {
             $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
+            ->to('arvid@nordicrefinance.se', 'arvid@nordicrefinance.se')
             ->subject('Unit return to service - #'.$data["serviceId"]);
             
             $message->attach($filePath.$fileName);
@@ -377,6 +386,7 @@ class ServicesController extends AppBaseController
         return back()->with('success','Service successfully saved.');
 
     }
+
 
     /**
      * Remove the specified Services from storage.
@@ -479,6 +489,7 @@ class ServicesController extends AppBaseController
 
         Mail::send('email/newservice', $data, function($message) use ($serviceData, $vendorData, $attach, $unitData) {
            $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
+           ->to('arvid@nordicrefinance.se', 'arvid@nordicrefinance.se')
            ->subject('New service order - #'.$serviceData->id);
             if ($attach) {
                 foreach ($attach as $file){

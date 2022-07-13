@@ -105,6 +105,7 @@ class Kernel extends ConsoleKernel
 
                     Mail::send('email/out-of-service', $data, function($message) use ($data, $filePath, $fileName) {
                     $message->to('joel@gjerdeinvest.se', 'joel@gjerdeinvest.se')
+                    ->to('arvid@nordicrefinance.se', 'arvid@nordicrefinance.se')
                     ->subject('Unit out of service - #'.$data["serviceId"]);
                     $message->attach($filePath.$fileName);
                     $message->from('hello@railkeep.app', 'Railkeep');
