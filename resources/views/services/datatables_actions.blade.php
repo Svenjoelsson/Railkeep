@@ -4,6 +4,17 @@
 <div class='btn-group'>
 <?php
 $activities = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->first();
+$rentStopFrom = \App\Models\Services::where('id', $id)->where('rentStopFrom', '!=', null)->first();
+
+if ($rentStopFrom) { ?>
+    <a class='btn btn-default btn-xs' data-toggle='tooltip' title=''>
+        <i style='color:red;' class='fa fa-pause'></i>
+    </a>
+<?php } else { ?>
+    <a class='btn btn-default btn-xs' data-toggle='tooltip' title=''>
+        <i style='color:gray;' class='fa fa-pause'></i>
+    </a>
+<?php }
 if ($activities) { ?>
     <a class='btn btn-default btn-xs' data-toggle='tooltip' title='Email will be sent at: {{ $activities->activity_message }}'>
         <i style='color:blue;' class='fa fa-envelope'></i>

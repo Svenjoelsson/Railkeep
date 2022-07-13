@@ -18,12 +18,27 @@ class ReportsController extends Controller
 
     public function rental ($api, $type, $year, $month)
     {
-
         if ($type == 'returns') {
             $from = $year.'-'.$month.'-01';
             $to = $year.'-'.$month.'-31';
             $units = \App\Models\Rent::whereBetween('rentEnd', [$from, $to])->whereNull('deleted_at')->get();
 
+            if ($api == 'api') {
+                return $units;
+            }
+            else if ($api == 'view') {
+                return view('reports.rental.'.$type)->with(['period' => $year.'/'.$month, 'model' => 'rental', 'type' => $type, 'units' => $units]);
+            } 
+            else {
+                return 'No api type was provided, give either view or api as value';
+            }
+        } 
+
+        else if ($type == 'stops') {
+            
+            $from = $year.'-'.$month.'-01';
+            $to = $year.'-'.$month.'-31';
+            $units = \App\Models\Services::where('rentStopFrom', '!=', null)->whereBetween('rentStopFrom', [$from, $to])->orWhereBetween('rentStopTo', [$from, $to])->whereNull('deleted_at')->get();
             if ($api == 'api') {
                 return $units;
             }

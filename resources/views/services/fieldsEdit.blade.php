@@ -213,14 +213,18 @@ if ($make !== null && isset($make->counter)) {
     <?php } ?>
 <div class="form-group col-sm-6 col-lg-6 hiddenInputs" style="display:none;">
     {!! Form::label('remarks', 'Remark/comment: ') !!}
-    {!! Form::textarea('remarks', null, ['class' => 'form-control disableAll', 'rows' => '4']) !!}
+    {!! Form::textarea('remarks', null, ['class' => 'form-control disableAll', 'rows' => '2']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-6 hiddenInputs" style="display:none;">
-    {!! Form::label('notPerformedActions', 'Not performed actions: ') !!} 
-    {!! Form::textarea('notPerformedActions', null, ['class' => 'form-control disableAll', 'rows' => '4']) !!}
+    {!! Form::label('notPerformedActions', 'Found unresolved errors: ') !!} 
+    {!! Form::textarea('notPerformedActions', null, ['class' => 'form-control disableAll', 'rows' => '2']) !!}
 
 </div>
+<div class="form-group col-sm-12 col-lg-12 hiddenInputs" style="display:none;">
+    {!! Form::label('restrictions', 'User restrictions/limitations: ') !!} 
+    {!! Form::textarea('restrictions', null, ['class' => 'form-control disableAll', 'rows' => '2']) !!}
 
+</div>
 @push('page_scripts')
 
 

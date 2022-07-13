@@ -40,7 +40,16 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="contact"
                     aria-selected="false">File upload</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" id="rent-tab" data-toggle="tab" href="#rent" role="tab" aria-controls="rent"
+                    aria-selected="false">
+                    @if ($services->rentStopFrom)
+                        Rent (paused)
+                    @else
+                        Rent
+                    @endif
+                </a>
+            </li>
             @endif
         </ul>
             </div>
@@ -140,12 +149,66 @@
                     @include('fileUpload')
                 </div>
             </div>
+            <div class="tab-pane fade show" id="rent" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="card-body">
+                    {!! Form::model($services, ['route' => ['services.update', $services->id], 'method' => 'patch']) !!}
+                    <div class="row">
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                {{ $message }}
+                        </div>
+                        @endif
+                        <input type="hidden" name="updateRentStop" value="yes">
+                        <input type="hidden" name="service" value="{{ $services->id }}">
+                        <div class="col-6">
+                            {!! Form::label('rentStopFrom', 'From: *') !!}
+                            {!! Form::text('rentStopFrom', null, ['class' => 'form-control date', 'required']) !!}
+                        </div>
+                        <div class="col-6">
+                            {!! Form::label('rentStopTo', 'To:') !!}
+                            {!! Form::text('rentStopTo', null, ['class' => 'form-control date']) !!}
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><br/>
+                            {!! Form::label('rentStopComment', 'Reason: *') !!} 
+                            {!! Form::textarea('rentStopComment', null, ['class' => 'form-control', 'required', 'rows' => '2']) !!}
+                        
+                            <br />
+                            <button class="btn btn-primary">Save</button>
+                        </div>
+                        
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
             </div>
         </div>
     </div>
 
 
 
-
-
+@push('page_scripts')
+<script>
+            $('.date').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: true,
+            showTodayButton: true,
+            showClear: true,
+            sideBySide: true,
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down",
+                previous: "fa fa-chevron-left",
+                next: "fa fa-chevron-right",
+                today: "fa fa-clock-o",
+                clear: "fa fa-trash-o"
+            }
+        });
+</script>
+@endpush
 @endsection

@@ -96,6 +96,8 @@ class searchController extends Controller
             $result[] = ["title" => "Rental invoice monthly", "type" => "Report", "link" => "reports/view/rental/invoice_monthly/".now()->format('Y')."/".now()->format('m')];
             $result[] = ["title" => "Rental total order value", "type" => "Report", "link" => "reports/view/orderValue/"];
             $result[] = ["title" => "Rental gantt schedule", "type" => "Report", "link" => "reports/view/rental/gantt/rents"];
+            $result[] = ["title" => "Rental stops", "type" => "Report", "link" => "reports/view/rental/stops/".now()->format('Y')."/".now()->format('m')];
+
         }
 
         return view('search')
