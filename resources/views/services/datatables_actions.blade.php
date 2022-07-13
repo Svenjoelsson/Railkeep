@@ -4,7 +4,7 @@
 <div class='btn-group'>
 <?php
 $activities = \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->first();
-$rentStopFrom = \App\Models\Services::where('id', $id)->where('rentStopFrom', '!=', null)->first();
+$rentStopFrom = \App\Models\Services::where('id', $id)->where('rentStopFrom', '!=', '')->first();
 
 if ($rentStopFrom) { ?>
     <a class='btn btn-default btn-xs' data-toggle='tooltip' title=''>
