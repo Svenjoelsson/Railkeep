@@ -207,7 +207,7 @@
                             @if (count($arr) > 0)
                             <center>Following service(s) is not showing due to no data: 
                             @foreach ($arr as $i)
-                            <b>{{ $i }}</b>
+                            <b>[{{ $i }}] </b>
                             @endforeach
                             </center>
                             <br />

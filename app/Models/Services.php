@@ -45,8 +45,12 @@ class Services extends Model
         'nextServiceCounter',
         'service_status',
         'critical',
+        'rentStopFrom',
+        'rentStopTo',
+        'rentStopComment',
         'remarks',
         'notPerformedActions',
+        'restrictions',
         'doneDate',
         'doneCounter'
     ];
@@ -69,7 +73,11 @@ class Services extends Model
         'service_status' => 'string',
         'critical' => 'boolean',
         'remarks' => 'string',
+        'rentStopFrom' => 'string',
+        'rentStopTo' => 'string',
+        'rentStopComment' => 'string',
         'notPerformedActions' => 'string',
+        'restrictions' => 'string',
         'doneDate' => 'date',
         'doneCounter' => 'string',
     ];

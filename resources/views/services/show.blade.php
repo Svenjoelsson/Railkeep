@@ -36,6 +36,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#history" role="tab" aria-controls="contact" aria-selected="false">Activity log</a>
             </li>
+
           </ul>
         <div class="card">
             <div class="card-body">

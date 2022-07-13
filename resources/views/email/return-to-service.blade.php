@@ -414,7 +414,7 @@
     <p class="c7"><span class="c14"><a class="c16"
                 href="mailto:ecm@nordicrefinance.se">ecm@nordicrefinance.se</a></span></p>
     <p class="c5"><span class="c0"></span></p><br />
-    @if ($notPerformedActions == '') 
+    @if ($notPerformedActions == '' && $restrictions == '') 
         <div class="alert alert-success" role="alert">
             Unit return to service
         </div>
@@ -514,6 +514,18 @@
                 <p class="c9"><span class="c4">Not performed action:</span></p>
                 <td class="c10" colspan="1" rowspan="1">
                     <p class="c1"><span class="c0">{!! nl2br($notPerformedActions) !!}</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="c5"><span class="c0"></span></p>
+    <p class="c5"><span class="c0"></span></p><a id="t.4810164e8121afac9f610079f90a17a31f6bf27b"></a><a id="t.2"></a>
+    <table class="c8">
+        <tbody>
+            <tr class="c3">
+                <p class="c9"><span class="c4">Restrictions:</span></p>
+                <td class="c10" colspan="1" rowspan="1">
+                    <p class="c1"><span class="c0">{!! nl2br($restrictions) !!}</span></p>
                 </td>
             </tr>
         </tbody>
