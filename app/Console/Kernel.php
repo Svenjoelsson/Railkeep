@@ -288,8 +288,8 @@ class Kernel extends ConsoleKernel
             }
 
         }
-    //})->dailyAt('03:00')->timezone('Europe/Stockholm');
-    })->everyMinute()->timezone('Europe/Stockholm');
+    })->dailyAt('03:00')->timezone('Europe/Stockholm');
+    //})->everyMinute()->timezone('Europe/Stockholm');
 
     }
 
