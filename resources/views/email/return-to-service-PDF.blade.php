@@ -421,7 +421,7 @@
         </div>
     @else
         <div class="alert alert-warning" role="alert">
-            Unit return to service but still with unfinished actions.
+            Unit return to service but with unfinished actions or restrictions.
         </div>
     @endif
     <p class="c7"><span class="c4" style="color:red;"></span></p><a id="t.3e386578592c6a20851df59b3c9fe44e569643e8"></a><a
