@@ -183,13 +183,14 @@ class ServicesController extends AppBaseController
     {
         $services = $this->servicesRepository->find($id);
         $input = $request->all();
-        
-        if ($input["updateRentStop"] == 'yes') {
-            $services = $this->servicesRepository->update($request->all(), $id);
-            Flash::success('Rent stop successfully saved.');
-            return back()->with('success','Rent stop successfully saved.');
-        }
 
+        if (isset($input["updateRentStop"])) {
+            if ($input["updateRentStop"] == 'yes') {
+                $services = $this->servicesRepository->update($request->all(), $id);
+                Flash::success('Rent stop successfully saved.');
+                return back()->with('success','Rent stop successfully saved.');
+            }
+        }
         if ($services->service_date != $input['service_date']) {
             //dd('asd');
             \App\Models\Activities::where('activity_type', 'Schedule-oos-email')->where('activity_id', $id)->update(['activity_message' => $input['service_date']]);
